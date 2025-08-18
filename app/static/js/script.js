@@ -46,3 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
     carrossel.scrollLeft = scrollLeft - walk;
   });
 });
+
+function toggleMenu() {
+  document.getElementById("perfilMenu").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.perfil-icone')) {
+    let menu = document.getElementById("perfilMenu");
+    if (menu.classList.contains("show")) {
+      menu.classList.remove("show");
+    }
+  }
+}
