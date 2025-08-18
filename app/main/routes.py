@@ -72,7 +72,7 @@ def logout():
     session.pop("usuario_id", None)
     logout_user()
     flash("Logout realizado com sucesso.")
-    return redirect(url_for("main.login"))
+    return redirect(url_for("main.index"))
 
 # Pagina perfil
 @main.route("/perfil")
