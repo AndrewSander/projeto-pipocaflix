@@ -108,3 +108,41 @@ def sugestoes():
 
     filmes = Filme.query.filter(Filme.titulo.ilike(f"%{termo}%")).limit(5).all()
     return jsonify([{"id": f.id, "titulo": f.titulo} for f in filmes])
+
+@main.post("/favoritos/filmes/toggle")
+@login_required
+def toggle_favorito_filme():
+    data = request.get_json()
+    filme_id = int(data.get("filme_id"))
+
+    filme = Filme.query.get_or_404(filme_id)
+
+    if current_user.filmes_fav.filter(Filme.id == filme_id).first():
+        # já favoritou = remover
+        current_user.filmes_fav.remove(filme)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.filmes_fav.append(filme)
+        db.session.commit()
+        return jsonify({"favoritado": True})
+    
+@main.post("/favoritos/atores/toggle")
+@login_required
+def toggle_favorito_ator():
+    data = request.get_json()
+    ator_id = int(data.get("ator_id"))
+
+    ator = Ator.query.get_or_404(ator_id)
+
+    if current_user.atores_fav.filter(Ator.id == ator_id).first():
+        # já favoritou = remover
+        current_user.atores_fav.remove(ator)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.atores_fav.append(ator)
+        db.session.commit()
+        return jsonify({"favoritado": True})
