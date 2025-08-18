@@ -12,19 +12,16 @@
 </head>
 <body>
     <header>
-        <a  class="header__logo" href="#">LOGO</a>
         <div class="header__container">
-            <form id="search-form" autocomplete="off">
+            <label for="search--toggle"><i class="fa-solid fa-magnifying-glass pesquisa"></i></label>
+            <input type="checkbox" id="search--toggle" hidden>
+            <form id="search-form" autocomplete="off" class="form--search">
                 <input type="text" id="search-input" placeholder="Buscar filmes..." />
                 <div id="search-suggestions" class="suggestions"></div>
             </form>
             <div class="perfil__container">
                 {% if current_user.is_authenticated %} 
                     <img src="{{ current_user.foto_url }}" alt="Perfil" class="perfil-icone" onclick="toggleMenu()">
-                {% else %}
-                    <img src="../static/img/perfil/icon.png" alt="Perfil" class="perfil-icone" onclick="toggleMenu()">
-                {% endif %}
-                {% if current_user.is_authenticated %} 
                     <div class="perfil-menu" id="perfilMenu">
                         <div class="perfil-info">
                         <img src="{{ current_user.foto_url }}" alt="Foto de perfil" class="perfil-foto">
@@ -34,8 +31,9 @@
                         <a href="/perfil">👤 Ver Perfil</a>
                         <a href="/editar_perfil">✏️ Editar Perfil</a>
                         <a href="/logout">🚪 Logout</a>
-                    </div>
-                {% else %}
+                    </div> 
+                    {% else %}
+                    <img src="../static/img/perfil/icon.png" alt="Perfil" class="perfil-icone" onclick="toggleMenu()">
                     <div class="perfil-menu" id="perfilMenu">
                         <div class="perfil-info">
                         <img src="../static/img/perfil/icon.png" alt="Foto de perfil" class="perfil-foto">
@@ -48,6 +46,7 @@
             </div>
             <i class="fa-solid fa-bars header__menu"></i>
         </div>
+        <a class="header__logo" href="#">LOGO</a>
     </header>
     <main>
         {% block content %} {%endblock %}
