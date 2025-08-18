@@ -59,3 +59,61 @@ window.onclick = function(event) {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".filme-card .fav-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const card = btn.closest(".filme-card");
+      const filmeId = card.getAttribute("data-filme-id");
+
+      try {
+        const resp = await fetch("/favoritos/filmes/toggle", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ filme_id: filmeId })
+        });
+
+        const data = await resp.json();
+        if (data.favoritado) {
+          btn.classList.add("is-active");
+        } else {
+          btn.classList.remove("is-active");
+        }
+      } catch (err) {
+        console.error("Erro ao favoritar:", err);
+      }
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".cast-card .fav-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const card = btn.closest(".cast-card");
+      const atorId = card.getAttribute("data-ator-id");
+
+      try {
+        const resp = await fetch("/favoritos/atores/toggle", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ator_id: atorId })
+        });
+
+        const data = await resp.json();
+        if (data.favoritado) {
+          btn.classList.add("is-active");
+        } else {
+          btn.classList.remove("is-active");
+        }
+      } catch (err) {
+        console.error("Erro ao favoritar:", err);
+      }
+    });
+  });
+});

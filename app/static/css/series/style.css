@@ -171,7 +171,6 @@
 }
 
 .episode-card {
-    margin-top: auto;
     background: var(--azul_4);
     border-radius: 8px;
     width: 150px;
@@ -227,6 +226,7 @@
 }
 
 .cast-card {
+    position: relative;
     text-align: center;
     background: var(--azul_4);
     border-radius: 8px;
@@ -251,6 +251,42 @@
     height: 130px;
     object-fit: cover;   
     object-position: center; 
+}
+
+.fav-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.35);  
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.fav-btn:hover, .fav-btn:focus-visible {
+  background: rgba(0,0,0,0.5);
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* estado ativo (favoritado) */
+.fav-btn.is-active {
+  background: rgba(255, 215, 0, 0.2); 
+  color: gold;                    
+}
+
+/* Ícone altera de contorno para preenchido quando ativo */
+.fav-btn.is-active .icon-star path {
+  fill: currentColor;
+  stroke: currentColor;
 }
 
 .ratings-section {
