@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
 from app.models import db, Filme, Usuario, Ator
-from flask_login import login_required, current_user, login_user, logout_user
+from flask_login import login_required, current_user, login_user, logout_user # type: ignore
 
 
 # Pagina inicial
@@ -82,8 +82,11 @@ def perfil():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    usuario = Usuario.query.get(session["usuario_id"])
-    return render_template("perfil.html", usuario=usuario)
+    ultimo_fav = current_user.filmes_fav.order_by(Filme.id.desc()).first()
+    qtd_filmes = current_user.filmes_fav.count()
+    qtd_atores = current_user.atores_fav.count()
+
+    return render_template("perfil.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
