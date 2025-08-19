@@ -95,6 +95,7 @@
                 {% for item in elenco %}
                     <ul class="carrossel--atores">
                         <div class="cast-card" data-ator-id="{{ item.ator.id }}">
+                            <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}"></a>
                             <!-- botão favorito -->
                             <button class="fav-btn {% if item.ator in current_user.atores_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
                                 <!-- ícone estrela SVG (contorno) -->
