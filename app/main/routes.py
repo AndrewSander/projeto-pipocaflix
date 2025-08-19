@@ -1,6 +1,6 @@
 from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
-from app.models import db, Filme, Usuario, Ator
+from app.models import db, Filme, Usuario, Ator, Atuacao
 from flask_login import login_required, current_user, login_user, logout_user
 
 
@@ -20,6 +20,28 @@ def series(filme_id):
 
     return render_template('film-page.html', filme=filme, episodios=episodios, elenco=atuacoes)
 
+
+# Função para ordenar filmes pelo título
+def pegar_titulo(filme):
+    return filme.titulo
+
+# Página de filmografia dos atores
+@main.route('/ator/<int:ator_id>')
+def pagina_ator(ator_id):
+    ator = Ator.query.get_or_404(ator_id)
+    atuacoes = Atuacao.query.filter_by(ator_id=ator.id).all()
+
+    filmes = []
+    for atuacao in atuacoes:
+        if atuacao.filme:  # garante que não é None
+            if atuacao.filme not in filmes:
+                filmes.append(atuacao.filme)
+
+    filmes.sort(key=pegar_titulo)
+
+    imagem_ator = f"{ator.nome}.jpg"
+
+    return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
 # Formulário de cadastro
 @main.route("/cadastro", methods=["GET", "POST"])

@@ -94,8 +94,10 @@
                 {% for item in elenco %}
                     <ul class="carrossel--atores">
                         <div class="cast-card">
-                            <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
-                            <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
+                            <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}">
+                                <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
+                                <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
+                            </a>
                         </div>
                     </ul>
                 {% endfor %}
