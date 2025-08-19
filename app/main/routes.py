@@ -1,5 +1,7 @@
 from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
+from app.models import db, Filme, Usuario, Ator
+from flask_login import login_required, current_user, login_user, logout_user # type: ignore
 from app.models import db, Filme, Usuario, Ator, Atuacao
 from flask_login import login_required, current_user, login_user, logout_user
 
@@ -94,7 +96,7 @@ def logout():
     session.pop("usuario_id", None)
     logout_user()
     flash("Logout realizado com sucesso.")
-    return redirect(url_for("main.login"))
+    return redirect(url_for("main.index"))
 
 # Pagina perfil
 @main.route("/perfil")
@@ -104,8 +106,11 @@ def perfil():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    usuario = Usuario.query.get(session["usuario_id"])
-    return render_template("perfil.html", usuario=usuario)
+    ultimo_fav = current_user.filmes_fav.order_by(Filme.id.desc()).first()
+    qtd_filmes = current_user.filmes_fav.count()
+    qtd_atores = current_user.atores_fav.count()
+
+    return render_template("perfil.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
@@ -130,3 +135,41 @@ def sugestoes():
 
     filmes = Filme.query.filter(Filme.titulo.ilike(f"%{termo}%")).limit(5).all()
     return jsonify([{"id": f.id, "titulo": f.titulo} for f in filmes])
+
+@main.post("/favoritos/filmes/toggle")
+@login_required
+def toggle_favorito_filme():
+    data = request.get_json()
+    filme_id = int(data.get("filme_id"))
+
+    filme = Filme.query.get_or_404(filme_id)
+
+    if current_user.filmes_fav.filter(Filme.id == filme_id).first():
+        # já favoritou = remover
+        current_user.filmes_fav.remove(filme)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.filmes_fav.append(filme)
+        db.session.commit()
+        return jsonify({"favoritado": True})
+    
+@main.post("/favoritos/atores/toggle")
+@login_required
+def toggle_favorito_ator():
+    data = request.get_json()
+    ator_id = int(data.get("ator_id"))
+
+    ator = Ator.query.get_or_404(ator_id)
+
+    if current_user.atores_fav.filter(Ator.id == ator_id).first():
+        # já favoritou = remover
+        current_user.atores_fav.remove(ator)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.atores_fav.append(ator)
+        db.session.commit()
+        return jsonify({"favoritado": True})

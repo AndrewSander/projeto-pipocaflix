@@ -2,7 +2,7 @@
     
 {% block title %} {{ filme.titulo }} {% endblock %}
 
-{% block link %} ../static/css/series/style.css {% endblock %}
+{% block link %} ../static/css/series.css {% endblock %}
 
 {% block content %}
     <section class="banner_container">
@@ -47,7 +47,8 @@
     <section class="trailer_container">
         <h2>Reproduzir Trailer</h2>
         <div class="trailer_video">
-            <iframe width="560" height="315" src="{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <!-- <iframe width="560" height="315" src="{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/b9EkMc79ZSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </section>
 
@@ -93,11 +94,19 @@
             <li class="carrossel-interno__atores">
                 {% for item in elenco %}
                     <ul class="carrossel--atores">
-                        <div class="cast-card">
-                            <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}">
-                                <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
-                                <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
-                            </a>
+                        <div class="cast-card" data-ator-id="{{ item.ator.id }}">
+                            <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}"></a>
+                            <!-- botão favorito -->
+                            <button class="fav-btn {% if item.ator in current_user.atores_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
+                                <!-- ícone estrela SVG (contorno) -->
+                                <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                        fill="none" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </button>
+                            <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
+                            <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
                         </div>
                     </ul>
                 {% endfor %}
