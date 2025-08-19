@@ -5,7 +5,6 @@ from flask_login import login_required, current_user, login_user, logout_user # 
 from app.models import db, Filme, Usuario, Ator, Atuacao
 from flask_login import login_required, current_user, login_user, logout_user
 
-
 # Pagina inicial
 @main.route('/')
 def index():
