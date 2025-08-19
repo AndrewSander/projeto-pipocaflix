@@ -55,7 +55,6 @@ class Episodio(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     numero = db.Column(db.String(10), nullable=False)
     filme_id = db.Column(db.Integer, db.ForeignKey('filme.id', name='fk_episodio_filme_id'), nullable=False)
-
     avaliacoes = db.relationship('Avaliacao', back_populates='episodio', cascade='all, delete-orphan')
 
     @property
