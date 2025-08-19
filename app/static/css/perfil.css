@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+/* DECLARAÇÃO DE VARIÁVEIS NO CSS */
+:root{
+    --azul_1: #020d1f;
+    --azul_2: #01172C;
+    --azul_3: #05213C;
+    --azul_4: #0B2E50;
+    --enfase_1: #FFB236;
+    --enfase_2: #EBA22C;
+}
+
+.perfil-header {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.perfil-header .banner {
+    background: url("../img/series/2/Banner.png") no-repeat center center; /*{{ ultimo_fav.id }} mudar dps*/
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.perfil-info {
+    position: absolute;
+    bottom: -80px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    z-index: 2;
+}
+
+.avatar img {
+    z-index: 3;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--enfase_1);
+}
+
+.user-details {
+    flex: 1;
+}
+
+.profile-nav {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.profile-nav a {
+    display: flex;
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+.profile-nav a.active,
+.profile-nav a:hover {
+    color: var(--enfase_2);
+    border-bottom: 2px solid var(--enfase_2);
+    padding-bottom: 2px;
+}
+
+.main-film {
+    text-align: right;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    background: white;
+    color: black;
+    font-weight: bold;
+}
+
+.profile-stats div span {
+    font-size: 12px;
+    color: #666;
+}

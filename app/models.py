@@ -18,6 +18,11 @@ usuario_filme_fav = db.Table('usuario_filme_fav',
     db.Column('filme_id', db.Integer, db.ForeignKey('filme.id'), primary_key=True)
 )
 
+usuario_ator_fav = db.Table('usuario_ator_fav',
+    db.Column('usuario_id', db.Integer, db.ForeignKey('usuario.id'), primary_key=True),
+    db.Column('ator_id', db.Integer, db.ForeignKey('ator.id'), primary_key=True)
+)
+
 usuario_filme_assistindo = db.Table('usuario_filme_assistindo',
     db.Column('usuario_id', db.Integer, db.ForeignKey('usuario.id'), primary_key=True),
     db.Column('filme_id', db.Integer, db.ForeignKey('filme.id'), primary_key=True)
@@ -29,7 +34,7 @@ class Filme(db.Model):
     descricao = db.Column(db.Text, nullable=False)
     temporada = db.Column(db.Integer, nullable=False)
     ano = db.Column(db.Integer, nullable=False)
-    trailer = db.Column(db.Text, nullable=True)
+    trailer = db.Column(db.String(50), nullable=True)
 
     episodios = db.relationship('Episodio', backref='filme', lazy=True)
     atuacoes = db.relationship("Atuacao", back_populates='filme', cascade='all, delete-orphan')
@@ -50,7 +55,6 @@ class Episodio(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     numero = db.Column(db.String(10), nullable=False)
     filme_id = db.Column(db.Integer, db.ForeignKey('filme.id', name='fk_episodio_filme_id'), nullable=False)
-
     avaliacoes = db.relationship('Avaliacao', back_populates='episodio', cascade='all, delete-orphan')
 
     @property
@@ -104,7 +108,12 @@ class Usuario(UserMixin, db.Model):
         secondary=usuario_filme_fav,
         backref=db.backref('usuarios_favoritaram', lazy='dynamic'),
         lazy='dynamic')
-
+    
+    atores_fav = db.relationship('Ator',
+        secondary=usuario_ator_fav,
+        backref=db.backref('usuarios_favoritaram', lazy='dynamic'),
+        lazy='dynamic')
+    
     assistindo = db.relationship('Filme',
         secondary=usuario_filme_assistindo,
         backref=db.backref('usuarios_assistindo', lazy='dynamic'),

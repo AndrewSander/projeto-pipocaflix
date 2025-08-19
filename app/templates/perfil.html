@@ -1,13 +1,59 @@
-<h1>Meu Perfil</h1>
+{% extends "base.html" %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block link %} ../static/css/perfil.css {% endblock %}
+
+{% block content %}
+
 {% if current_user.is_authenticated %} 
-    <p>Nome: {{ current_user.nome }}</p>
+    <!--<p>Nome: {{ current_user.nome }}</p>
     <p>Usuário: {{ current_user.usuario }}</p>
     <img src="{{ current_user.foto_url }}" alt="foto de perfil">
     <p>Descrição: <br> {{ current_user.descricao }} </p>
+
+    <a href="{{ url_for('main.edit_profile') }}">Editar perfil</a>
+    <a href="{{ url_for('main.logout') }}">Logout</a>-->
+
+    <div class="perfil-header">
+        <div class="banner"></div>
+        
+        <div class="perfil-info">
+            <div class="avatar">
+                <img src="{{ current_user.foto_url }}" alt="Foto de perfil">
+            </div>
+            <div class="user-details">
+                <h2>{{ current_user.usuario }}</h2>
+                <p>{{ current_user.nome }} • em pipocaflix desde 2025</p>
+                <nav class="perfil-nav">
+                    <a href="#" class="active">Visão geral</a>
+                    <a href="#">Críticas</a>
+                    <a href="#">Filmes</a>
+                    <a href="#">Atores</a>
+                    <a href="#">Seguindo</a>
+                    <a href="#">Seguidores</a>
+                    <a href="#">Assistindo</a>
+                </nav>
+            </div>
+            <div class="main-film">
+                <p>ÚLTIMO</p>
+                <h3>{{ ultimo_fav.titulo }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-stats">
+        <div>
+            <span>FILMES/SERIES</span>
+            <h3>{{ qtd_filmes }}</h3>
+        </div>
+        <div>
+            <span>ATORES</span>
+            <h3>{{ qtd_atores }}</h3>
+        </div>
+    </div>
 {% else %}
     <p>Você não está autenticado.</p>
 {% endif %}
 
-
-<a href="{{ url_for('main.edit_profile') }}">Editar perfil</a>
-<a href="{{ url_for('main.logout') }}">Logout</a>
+{% endblock %}
