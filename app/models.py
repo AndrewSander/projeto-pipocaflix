@@ -116,8 +116,10 @@ class Usuario(UserMixin, db.Model):
         secondary=usuario_ator_fav,
         backref=db.backref('usuarios_favoritaram', lazy='dynamic'),
         lazy='dynamic')
+    
+    avaliacoes = db.relationship('Avaliacao', back_populates='usuario', cascade='all, delete-orphan')
 
-    status = db.relationship('Status', back_populates='usuario', cascade='all, delete-orphan')
+    status_filme = db.relationship('Status', back_populates='usuario', cascade='all, delete-orphan')
 
     def set_senha(self, senha):
         self.senha_hash = generate_password_hash(senha)
