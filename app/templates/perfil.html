@@ -16,33 +16,35 @@
     <a href="{{ url_for('main.logout') }}">Logout</a>-->
 
     <div class="perfil-header">
-        <div class="banner"></div>
+        <div class="banner">
+            <img src="../static/img/perfil/Banner.jpg" alt="banner do perfil">
+        </div>
+
+        <div class="avatar">
+            <img src="{{ current_user.foto_url }}" alt="Foto de perfil">
+        </div>
         
-        <div class="perfil-info">
-            <div class="avatar">
-                <img src="{{ current_user.foto_url }}" alt="Foto de perfil">
-            </div>
-            <div class="user-details">
-                <h2>{{ current_user.usuario }}</h2>
-                <p>{{ current_user.nome }} • em pipocaflix desde 2025</p>
-                <nav class="perfil-nav">
-                    <a href="#" class="active">Visão geral</a>
-                    <a href="#">Críticas</a>
-                    <a href="#">Filmes</a>
-                    <a href="#">Atores</a>
-                    <a href="#">Seguindo</a>
-                    <a href="#">Seguidores</a>
-                    <a href="#">Assistindo</a>
-                </nav>
-            </div>
-            <div class="main-film">
-                <p>ÚLTIMO</p>
-                <h3>{{ ultimo_fav.titulo }}</h3>
-            </div>
+    </div>
+    <div class="perfil-info">
+        <div class="user-details">
+            <h2>{{ current_user.usuario }}</h2>
+            <p>{{ current_user.nome }} • em pipocaflix desde 2025</p>
+            <nav class="perfil-nav">
+                <a href="#" class="active">Visão geral</a>
+                <a href="#">Críticas</a>
+                <a href="#">Filmes</a>
+                <a href="#">Atores</a>
+                <a href="#">Assistindo</a>
+            </nav>
         </div>
     </div>
 
-    <div class="profile-stats">
+    <div class="main-film">
+        <p>ÚLTIMO</p>
+        <h3>{{ ultimo_fav.titulo }}</h3>
+    </div>
+
+    <div class="perfil-stats">
         <div>
             <span>FILMES/SERIES</span>
             <h3>{{ qtd_filmes }}</h3>
