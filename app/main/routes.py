@@ -8,9 +8,10 @@ from flask_login import login_required, current_user, login_user, logout_user
 # Pagina inicial
 @main.route('/')
 def index():
-    filmes = Filme.query.limit(4).all()
+    filmes = Filme.query.filter_by(tipo="filme").limit(10).all()
+    series = Filme.query.filter_by(tipo="serie").limit(10).all()
     atores= Ator.query.limit(4).all()
-    return render_template("index.html",filmes=filmes,atores=atores)
+    return render_template("index.html",filmes=filmes,atores=atores, series=series)
 
 # Pagina de filmes/series
 @main.route('/series/<int:filme_id>')

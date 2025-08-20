@@ -51,7 +51,7 @@
             <ul class="carrossel-interno__filmes">
                 {% for filme in filmes %}
                     <li  class="carrossel--filmes">
-                        <span class="numeracao">{{filme.id}}</span>
+                        <span class="numeracao">{{ filme.id }}</span>
                         <img src="../static/img/min-Jurassic.jpg" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
                     </li>
                 {% endfor %}
@@ -88,10 +88,10 @@
         </div>
         <div class="carrossel--main">
             <ul class="carrossel-interno__filmes">
-                {% for filme in filmes %}
+                {% for serie in series %}
                     <li  class="carrossel--filmes">
-                        <span class="numeracao">{{filme.id}}</span>
-                        <img src="../static/img/min-Jurassic.jpg" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
+                        <span class="numeracao">{{serie.id}}</span>
+                        <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
                     </li>
                 {% endfor %}
             </ul>

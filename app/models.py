@@ -31,8 +31,9 @@ usuario_filme_assistindo = db.Table('usuario_filme_assistindo',
 class Filme(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
+    tipo = db.Column(db.String(10), nullable=False)
     descricao = db.Column(db.Text, nullable=False)
-    temporada = db.Column(db.Integer, nullable=False)
+    temporada = db.Column(db.Integer, nullable=True)
     ano = db.Column(db.Integer, nullable=False)
     trailer = db.Column(db.String(50), nullable=True)
 
@@ -133,6 +134,7 @@ class Avaliacao(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
     episodio_id = db.Column(db.Integer, db.ForeignKey('episodio.id'), primary_key=True)
     nota = db.Column(db.Float, nullable=False)
+    comentario = db.Column(db.Text, nullable = True)
 
     usuario = db.relationship('Usuario', back_populates='avaliacoes')
     episodio = db.relationship('Episodio', back_populates='avaliacoes')
