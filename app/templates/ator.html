@@ -2,12 +2,27 @@
 
 {% block title %} {{ ator.nome }} {% endblock %}
 
+{% block link %} ../static/css/atores/atores.css {% endblock %}
+
 {% block content %}
 <section class="ator_page">
     <div class="ator_info">
         <img src="{{ url_for('static', filename='img/ator/' ~ imagem_ator) }}" 
         alt="{{ ator.nome }}">
-        <h2>{{ ator.nome }}</h2>
+        <h1>{{ ator.nome }}</h1>
+        <h3>Idade: </h3>
+        <p>{{ ator.idade }} anos</p>
+        <h3>Personagens:</h3>
+        <ul>
+            {% for atuacao in ator.atuacoes %}
+                {% if atuacao.personagem %}
+                    <li>{{ atuacao.personagem }} - {{ atuacao.filme.titulo }}</li>
+                    {% endif %}
+                {% else %}
+                    <li>Personagem não especificado</li>
+                {% endfor %}
+        </ul>
+
     </div>
 
     <div class="ator_filmes">

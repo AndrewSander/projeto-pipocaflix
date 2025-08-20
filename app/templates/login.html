@@ -1,7 +1,18 @@
-<h2>Login</h2>
-<form method="POST">
-    <input name="usuario" placeholder="Usuário" required>
-    <input type="password" name="senha" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-</form>
-<a href="{{ url_for('main.cadastro') }}">Não tem conta? Cadastre-se</a>
+{% extends "base.html" %}
+
+{% block link %} ./static/css/login.css {% endblock %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+<section class="login_page">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+    <h2>Login</h2>
+    <form method="POST">
+        <input name="usuario" placeholder="Usuário" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+    </form>
+    <a href="{{ url_for('main.cadastro') }}">Não tem conta? Cadastre-se</a>
+{% endblock %}
