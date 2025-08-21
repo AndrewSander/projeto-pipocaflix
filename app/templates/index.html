@@ -52,7 +52,7 @@
                 {% for filme in filmes %}
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{ filme.id }}</span>
-                        <img src="../static/img/min-Jurassic.jpg" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
+                        <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
                     </li>
                 {% endfor %}
             </ul>
