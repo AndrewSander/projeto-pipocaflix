@@ -156,6 +156,20 @@
     color: #666;
 }
 
+.atores-fav-container{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    gap:20px;
+    justify-content: center;
+}
+
+.atores_fav{
+    width: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--enfase_1); 
+}
+
 .button{
     display: flex;
     margin: 10px auto;

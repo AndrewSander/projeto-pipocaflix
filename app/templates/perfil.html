@@ -69,6 +69,11 @@
             <h3>{{ qtd_atores }}</h3>
         </div>
     </div>
+    <div class="atores-fav-container">
+        {% for actor in atores %}
+            <img class="atores_fav" src="../static/img/ator/{{actor.nome}}.jpg" alt="atores favoritos">
+        {% endfor %}
+    </div>
 {% else %}
     <p>Você não está autenticado.</p>
 {% endif %}

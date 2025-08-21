@@ -108,8 +108,9 @@ def perfil():
     ultimo_fav = current_user.filmes_fav.order_by(Filme.id.desc()).first()
     qtd_filmes = current_user.filmes_fav.count()
     qtd_atores = current_user.atores_fav.count()
+    atores= current_user.atores_fav
 
-    return render_template("perfil.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores)
+    return render_template("perfil.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
