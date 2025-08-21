@@ -1,0 +1,40 @@
+.filmes_page {
+    padding: 30px;
+    text-align: center;
+}
+
+.filmes_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.filme_card {
+    background: #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 350px;
+}
+
+.filme_card:hover {
+    transform: scale(1.05);
+}
+
+.filme_card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.filme_card h2 {
+    padding: 10px;
+    color: #fff;
+}
+
+.filme_card a{
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+}

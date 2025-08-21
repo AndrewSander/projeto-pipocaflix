@@ -21,6 +21,17 @@ def series(filme_id):
 
     return render_template('film-page.html', filme=filme, episodios=episodios, elenco=atuacoes)
 
+# Pagina de filmes
+@main.route('/filmes')
+def listar_filmes():
+    filmes = Filme.query.order_by(Filme.titulo).all()
+    return render_template('filmes.html', filmes=filmes)
+
+# Pagina de series
+@main.route('/series')
+def listar_series():
+    series = Filme.query.filter_by(tipo='Série').all()
+    return render_template('series.html', series=series)
 
 # Função para ordenar filmes pelo título
 def pegar_titulo(filme):
