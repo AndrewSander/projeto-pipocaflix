@@ -1,26 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Alterar dados do perfil</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %} Alterar dados do perfil {% endblock %}
+
+{% block link %} ./static/css/editar_perfil.css {% endblock %}
+
+{% block content %}
+<section class="editar_perfil">
     <h1>Dados</h1>
     <form method="POST">
         <label>Nome:</label><br>
-        <input type="text" name="nome" required><br><br>
+        <input type="text" name="nome" required>
 
         <label>Usuário:</label><br>
-        <input type="text" name="usuario" required><br><br>
+        <input type="text" name="usuario" required>
 
         <label>Url da foto:</label><br>
-        <input type="text" name="foto_url"><br><br>
+        <input type="text" name="foto_url">
 
         <label>Descrição:</label><br>
-        <input type="text" name="descricao"><br><br>
-
+        <input type="text" name="descricao">
 
         <button type="submit">Editar</button>
     </form>
-</body>
-</html>
+</section>
+{% endblock %}
