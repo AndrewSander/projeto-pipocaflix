@@ -16,44 +16,40 @@
     <a href="{{ url_for('main.logout') }}">Logout</a>-->
 
     <div class="perfil-header">
-        <div class="banner"></div>
-        
-        <div class="perfil-info">
-            <div class="avatar">
-                <img src="{{ current_user.foto_url }}" alt="Foto de perfil">
-            </div>
-            <div class="user-details">
-                <h2>{{ current_user.usuario }}</h2>
-                <p>{{ current_user.nome }} • em pipocaflix desde 2025</p>
-                <nav class="perfil-nav">
-                    <a href="#" class="active">Visão geral</a>
-                    <a href="#">Críticas</a>
-                    <a href="#">Filmes</a>
-                    <a href="#">Atores</a>
-                    <a href="#">Seguindo</a>
-                    <a href="#">Seguidores</a>
-                    <a href="#">Assistindo</a>
-                </nav>
-            </div>
-            <div class="main-film">
-                <p>ÚLTIMO</p>
-                <h3>{{ ultimo_fav.titulo }}</h3>
-            </div>
+        <div class="banner">
+            <img src="../static/img/perfil/Banner.jpg" alt="banner do perfil">
         </div>
-    </div>
 
-    <div class="profile-stats">
-        <div>
-            <span>FILMES/SERIES</span>
-            <h3>{{ qtd_filmes }}</h3>
+        <div class="avatar">
+            <img class="avatar__img" src="{{ current_user.foto_url }}" alt="Foto de perfil">
+            <div class="metricas">
+                <div class="seguidores">
+                    <p class="numb">83</p>
+                    <p class="subtitle">seguidores</p>
+                </div>
+                <div class="seguidores">
+                    <p class="numb">42</p>
+                    <p class="subtitle">seguindo</p>
+                </div>
+            </div>
         </div>
-        <div>
-            <span>ATORES</span>
-            <h3>{{ qtd_atores }}</h3>
+        
+    </div>
+    <div class="perfil-info">
+        <div class="user-details">
+            <h2>{{ current_user.usuario }}</h2>
+            <p class="user-details__subtitle">{{ current_user.nome }} • em pipocaflix desde 2025</p>
         </div>
     </div>
+    <nav class="perfil-nav">
+        <a href="{{url_for('main.perfil')}}" class="{% block geral %} {% endblock %}">Visão geral</a>
+        <a href="{{url_for('main.perfil_criticas')}}" class="{% block criticas %} {% endblock %}">Críticas</a>
+        <a href="{{url_for('main.perfil_filmes')}}" class="{% block filmes %} {% endblock %}">Filmes</a>
+        <a href="{{url_for('main.perfil_atores')}}" class="{% block atores %} {% endblock %}">Atores</a>
+        <a href="{{url_for('main.perfil_assistindo')}}" class="{% block assistindo %} {% endblock %}">Assistindo</a>
+    </nav>
+        {% block perfil_content %} {% endblock %}
 {% else %}
     <p>Você não está autenticado.</p>
 {% endif %}
-
 {% endblock %}

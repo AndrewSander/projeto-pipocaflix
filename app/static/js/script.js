@@ -117,3 +117,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('.perfil-nav');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  nav.addEventListener('mousedown', (e) => {
+    isDown = true;
+    nav.style.cursor = 'grabbing';
+    startX = e.pageX - nav.offsetLeft;
+    scrollLeft = nav.scrollLeft;
+    e.preventDefault(); // previne seleção de texto e scroll da página
+  });
+
+  nav.addEventListener('mouseup', () => isDown = false);
+  nav.addEventListener('mouseleave', () => isDown = false);
+
+  nav.addEventListener('mousemove', (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - nav.offsetLeft;
+    const walk = x - startX; // velocidade natural
+    nav.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch
+  nav.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - nav.offsetLeft;
+    scrollLeft = nav.scrollLeft;
+  });
+
+  nav.addEventListener('touchmove', (e) => {
+    if(!isDown) return;
+    e.preventDefault(); // evita scroll da página
+    const x = e.touches[0].pageX - nav.offsetLeft;
+    const walk = x - startX;
+    nav.scrollLeft = scrollLeft - walk;
+  });
+
+  nav.addEventListener('touchend', () => isDown = false);
+});
