@@ -15,7 +15,9 @@
             <p class="main-film__subtitle">Autor</p>
         </div>
     </div>
+    {% if not current_user.is_authenticated %}
     <button class="button">ADICIONAR NA LISTA</button>
+    {% endif %}
 
     <!-- <div class="perfil-stats">
         <div>
