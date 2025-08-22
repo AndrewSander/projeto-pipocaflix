@@ -3,6 +3,7 @@ from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash # type: ignore
 from .extensions import login_manager, db
 from flask_login import UserMixin
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(id):
@@ -23,22 +24,22 @@ usuario_ator_fav = db.Table('usuario_ator_fav',
     db.Column('ator_id', db.Integer, db.ForeignKey('ator.id'), primary_key=True)
 )
 
-usuario_filme_assistindo = db.Table('usuario_filme_assistindo',
-    db.Column('usuario_id', db.Integer, db.ForeignKey('usuario.id'), primary_key=True),
-    db.Column('filme_id', db.Integer, db.ForeignKey('filme.id'), primary_key=True)
-)
-
 class Filme(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
+    tipo = db.Column(db.String(10), nullable=False)
+
     descricao = db.Column(db.Text, nullable=False)
-    temporada = db.Column(db.Integer, nullable=False)
+    temporada = db.Column(db.Integer, nullable=True)
     ano = db.Column(db.Integer, nullable=False)
     trailer = db.Column(db.String(50), nullable=True)
+    #data_lancamento = db.Column(db.Date, nullable=True)
 
     episodios = db.relationship('Episodio', backref='filme', lazy=True)
     atuacoes = db.relationship("Atuacao", back_populates='filme', cascade='all, delete-orphan')
     generos = db.relationship('Genero', secondary=filme_genero, back_populates='filmes')
+    status_filme = db.relationship('Status', back_populates='filme', cascade='all, delete-orphan')
+
 
     @property
     def media(self):
@@ -104,6 +105,8 @@ class Usuario(UserMixin, db.Model):
     foto_url = db.Column(db.Text, nullable=True)
     descricao = db.Column(db.Text, nullable=True)
 
+    created_at = db.Column(db.DateTime, default=datetime.utcnow) 
+
     filmes_fav = db.relationship('Filme',
         secondary=usuario_filme_fav,
         backref=db.backref('usuarios_favoritaram', lazy='dynamic'),
@@ -114,12 +117,9 @@ class Usuario(UserMixin, db.Model):
         backref=db.backref('usuarios_favoritaram', lazy='dynamic'),
         lazy='dynamic')
     
-    assistindo = db.relationship('Filme',
-        secondary=usuario_filme_assistindo,
-        backref=db.backref('usuarios_assistindo', lazy='dynamic'),
-        lazy='dynamic')
-
     avaliacoes = db.relationship('Avaliacao', back_populates='usuario', cascade='all, delete-orphan')
+
+    status_filme = db.relationship('Status', back_populates='usuario', cascade='all, delete-orphan')
 
     def set_senha(self, senha):
         self.senha_hash = generate_password_hash(senha)
@@ -133,6 +133,17 @@ class Avaliacao(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
     episodio_id = db.Column(db.Integer, db.ForeignKey('episodio.id'), primary_key=True)
     nota = db.Column(db.Float, nullable=False)
+    comentario = db.Column(db.Text, nullable = True)
 
     usuario = db.relationship('Usuario', back_populates='avaliacoes')
     episodio = db.relationship('Episodio', back_populates='avaliacoes')
+
+class Status(db.Model):
+    __tablename__ = 'status'
+
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key=True)
+    filme_id = db.Column(db.Integer, db.ForeignKey('filme.id'), primary_key=True)
+    status= db.Column(db.String(20), nullable=False)
+
+    usuario = db.relationship('Usuario', back_populates='status_filme')
+    filme = db.relationship('Filme', back_populates='status_filme')

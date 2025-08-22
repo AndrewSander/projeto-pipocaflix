@@ -5,12 +5,12 @@
 {% block link %} ./static/css/filmes.css {% endblock %}
 
 {% block content %}
-<section class="filmes_page">
+<section class="filmes-series_page">
     <h1>Todas as Séries</h1>
-    <div class="filmes_grid">
+    <div class="filmes-series_grid">
         {% for serie in series %}
-        <div class="filme_card">
-            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Capa">
+        <div class="filmes-series_card">
+            <img src="{{ url_for('static', filename='img/series/' ~ serie.id ~ '/Capa.webp') }}" alt="Capa">
             <h2>{{ serie.titulo }}</h2>
             <p>{{ serie.sinopse }}</p>
             <a href="{{ url_for('main.series', filme_id=serie.id) }}">Ver Detalhes</a>

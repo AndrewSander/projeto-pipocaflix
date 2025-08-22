@@ -1,40 +1,99 @@
-.filmes_page {
-    padding: 30px;
+.filmes-series_page {
+    padding: 20px;
     text-align: center;
 }
 
-.filmes_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+.filmes-series_page h1 {
+    font-size: 24px;
+    color: #fff;
+    margin: 20px;
 }
 
-.filme_card {
+.filmes-series_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    width: 90%;
+    gap: 15px;
+    margin: 0 auto;
+}
+
+.filmes-series_card {
     background: #1e293b;
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease;
-    height: 350px;
+    height: 340px; /* altura fixa para manter consistência */
+    margin: 10px;
 }
 
-.filme_card:hover {
+.filmes-series_card:hover {
     transform: scale(1.05);
 }
 
-.filme_card img {
+.filmes-series_card img {
     width: 100%;
-    height: 250px;
+    height: 220px; /* menor altura no mobile */
     object-fit: cover;
 }
 
-.filme_card h2 {
-    padding: 10px;
+.filmes-series_card h2 {
+    padding: 8px;
+    font-size: 16px;
     color: #fff;
 }
 
-.filme_card a{
-    padding: 10px;
+.filmes-series_card p {
+    color: #b0b0b0;
+    font-size: 12px;
+    padding: 0 8px;
+}
+
+.filmes-series_card a {
+    display: inline-block;
+    padding: 6px 8px;
     color: #fff;
     text-decoration: none;
+    font-size: 12px;
+    margin: 10px;
+    background-color: #3b82f6;
+    border-radius: 5px;
+}
+
+/* === Tablets === */
+@media (min-width: 600px) {
+    .filmes-series_grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    .filmes-series_card img {
+        height: 220px;
+    }
+}
+
+/* === Desktops === */
+@media (min-width: 900px) {
+    .filmes-series_grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+    .filmes-series_card {
+    height: 360px;
+    }
+    .filmes-series_card img {
+        height: 250px;
+    }
+}
+
+/* === Grandes telas === */
+@media (min-width: 1200px) {
+    .filmes-series_grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 30px;
+    }
+    .filmes-series_card {
+    height: 380px;
+    }
+    .filmes-series_card img {
+        height: 270px;
+    }
 }
