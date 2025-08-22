@@ -140,5 +140,25 @@
         </div>
     </section>
 {% endif %}
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title">NO CINEMA</h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <ul class="carrossel-interno__filmes">
+                {% for serie in range(3) %}
+                    <li  class="carrossel--filmes">
+                        <span class="numeracao">{{loop.index}}</span>
+                        <a href="#">
+                            <img src="../static/img/Ryan bolseiro.jpg" alt="" class="carrossel--capa">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
 
 {% endblock %}
