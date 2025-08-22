@@ -15,6 +15,9 @@
         <input type="text" name="usuario" value="{{ current_user.usuario }}" required>
 
         <label>Url da foto:</label><br>
+        <div class="avatar">
+            <img class="avatar__img" src="{{ current_user.foto_url }}" alt="Foto de perfil">
+        </div><br>
         <input type="text" name="foto_url" value="{{ current_user.foto_url}}" required>
 
         <label>Descrição:</label><br>
