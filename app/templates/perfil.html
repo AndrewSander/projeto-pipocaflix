@@ -39,43 +39,17 @@
         <div class="user-details">
             <h2>{{ current_user.usuario }}</h2>
             <p class="user-details__subtitle">{{ current_user.nome }} • em pipocaflix desde 2025</p>
-            <nav class="perfil-nav">
-                <a href="#" class="active">Visão geral</a>
-                <a href="#">Críticas</a>
-                <a href="#">Filmes</a>
-                <a href="#">Atores</a>
-                <a href="#">Assistindo</a>
-            </nav>
         </div>
     </div>
-
-    <div class="main-film">
-        <img class="filme-fav" src="../static/img/series/1/Capa.webp" alt="filme favorito">
-        <div class="movie__info">
-            <p class="main-film__aviso">FILME FAVORITO</p>
-            <p class="main-film__title">Nome do filme</p>
-            <p class="main-film__subtitle">Autor</p>
-        </div>
-    </div>
-    <button class="button">ADICIONAR NA LISTA</button>
-
-    <div class="perfil-stats">
-        <div>
-            <span>FILMES/SERIES</span>
-            <h3>{{ qtd_filmes }}</h3>
-        </div>
-        <div>
-            <span>ATORES</span>
-            <h3>{{ qtd_atores }}</h3>
-        </div>
-    </div>
-    <div class="atores-fav-container">
-        {% for actor in atores %}
-            <img class="atores_fav" src="../static/img/ator/{{actor.nome}}.jpg" alt="atores favoritos">
-        {% endfor %}
-    </div>
+    <nav class="perfil-nav">
+        <a href="#" class="{% block geral %} {% endblock %}">Visão geral</a>
+        <a href="#" class="{% block criticas %} {% endblock %}">Críticas</a>
+        <a href="#" class="{% block filmes %} {% endblock %}">Filmes</a>
+        <a href="#" class="{% block atores %} {% endblock %}">Atores</a>
+        <a href="#" class="{% block assistindo %} {% endblock %}">Assistindo</a>
+    </nav>
+        {% block perfil_content %} {% endblock %}
 {% else %}
     <p>Você não está autenticado.</p>
 {% endif %}
-
 {% endblock %}

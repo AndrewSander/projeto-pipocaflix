@@ -98,7 +98,7 @@ def logout():
     return redirect(url_for("main.index"))
 
 # Pagina perfil
-@main.route("/perfil")
+@main.route("/perfil-geral")
 @login_required
 def perfil():
     if not current_user.is_authenticated:
@@ -110,7 +110,7 @@ def perfil():
     qtd_atores = current_user.atores_fav.count()
     atores= current_user.atores_fav
 
-    return render_template("perfil.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores)
+    return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
