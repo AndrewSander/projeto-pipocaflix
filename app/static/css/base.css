@@ -63,13 +63,29 @@ header{
   align-items: flex-start;
 }
 
+.icon-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cccccc;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
+
 .perfil-icone {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.logado{
   margin-top: 3px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
   cursor: pointer;
 }
+
 
 .perfil-menu {
   display: none; /* escondido por padrão */
@@ -276,4 +292,14 @@ header #search-input {
     padding-top: 15px;
     font-size: 12px;
     color: #999999;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+.icons{
+    color: var(--enfase_1);
 }
