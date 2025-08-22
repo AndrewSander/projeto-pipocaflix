@@ -11,6 +11,9 @@ def index():
     filmes = Filme.query.filter_by(tipo="filme").limit(10).all()
     series = Filme.query.filter_by(tipo="serie").limit(10).all()
     atores= Ator.query.limit(4).all()
+    if current_user.is_authenticated:
+        lista= current_user.atores_fav
+        return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista)
     return render_template("index.html",filmes=filmes,atores=atores, series=series)
 
 # Pagina de filmes/series
