@@ -32,13 +32,13 @@ def novo_filme():
         titulo = request.form['titulo']
         descricao = request.form['descricao']
         temporada = request.form['temporada']
-        ano = request.form['ano'] 
+        data_lancamento = request.form['data_lancamento'] 
         tipo = request.form['tipo']
         
         genero_ids = request.form.getlist("generos")  
         genero_ids = [int(gid) for gid in genero_ids]  
 
-        novo_filme = Filme(titulo=titulo, descricao=descricao, temporada = temporada, ano = ano, tipo=tipo)
+        novo_filme = Filme(titulo=titulo, descricao=descricao, temporada = temporada, data_lancamento = data_lancamento, tipo=tipo)
         
         generos_selecionados = Genero.query.filter(Genero.id.in_(genero_ids)).all()
         for genero in generos_selecionados:

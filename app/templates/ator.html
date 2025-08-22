@@ -7,8 +7,7 @@
 {% block content %}
 <section class="ator_page">
     <div class="ator_info">
-        <img src="{{ url_for('static', filename='img/ator/' ~ imagem_ator) }}" 
-        alt="{{ ator.nome }}">
+        <img src="{{ imagem_ator }}" alt="{{ ator.nome }}">
         <h1>{{ ator.nome }}</h1>
         <h3>Idade: </h3>
         <p>{{ ator.idade }} anos</p>

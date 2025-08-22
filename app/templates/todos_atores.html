@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Todos os Atores{% endblock %}
+
+{% block link %} ./static/css/todos_atores.css {% endblock %}
+
+{% block content %}
+<section class="todos-atores_page">
+    <h1>Todos os Atores</h1>
+    <div class="todos-atores_grid">
+        {% for ator in atores %}
+        <div class="todos-atores_card">
+            <img src="{{ ator.imagem_url }}" alt="Foto de {{ ator.nome }}">
+            <h2>{{ ator.nome }}</h2>
+            <a href="{{ url_for('main.pagina_ator', ator_id=ator.id) }}">Ver Detalhes</a>
+        </div>
+        {% else %}
+        <p>Nenhum ator encontrado.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

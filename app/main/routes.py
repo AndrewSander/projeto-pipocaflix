@@ -34,6 +34,16 @@ def listar_series():
     series = Filme.query.filter_by(tipo='serie').order_by(Filme.titulo).all()
     return render_template('series.html', series=series)
 
+# Pagina de todos os atores
+@main.route('/todos_atores')
+def listar_atores():
+    atores = Ator.query.order_by(Ator.nome).all()
+    
+    for ator in atores:
+        ator.imagem_url = url_for('static', filename=f'img/ator/{ator.nome}.jpg')
+
+    return render_template('todos_atores.html', atores=atores)
+
 # Função para ordenar filmes pelo título
 def pegar_titulo(filme):
     return filme.titulo
@@ -52,7 +62,7 @@ def pagina_ator(ator_id):
 
     filmes.sort(key=pegar_titulo)
 
-    imagem_ator = f"{ator.nome}.jpg"
+    imagem_ator = url_for('static', filename=f'img/ator/{ator.nome}.jpg')
 
     return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
