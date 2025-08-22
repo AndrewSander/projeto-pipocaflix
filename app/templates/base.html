@@ -21,26 +21,26 @@
             </form>
             <div class="perfil__container">
                 {% if current_user.is_authenticated %} 
-                    <img src="{{ current_user.foto_url }}" alt="Perfil" class="perfil-icone" onclick="toggleMenu()">
+                    <img src="{{ current_user.foto_url }}" alt="Perfil" class="perfil-icone logado" onclick="toggleMenu()">
                     <div class="perfil-menu" id="perfilMenu">
                         <div class="perfil-info">
                         <img src="{{ current_user.foto_url }}" alt="Foto de perfil" class="perfil-foto">
                         <span class="perfil-nome">{{ current_user.nome }}</span>
                         </div>
                         <hr>
-                        <a href="/perfil-geral">👤 Ver Perfil</a>
-                        <a href="/editar-perfil">✏️ Editar Perfil</a>
-                        <a href="/logout">🚪 Logout</a>
+                        <a href="/perfil-geral"><div class="flex"><i class="fa-solid fa-user icons"></i> <p>Ver Perfil</p></div></a>
+                        <a href="/editar-perfil"><div class="flex"><i class="fa-solid fa-pencil icons"></i> <p>Editar Perfil</p></div></a>
+                        <a href="/logout"><div class="flex"><i class="fa-solid fa-door-closed icons"></i> <p>Logout</p></div></a>
                     </div> 
                     {% else %}
-                    <img src="../static/img/perfil/icon.png" alt="Perfil" class="perfil-icone" onclick="toggleMenu()">
+                    <div class="icon-circle"><i class="fa-solid fa-user perfil-icone" onclick="toggleMenu()"></i></div>
                     <div class="perfil-menu" id="perfilMenu">
                         <div class="perfil-info">
-                        <img src="../static/img/perfil/icon.png" alt="Foto de perfil" class="perfil-foto">
+                        <div class="icon-circle"><i class="fa-solid fa-user perfil-icone" onclick="toggleMenu()"></i></div>
                         <span class="perfil-nome">{{ current_user.nome }}</span>
                         </div>
                         <hr>
-                        <a href="/login">🚪 logar </a>
+                        <a href="/login"><div class="flex"><i class="fa-solid fa-door-open icons"></i> <p>logar</p></div> </a>
                     </div>
                 {% endif %}
             </div>
