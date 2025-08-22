@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .editar_perfil {
     display: flex;
     flex-direction: column;
@@ -49,4 +51,20 @@
 
 .editar_perfil form button:hover {
     background-color: #2563eb;
+}
+
+.avatar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+.avatar img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--enfase_1);
 }
