@@ -42,11 +42,11 @@
         </div>
     </div>
     <nav class="perfil-nav">
-        <a href="#" class="{% block geral %} {% endblock %}">Visão geral</a>
-        <a href="#" class="{% block criticas %} {% endblock %}">Críticas</a>
-        <a href="#" class="{% block filmes %} {% endblock %}">Filmes</a>
-        <a href="#" class="{% block atores %} {% endblock %}">Atores</a>
-        <a href="#" class="{% block assistindo %} {% endblock %}">Assistindo</a>
+        <a href="{{url_for('main.perfil')}}" class="{% block geral %} {% endblock %}">Visão geral</a>
+        <a href="{{url_for('main.perfil_criticas')}}" class="{% block criticas %} {% endblock %}">Críticas</a>
+        <a href="{{url_for('main.perfil_filmes')}}" class="{% block filmes %} {% endblock %}">Filmes</a>
+        <a href="{{url_for('main.perfil_atores')}}" class="{% block atores %} {% endblock %}">Atores</a>
+        <a href="{{url_for('main.perfil_assistindo')}}" class="{% block assistindo %} {% endblock %}">Assistindo</a>
     </nav>
         {% block perfil_content %} {% endblock %}
 {% else %}

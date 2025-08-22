@@ -112,6 +112,42 @@ def perfil():
 
     return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores)
 
+@main.route("/perfil-criticas")
+@login_required
+def perfil_criticas():
+    if not current_user.is_authenticated:
+        flash("Você precisa estar logado para ver essa página.")
+        return redirect(url_for("main.login"))
+
+    return render_template("perfil-criticas.html")
+
+@main.route("/perfil-filmes")
+@login_required
+def perfil_filmes():
+    if not current_user.is_authenticated:
+        flash("Você precisa estar logado para ver essa página.")
+        return redirect(url_for("main.login"))
+
+    return render_template("perfil-filmes.html")
+
+@main.route("/perfil-atores")
+@login_required
+def perfil_atores():
+    if not current_user.is_authenticated:
+        flash("Você precisa estar logado para ver essa página.")
+        return redirect(url_for("main.login"))
+
+    return render_template("perfil-atores.html")
+
+@main.route("/perfil-assistindo")
+@login_required
+def perfil_assistindo():
+    if not current_user.is_authenticated:
+        flash("Você precisa estar logado para ver essa página.")
+        return redirect(url_for("main.login"))
+
+    return render_template("perfil-assistindo.html")
+
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
