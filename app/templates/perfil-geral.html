@@ -40,6 +40,9 @@
                 {% for actor in atores %}
                     <ul class="carrossel--atores">
                         <img src="../static/img/ator/{{actor.nome}}.jpg" alt="Foto do ator {{actor.nome}}" class="carrossel--ator atores_fav">
+                        <div class="nome--container">
+                            <p class="ator--nome">{{actor.nome}}</p>
+                        </div>
                     </ul>
                 {% endfor %}
             </li>
