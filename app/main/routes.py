@@ -16,22 +16,34 @@ def index():
         return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista)
     return render_template("index.html",filmes=filmes,atores=atores, series=series)
 
-# Pagina de filmes/series
+# Pagina de filmes
+@main.route('/filmes/<int:filme_id>')
+def filmes(filme_id):
+    filme = Filme.query.get_or_404(filme_id)
+    if filme.tipo == "serie":
+        return redirect(url_for('main.series', filme_id=filme.id))
+    atuacoes = filme.atuacoes
+
+    return render_template('film-page.html', filme=filme, elenco=atuacoes)
+
+# Pagina de series
 @main.route('/series/<int:filme_id>')
 def series(filme_id):
     filme = Filme.query.get_or_404(filme_id)
+    if filme.tipo == "filme":
+        return redirect(url_for('main.filmes', filme_id = filme.id))
     episodios = filme.episodios
     atuacoes = filme.atuacoes
 
-    return render_template('film-page.html', filme=filme, episodios=episodios, elenco=atuacoes)
+    return render_template('series-page.html', filme=filme, episodios=episodios, elenco=atuacoes)
 
-# Pagina de filmes
+# Pagina de todos os filmes
 @main.route('/filmes')
 def listar_filmes():
     filmes = Filme.query.filter_by(tipo='filme').order_by(Filme.titulo).all()
     return render_template('filmes.html', filmes=filmes)
 
-# Pagina de series
+# Pagina de todas as series
 @main.route('/series')
 def listar_series():
     series = Filme.query.filter_by(tipo='serie').order_by(Filme.titulo).all()
