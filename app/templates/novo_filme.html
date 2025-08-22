@@ -15,18 +15,18 @@
         <label for="descricao">Descrição:</label><br>
         <textarea id="descricao" name="descricao" rows="5" required></textarea><br><br>
 
-        <label for="tipo">Tipo:</label>
+        <label for="tipo">Tipo:</label><br>
         <select name="tipo" id="tipo" required>
             <option value="filme">Filme</option>
             <option value="serie">Série</option>
-        </select>
+        </select><br><br>
 
-        
         <label for="temporada">Temporadas:</label><br>
-        <input type="number" id="temporada" name="temporada" step="1" min="1" max="50" required><br><br>        
+        <input type="number" id="temporada" name="temporada" step="1" min="1" max="50" required><br><br>   
+
+        <label>Data de lançamento:</label><br>
+        <input type="date" name="data_lancamento" required><br><br>     
         
-        <label for="ano">ano:</label><br>
-        <input type="number" id="ano" name="ano" step="1" min="1898" max="2030" required><br><br>
 
         <label>Generos para adicionar:</label><br>
         <select name="generos" multiple>
