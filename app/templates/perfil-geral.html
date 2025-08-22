@@ -1,0 +1,48 @@
+{% extends "perfil.html" %}
+
+{% block title %} Visão Geral {% endblock %}
+
+{% block link %} ../static/css/perfil.css {% endblock %}
+
+{% block geral %} active {% endblock %}
+
+{% block perfil_content %}
+    <div class="main-film">
+        <img class="filme-fav" src="../static/img/series/1/Capa.webp" alt="filme favorito">
+        <div class="movie__info">
+            <p class="main-film__aviso">FILME FAVORITO</p>
+            <p class="main-film__title">Nome do filme</p>
+            <p class="main-film__subtitle">Autor</p>
+        </div>
+    </div>
+    <button class="button">ADICIONAR NA LISTA</button>
+
+    <!-- <div class="perfil-stats">
+        <div>
+            <span>FILMES/SERIES</span>
+            <h3>{{ qtd_filmes }}</h3>
+        </div>
+        <div>
+            <span>ATORES</span>
+            <h3>{{ qtd_atores }}</h3>
+        </div>
+    </div> -->
+    
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title">ATORES FAVORITOS</h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <li class="carrossel-interno__atores">
+                {% for actor in atores %}
+                    <ul class="carrossel--atores">
+                        <img src="../static/img/ator/{{actor.nome}}.jpg" alt="Foto do ator {{actor.nome}}" class="carrossel--ator atores_fav">
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+{% endblock %}
