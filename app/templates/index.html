@@ -52,7 +52,9 @@
                 {% for filme in filmes %}
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{ filme.id }}</span>
-                        <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
+                        <a href="{{ url_for('main.series', filme_id=filme.id) }}">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -71,7 +73,9 @@
             <li class="carrossel-interno__atores">
                 {% for item in atores %}
                     <ul class="carrossel--atores">
-                        <img src="../static/img/ator/{{item.nome}}.jpg" alt="Foto do ator {{item.nome}}" class="carrossel--ator">
+                        <a href="{{ url_for('main.pagina_ator', ator_id=item.id) }}">
+                            <img src="../static/img/ator/{{item.nome}}.jpg" alt="Foto do ator {{item.nome}}" class="carrossel--ator">
+                        </a>
                     </ul>
                 {% endfor %}
             </li>
@@ -91,7 +95,9 @@
                 {% for serie in series %}
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{serie.id}}</span>
-                        <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
+                        <a href="{{ url_for('main.series', filme_id=serie.id) }}">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
+                        </a>
                     </li>
                 {% endfor %}
             </ul>

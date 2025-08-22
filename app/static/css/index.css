@@ -218,7 +218,7 @@
 }
 
 .carrossel--capa{
-    pointer-events: none;
+    /* pointer-events: none; - esta causando que a imagem nao pode levar ao site de cada filme/serie */
     width: 90px;
     height: 140px;
     object-fit: cover;
