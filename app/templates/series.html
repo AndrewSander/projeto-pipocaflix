@@ -5,6 +5,35 @@
 {% block link %} ./static/css/filmes.css {% endblock %}
 
 {% block content %}
+<form method="GET" action="{{ url_for('main.listar_series') }}">
+    <label for="ano">Ano:</label>
+    <select name="ano">
+        <option value="">Todos</option>
+        {% for ano in anos %}
+            <option value="{{ ano }}">{{ ano }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="genero">Gênero:</label>
+    <select name="genero">
+        {% for genero in generos %}
+            <option value="{{ genero.nome }}">{{ genero.nome }}</option>
+        {% endfor %}    
+    </select>
+
+    <label for="ordenar">Ordenar por:</label>
+    <select name="ordenar">
+        <option value="">Padrão</option>
+        <option value="recente">Mais Recentes</option>
+        <option value="favoritos">Mais Favoritos</option>
+        <option value="avaliacao">Melhor Avaliados</option>
+        <option value="alfabetico">Ordem alfabética</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+{% if series %}
 <section class="filmes-series_page">
     <h1>Todas as Séries</h1>
     <div class="filmes-series_grid">
@@ -15,9 +44,13 @@
             <p>{{ serie.sinopse }}</p>
             <a href="{{ url_for('main.series', filme_id=serie.id) }}">Ver Detalhes</a>
         </div>
-        {% else %}
-        <p>Nenhuma série encontrada.</p>
         {% endfor %}
     </div>
+{% else %}
+        <p>Nenhuma série encontrada.</p>
+{% endif %}
+{% else %}
+        <p>Nenhuma série encontrada.</p>
+{% endif %}
 </section>
 {% endblock %}
