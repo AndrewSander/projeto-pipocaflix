@@ -290,7 +290,17 @@
 }
 
 .ratings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     margin-top: 20px;
+    
+}
+
+.ratings-text {
+    gap:8px;
+    margin-left: 1.7em;
+    display: flex;
 }
 
 .ratings-summary {
@@ -299,10 +309,15 @@
     gap: 20px;
 }
 
+.ratings-summary p {
+   margin: auto;
+}
+
 .rating-score {
     text-align: center;
     font-size: 18px;
     color: #FFD700;
+    margin-left: 1.7em;
 }
 
 .rating-bars {
@@ -321,14 +336,14 @@
 
 .bar {
     height: 8px;
-    background-color: #3498db;
+    background-color: var(--enfase_1);
     border-radius: 4px;
     margin-left: 5px;
 }
 
 .rating-button {
     display: flex;
-    background-color: #3498db;
+    background-color: var(--azul_3);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -341,7 +356,7 @@
 }
 
 .rating-button:hover {
-    background-color: #2980b9;
+    background-color: var(--azul_4);
 }
 
 /* AJUSTES DE CONTEÚDO*/

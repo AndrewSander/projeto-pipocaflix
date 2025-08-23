@@ -81,6 +81,7 @@ def pagina_ator(ator_id):
 
     return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
+
 # Formulário de cadastro
 @main.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
