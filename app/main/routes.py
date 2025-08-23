@@ -85,7 +85,7 @@ def listar_filmes():
     return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos)
 
 # Pagina de todas as series
-@main.route('/series')
+@main.route('/series', methods = ["GET"])
 def listar_series():
     query = Filme.query
 
