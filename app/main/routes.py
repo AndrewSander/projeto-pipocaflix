@@ -125,14 +125,39 @@ def listar_series():
     return render_template('series.html', series=series, generos=generos, anos=anos)
 
 # Pagina de todos os atores
-@main.route('/todos_atores')
+@main.route('/todos_atores', methods = ["GET"])
 def listar_atores():
-    atores = Ator.query.order_by(Ator.nome).all()
+    query = Ator.query
+
+    # filtros
+    filmes = request.args.get('filmes')         
+    ordenar = request.args.get('ordenar', 'favoritos')
+
+    # testa e coloca os filtros
     
+    if filmes:
+        query = query.join(Ator.atuacoes).filter(Atuacao.filme_id == int(filmes))
+
+    # ordena os filmes
+    if ordenar == "idade":
+        query = query.order_by(Ator.data_nascimento.desc().nullslast())
+    elif ordenar == "alfabetico":
+        query = query.order_by(Ator.nome.asc())
+    elif ordenar == "favoritos":
+        query = (
+            query.outerjoin(usuario_ator_fav, Ator.id == usuario_ator_fav.c.ator_id)
+            .group_by(Ator.id)
+            .order_by(func.count(usuario_ator_fav.c.usuario_id).desc())
+        )
+
+    todos = Filme.query.all()
+    
+    atores = query.all()
+
     for ator in atores:
         ator.imagem_url = url_for('static', filename=f'img/ator/{ator.nome}.jpg')
 
-    return render_template('todos_atores.html', atores=atores)
+    return render_template('todos_atores.html', atores=atores, todos=todos)
 
 # Função para ordenar filmes pelo título
 def pegar_titulo(filme):

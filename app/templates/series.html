@@ -10,20 +10,16 @@
     <select name="ano">
         <option value="">Todos</option>
         {% for ano in anos %}
-            <option value="{{ ano }}" {% if request.args.get('ano') == ano|string %}selected{% endif %}>{{ ano }}</option>
+            <option value="{{ ano }}">{{ ano }}</option>
         {% endfor %}
     </select>
 
-    <fieldset>
-        <legend>Gênero:</legend>
+    <label for="genero">Gênero:</label>
+    <select name="genero">
         {% for genero in generos %}
-            <option value="{{ ano }}" {% if request.args.get('ano') == ano|string %}selected{% endif %}>{{ ano }}</option>
-        {% endfor %}
-        {% for genero in generos %}
-            <label>
-                <input type="checkbox" name="genero" value="{{ genero.nome }}"{% if genero.nome in generos_selecionados %}checked{% endif %}>{{ genero.nome }}</label>
-        {% endfor %}
-    </fieldset>
+            <option value="{{ genero.nome }}">{{ genero.nome }}</option>
+        {% endfor %}    
+    </select>
 
     <label for="ordenar">Ordenar por:</label>
     <select name="ordenar">
