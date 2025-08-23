@@ -2,7 +2,7 @@ from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
 from app.models import db, Filme, Usuario, Ator
 from flask_login import login_required, current_user, login_user, logout_user # type: ignore
-from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao
+from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero
 from flask_login import login_required, current_user, login_user, logout_user
 from app.funcoes import calcular_distribuicao
 
@@ -44,16 +44,72 @@ def series(filme_id):
     return render_template('series-page.html', filme=filme, episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total)
 
 # Pagina de todos os filmes
-@main.route('/filmes')
+@main.route('/filmes', methods = ["GET"])
 def listar_filmes():
-    filmes = Filme.query.filter_by(tipo='filme').order_by(Filme.titulo).all()
-    return render_template('filmes.html', filmes=filmes)
+    query = Filme.query
+
+    # filtros
+    ano = request.args.get('ano')         
+    generos_selecionados = request.args.getlist('genero') 
+    ordenar = request.args.get('ordenar', 'recente')
+
+    # testa e coloca os filtros
+    query = query.filter_by(tipo="filme")
+    
+    if generos_selecionados:
+        query = query.join(Filme.generos).filter(Genero.nome.in_(generos_selecionados))
+
+    if ano:
+        query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
+    
+    # ordena os filmes
+    if ordenar == "recente":
+        query = query.order_by(Filme.data_lancamento.desc().nullslast())
+    elif ordenar == "avaliacao":
+        query = query.order_by(Filme.media.desc().nullslast())
+    elif ordenar == "alfabetico":
+        query = query.order_by(Filme.titulo.asc())
+
+    generos = Genero.query.order_by(Genero.nome).all()
+    todos = Filme.query.filter_by(tipo='filme').all()
+    anos = sorted({f.data_lancamento.year for f in todos if f.data_lancamento})
+    
+    filmes = query.all()
+    return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos)
 
 # Pagina de todas as series
 @main.route('/series')
 def listar_series():
-    series = Filme.query.filter_by(tipo='serie').order_by(Filme.titulo).all()
-    return render_template('series.html', series=series)
+    query = Filme.query
+
+    # filtros
+    ano = request.args.get('ano')         
+    generos_selecionados = request.args.getlist('genero') 
+    ordenar = request.args.get('ordenar', 'recente')
+
+    # testa e coloca os filtros
+    query = query.filter_by(tipo="serie")
+    
+    if generos_selecionados:
+        query = query.join(Filme.generos).filter(Genero.nome.in_(generos_selecionados))
+
+    if ano:
+        query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
+    
+    # ordena os filmes
+    if ordenar == "recente":
+        query = query.order_by(Filme.data_lancamento.desc().nullslast())
+    elif ordenar == "avaliacao":
+        query = query.order_by(Filme.media.desc().nullslast())
+    elif ordenar == "alfabetico":
+        query = query.order_by(Filme.titulo.asc())
+
+    generos = Genero.query.order_by(Genero.nome).all()
+    todos = Filme.query.filter_by(tipo='serie').all()
+    anos = sorted({f.data_lancamento.year for f in todos if f.data_lancamento})
+    
+    series = query.all()
+    return render_template('series.html', series=series, generos=generos, anos=anos)
 
 # Pagina de todos os atores
 @main.route('/todos_atores')
