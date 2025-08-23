@@ -142,6 +142,7 @@ def cadastro():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.perfil'))
+    
     if request.method == "POST":
         usuario = request.form["usuario"]
         senha = request.form["senha"]
@@ -155,8 +156,9 @@ def login():
             next_page = request.args.get('next')
             return redirect(url_for("main.index")) 
         else:
-            flash("Usuário ou senha inválidos.")
-            return redirect(next_page or url_for("main.login"))
+            flash("Usuário não encontrado ou senha inválida. Cadastre-se!", "warning")
+            # aqui não redireciona, apenas re-renderiza o login.html
+            return redirect(url_for("main.login"))
 
     return render_template("login.html")
 
