@@ -152,12 +152,10 @@ def login():
         if user and user.verificar_senha(senha):
             session["usuario_id"] = user.id
             login_user(user)
-            flash("Login realizado com sucesso!")
             next_page = request.args.get('next')
             return redirect(url_for("main.index")) 
         else:
             flash("Usuário não encontrado ou senha inválida. Cadastre-se!", "warning")
-            # aqui não redireciona, apenas re-renderiza o login.html
             return redirect(url_for("main.login"))
 
     return render_template("login.html")
@@ -165,10 +163,45 @@ def login():
 # Pagina de logout
 @main.route("/logout")
 def logout():
-    session.pop("usuario_id", None)
     logout_user()
-    flash("Logout realizado com sucesso.")
+    session.pop("usuario_id", None)
     return redirect(url_for("main.index"))
+
+@main.route("/esqueci-senha", methods=["GET", "POST"])
+def esqueci_senha():
+    if request.method == "POST":
+        usuario = request.form["usuario"]
+        
+        user = Usuario.query.filter_by(usuario=usuario).first()
+        
+        if user:
+            # Redireciona para a próxima rota, passando o nome de usuário
+            return redirect(url_for("main.redefinir_senha", usuario=usuario))
+        else:
+            flash("Usuário não encontrado. Por favor, tente novamente.", "warning")
+            return redirect(url_for("main.esqueci_senha"))
+            
+    return render_template("esqueci_senha.html")
+
+@main.route("/redefinir-senha/<usuario>", methods=["GET", "POST"])
+def redefinir_senha(usuario):
+    user = Usuario.query.filter_by(usuario=usuario).first_or_404()
+
+    if request.method == "POST":
+        nova_senha = request.form["nova_senha"]
+        confirmar_senha = request.form["confirmar_senha"]
+
+        if nova_senha != confirmar_senha:
+            flash("As senhas não coincidem. Tente novamente.", "warning")
+            return render_template("redefinir_senha.html", usuario=usuario)
+        
+        user.set_senha(nova_senha) 
+        db.session.commit() # Exemplo com SQLAlchemy
+
+        flash("Sua senha foi redefinida com sucesso! Você pode fazer login agora.", "success")
+        return redirect(url_for("main.login"))
+
+    return render_template("redefinir_senha.html", usuario=usuario)
 
 # Pagina perfil
 @main.route("/perfil-geral")
