@@ -60,6 +60,7 @@ window.onclick = function(event) {
   }
 }
 
+/* favorita todos os filmes dentro de um classe chamada .filme-card */
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".filme-card .fav-btn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
@@ -67,6 +68,36 @@ document.addEventListener("DOMContentLoaded", () => {
       e.stopPropagation();
 
       const card = btn.closest(".filme-card");
+      const filmeId = card.getAttribute("data-filme-id");
+
+      try {
+        const resp = await fetch("/favoritos/filmes/toggle", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ filme_id: filmeId })
+        });
+
+        const data = await resp.json();
+        if (data.favoritado) {
+          btn.classList.add("is-active");
+        } else {
+          btn.classList.remove("is-active");
+        }
+      } catch (err) {
+        console.error("Erro ao favoritar:", err);
+      }
+    });
+  });
+});
+
+/* favorita todos os filmes dentro de um classe chamada .banner__info */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".banner__info .fav-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const card = btn.closest(".banner__info");
       const filmeId = card.getAttribute("data-filme-id");
 
       try {
