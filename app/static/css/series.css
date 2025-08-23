@@ -360,6 +360,121 @@
     background-color: var(--azul_4);
 }
 
+.button-avaliar{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color:var(--azul_3);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    font-size: 1.2em;
+    background-color: var(--enfase_1);
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    width: max-content;
+}
+.button-avaliar:hover{
+    cursor:pointer;
+}
+.icon-avaliar{
+  margin-bottom:2px;
+}
+
+.janela-avaliacao{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index:2000;
+  margin: 0 auto;
+  background-color: var(--azul_3);
+  width: 90%;
+  padding: 30px 50px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.janela_titulo{
+  text-transform: uppercase;
+  color: var(--enfase_1);
+  font-size: 1.2em;
+  line-height: 20px;
+}
+.container__avaliar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:20px;
+}
+.container_estrelas{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rating {
+  display: inline-flex;
+  flex-direction: row-reverse; 
+  gap: .1rem;
+  font-size: 2rem;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+  color: #cfd2d6; 
+}
+
+.rating label::before {
+  content: "★";
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: var(--enfase_1) 
+}
+.container__comentario{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.avaliacao_comentario{
+  width: 100%;
+  height: 100px;
+  padding: 0 20px;
+  border-radius: 15px;
+  text-align: center;
+  resize: none;
+  line-height: 100px;
+  overflow: hidden; /* critix flimsy  */
+}
+.avaliacao_comentario::placeholder{
+  font-size: 1em; 
+}
+.button{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color:var(--azul_3);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    font-size: 1.2em;
+    background-color: var(--enfase_1);
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+.show{
+  display:block;
+}
 /* AJUSTES DE CONTEÚDO*/
 /* Em telas menores*/
 @media (max-width: 650px) {
@@ -424,5 +539,3 @@
         font-size: 10px;
     }
 }
-
-

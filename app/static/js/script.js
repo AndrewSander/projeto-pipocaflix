@@ -191,3 +191,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   nav.addEventListener('touchend', () => isDown = false);
 });
+
+const btn = document.querySelector(".button-avaliar");
+const box = document.querySelector(".janela-avaliacao");
+
+btn.addEventListener("click", () => {
+  box.classList.toggle("show");
+
+  if (box.classList.contains("show")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";       
+  }
+});

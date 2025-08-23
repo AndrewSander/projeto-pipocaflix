@@ -40,6 +40,21 @@ def series(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
+    data = request.get_json()
+    filme_id = int(data.get("filme_id"))
+
+    filme = Filme.query.get_or_404(filme_id)
+
+    if current_user.filmes_fav.filter(Filme.id == filme_id).first():
+        # já favoritou = remover
+        current_user.filmes_fav.remove(filme)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.filmes_fav.append(filme)
+        db.session.commit()
+        return jsonify({"favoritado": True})
 
 
     return render_template('series-page.html', filme=filme, episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total)
