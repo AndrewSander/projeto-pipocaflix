@@ -47,9 +47,9 @@ class Filme(db.Model):
 
     @property
     def media(self):
-        if self.episodios:
-            media = sum(nota.avaliacao for nota in self.episodios) / len(self.episodios)
-            media = round(media, 2)
+        if self.avaliacoes:
+            media = sum(critica.nota for critica in self.avaliacoes) / len(self.avaliacoes)
+            media = round(media, 1)
             return media
         else:
             media = None
@@ -142,3 +142,5 @@ class Avaliacao(db.Model):
 
     usuario = db.relationship('Usuario', back_populates='avaliacoes')
     filme = db.relationship('Filme', back_populates='avaliacoes')
+
+
