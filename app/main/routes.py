@@ -81,6 +81,13 @@ def pagina_ator(ator_id):
 
     return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
+# Pagina de avaliação de filmes
+@login_required
+@main.route("/avaliar/<int:filme_id>")
+def avaliar(filme_id):
+    filme = Filme.query.get_or_404(filme_id)
+
+    return render_template('avaliar.html', filme=filme)
 
 # Formulário de cadastro
 @main.route("/cadastro", methods=["GET", "POST"])
@@ -120,10 +127,11 @@ def login():
             session["usuario_id"] = user.id
             login_user(user)
             flash("Login realizado com sucesso!")
+            next_page = request.args.get('next')
             return redirect(url_for("main.index")) 
         else:
             flash("Usuário ou senha inválidos.")
-            return redirect(url_for("main.login"))
+            return redirect(next_page or url_for("main.login"))
 
     return render_template("login.html")
 
