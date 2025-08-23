@@ -51,7 +51,7 @@
             <ul class="carrossel-interno__filmes">
                 {% for filme in filmes %}
                     <li  class="carrossel--filmes">
-                        <span class="numeracao">{{ filme.id }}</span>
+                        <span class="numeracao">{{ loop.index }}</span>
                         <a href="{{ url_for('main.series', filme_id=filme.id) }}">
                             <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
                         </a>
@@ -94,7 +94,7 @@
             <ul class="carrossel-interno__filmes">
                 {% for serie in series %}
                     <li  class="carrossel--filmes">
-                        <span class="numeracao">{{serie.id}}</span>
+                        <span class="numeracao">{{loop.index}}</span>
                         <a href="{{ url_for('main.series', filme_id=serie.id) }}">
                             <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
                         </a>

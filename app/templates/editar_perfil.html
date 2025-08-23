@@ -9,16 +9,19 @@
     <h1>Dados</h1>
     <form method="POST">
         <label>Nome:</label><br>
-        <input type="text" name="nome" required>
+        <input type="text" name="nome" value="{{ current_user.nome }}" required>
 
         <label>Usuário:</label><br>
-        <input type="text" name="usuario" required>
+        <input type="text" name="usuario" value="{{ current_user.usuario }}" required>
 
         <label>Url da foto:</label><br>
-        <input type="text" name="foto_url">
+        <div class="avatar">
+            <img class="avatar__img" src="{{ current_user.foto_url }}" alt="Foto de perfil">
+        </div><br>
+        <input type="text" name="foto_url" value="{{ current_user.foto_url}}" required>
 
         <label>Descrição:</label><br>
-        <input type="text" name="descricao">
+        <input type="text" name="descricao" value="{{ current_user.descricao }}" required>
 
         <button type="submit">Editar</button>
     </form>

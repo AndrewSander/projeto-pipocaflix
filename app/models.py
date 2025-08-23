@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash # type
 from .extensions import login_manager, db
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy import func, select
+from sqlalchemy.ext.hybrid import hybrid_property
 
 @login_manager.user_loader
 def load_user(id):
@@ -45,16 +47,17 @@ class Filme(db.Model):
             return self.data_lancamento.year
         return None
 
-    @property
+    @hybrid_property
     def media(self):
-        if self.episodios:
-            media = sum(nota.avaliacao for nota in self.episodios) / len(self.episodios)
-            media = round(media, 2)
-            return media
-        else:
-            media = None
-        return media
-
+        if self.avaliacoes:
+            media = sum(critica.nota for critica in self.avaliacoes) / len(self.avaliacoes)
+            return round(media, 1)
+        return None
+    
+    @media.expression
+    def media(cls):
+        return (select(func.avg(Avaliacao.nota)).where(Avaliacao.filme_id == cls.id).correlate(cls).scalar_subquery())
+    
 class Episodio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
@@ -142,3 +145,5 @@ class Avaliacao(db.Model):
 
     usuario = db.relationship('Usuario', back_populates='avaliacoes')
     filme = db.relationship('Filme', back_populates='avaliacoes')
+
+
