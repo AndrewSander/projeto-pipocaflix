@@ -2,9 +2,10 @@ from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
 from app.models import db, Filme, Usuario, Ator
 from flask_login import login_required, current_user, login_user, logout_user # type: ignore
-from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero
+from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero, usuario_filme_fav, usuario_ator_fav
 from flask_login import login_required, current_user, login_user, logout_user
 from app.funcoes import calcular_distribuicao
+from sqlalchemy import func
 
 # Pagina inicial
 @main.route('/')
@@ -69,6 +70,12 @@ def listar_filmes():
         query = query.order_by(Filme.media.desc().nullslast())
     elif ordenar == "alfabetico":
         query = query.order_by(Filme.titulo.asc())
+    elif ordenar == "favoritos":
+        query = (
+            query.outerjoin(usuario_filme_fav, Filme.id == usuario_filme_fav.c.filme_id)
+            .group_by(Filme.id)
+            .order_by(func.count(usuario_filme_fav.c.usuario_id).desc())
+        )
 
     generos = Genero.query.order_by(Genero.nome).all()
     todos = Filme.query.filter_by(tipo='filme').all()
@@ -103,6 +110,12 @@ def listar_series():
         query = query.order_by(Filme.media.desc().nullslast())
     elif ordenar == "alfabetico":
         query = query.order_by(Filme.titulo.asc())
+    elif ordenar == "favoritos":
+        query = (
+            query.outerjoin(usuario_filme_fav, Filme.id == usuario_filme_fav.c.filme_id)
+            .group_by(Filme.id)
+            .order_by(func.count(usuario_filme_fav.c.usuario_id).desc())
+        )
 
     generos = Genero.query.order_by(Genero.nome).all()
     todos = Filme.query.filter_by(tipo='serie').all()
