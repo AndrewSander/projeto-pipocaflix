@@ -92,19 +92,26 @@
             {% if filme.avaliacoes %}
                 <div class="rating-score">
                     <span>⭐ 4.9</span>
-                    <p>6.3K</p>
+                    <p>{{ total }}</p>
                 </div>
                 <div class="rating-bars">
-                    <div><span>1</span><div class="bar" style="width: 10%;"></div></div>
-                    <div><span>2</span><div class="bar" style="width: 15%;"></div></div>
-                    <div><span>3</span><div class="bar" style="width: 20%;"></div></div>
-                    <div><span>4</span><div class="bar" style="width: 40%;"></div></div>
-                    <div><span>5</span><div class="bar" style="width: 80%;"></div></div> 
+                    <div><span>1</span><div class="bar" style="width: {{ distribuicao[1] }}%;"></div></div>
+                    <div><span>2</span><div class="bar" style="width: {{ distribuicao[2] }}%;"></div></div>
+                    <div><span>3</span><div class="bar" style="width: {{ distribuicao[3] }}%;"></div></div>
+                    <div><span>4</span><div class="bar" style="width: {{ distribuicao[4] }}%;"></div></div>
+                    <div><span>5</span><div class="bar" style="width: {{ distribuicao[5] }}%;"></div></div> 
                 </div>
             {% else %}
                 <p>Seja o primeiro a avaliar!</p>
             {% endif %}
         </div>
         <a href="{{ url_for('main.avaliar', filme_id=filme.id) }}" class="rating-button">Avaliar</a>
+
+        <div class="ratings-text">
+            <div class="destaque"></div>
+            <h2 class="title">COMENTARIOS</h2>
+        </div>
     </section>
+
+
 {% endblock %}

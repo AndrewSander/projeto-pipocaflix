@@ -2,8 +2,9 @@ from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
 from app.models import db, Filme, Usuario, Ator
 from flask_login import login_required, current_user, login_user, logout_user # type: ignore
-from app.models import db, Filme, Usuario, Ator, Atuacao
+from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao
 from flask_login import login_required, current_user, login_user, logout_user
+from app.funcoes import calcular_distribuicao
 
 # Pagina inicial
 @main.route('/')
@@ -23,8 +24,10 @@ def filmes(filme_id):
     if filme.tipo == "serie":
         return redirect(url_for('main.series', filme_id=filme.id))
     atuacoes = filme.atuacoes
+    distribuicao = calcular_distribuicao(filme.id)
+    total = len(filme.avaliacoes)
 
-    return render_template('film-page.html', filme=filme, elenco=atuacoes)
+    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total)
 
 # Pagina de series
 @main.route('/series/<int:filme_id>')
@@ -34,8 +37,11 @@ def series(filme_id):
         return redirect(url_for('main.filmes', filme_id = filme.id))
     episodios = filme.episodios
     atuacoes = filme.atuacoes
+    distribuicao = calcular_distribuicao(filme.id)
+    total = len(filme.avaliacoes)
 
-    return render_template('series-page.html', filme=filme, episodios=episodios, elenco=atuacoes)
+
+    return render_template('series-page.html', filme=filme, episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total)
 
 # Pagina de todos os filmes
 @main.route('/filmes')
@@ -82,12 +88,31 @@ def pagina_ator(ator_id):
     return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
 # Pagina de avaliação de filmes
+@main.route("/avaliar/<int:filme_id>", methods=["GET", "POST"])
 @login_required
-@main.route("/avaliar/<int:filme_id>")
 def avaliar(filme_id):
     filme = Filme.query.get_or_404(filme_id)
+    avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
 
-    return render_template('avaliar.html', filme=filme)
+    if request.method == 'POST':
+        nota = float(request.form['nota'])
+        comentario = request.form.get('comentario', '')
+
+        if avaliacao:
+            # Atualiza avaliação
+            avaliacao.nota = nota
+            avaliacao.comentario = comentario
+        else:
+            # Nova atualização
+            avaliacao = Avaliacao(
+                usuario_id=current_user.id, filme_id=filme.id, nota=nota, comentario=comentario
+            )
+            db.session.add(avaliacao)
+
+        db.session.commit()
+        return redirect(url_for('main.filmes', filme_id=filme.id))
+
+    return render_template('avaliar.html', filme=filme, avaliacao=avaliacao)
 
 # Formulário de cadastro
 @main.route("/cadastro", methods=["GET", "POST"])

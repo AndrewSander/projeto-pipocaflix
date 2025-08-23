@@ -322,6 +322,7 @@
 
 .rating-bars {
     flex: 1;
+    margin-right: 10%;
 }
 
 .rating-bars div {
