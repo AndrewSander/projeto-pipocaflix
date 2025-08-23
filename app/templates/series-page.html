@@ -114,20 +114,28 @@
     </section>
 
     <section class="ratings-section">
-        <h2 class="section-title">Avaliações dos usuários</h2>
-        <div class="ratings-summary">
-            <div class="rating-score">
-                <span>⭐ 4.9</span>
-                <p>6.3K</p>
-            </div>
-            <div class="rating-bars">
-                <div><span>1</span><div class="bar" style="width: 10%;"></div></div>
-                <div><span>2</span><div class="bar" style="width: 15%;"></div></div>
-                <div><span>3</span><div class="bar" style="width: 20%;"></div></div>
-                <div><span>4</span><div class="bar" style="width: 40%;"></div></div>
-                <div><span>5</span><div class="bar" style="width: 80%;"></div></div>
-            </div>
+        <div class="ratings-text">
+            <div class="destaque"></div>
+            <h2 class="title">AVALIAÇÕES</h2>
         </div>
-        <button class="rating-button">+ Avaliação</button>
+        <div class="ratings-summary">
+            {% if filme.avaliacoes %}
+                <div class="rating-score">
+                    <span>⭐ 4.9</span>
+                    <p>6.3K</p>
+                </div>
+                <div class="rating-bars">
+                    <div><span>1</span><div class="bar" style="width: 10%;"></div></div>
+                    <div><span>2</span><div class="bar" style="width: 15%;"></div></div>
+                    <div><span>3</span><div class="bar" style="width: 20%;"></div></div>
+                    <div><span>4</span><div class="bar" style="width: 40%;"></div></div>
+                    <div><span>5</span><div class="bar" style="width: 80%;"></div></div> 
+                </div>
+            {% else %}
+                <p>Seja o primeiro a avaliar!</p>
+            {% endif %}
+        </div>
+        <a href="{{ url_for('main.avaliar', filme_id=filme.id) }}" class="rating-button">Avaliar</a>
     </section>
+
 {% endblock %}
