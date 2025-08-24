@@ -124,6 +124,12 @@ class Usuario(UserMixin, db.Model):
 
     def verificar_senha(self, senha):
         return check_password_hash(self.senha_hash, senha)
+    
+    @property
+    def ano_criacao(self):
+        if self.created_at:
+            return self.created_at.year
+        return datetime.utcnow().year
 
 
 class Status(db.Model):
