@@ -21,6 +21,8 @@ def index():
 def filmes(filme_id):
     filme = Filme.query.get_or_404(filme_id)
 
+    criticas = Avaliacao.query.filter_by(filme_id=filme.id).order_by(Avaliacao.nota.desc()).limit(10).all()
+
     if filme.tipo == "serie":
         return redirect(url_for('main.series', filme_id=filme.id))
 
@@ -54,12 +56,14 @@ def filmes(filme_id):
             # Redireciona pra mesma página (recarregar com a avaliação nova)
             return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total)
+    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total,criticas=criticas)
 
 # Pagina de series
 @main.route('/series/<int:filme_id>', methods=["GET", "POST"])
 def series(filme_id):
     filme = Filme.query.get_or_404(filme_id)
+    
+    criticas = Avaliacao.query.filter_by(filme_id=filme.id).order_by(Avaliacao.nota.desc()).limit(10).all()
 
     if filme.tipo == "filme":
         return redirect(url_for('main.filmes', filme_id=filme.id))
@@ -95,7 +99,7 @@ def series(filme_id):
             # Redireciona pra mesma página (recarregar com a avaliação nova)
             return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template("series-page.html",filme=filme,episodios=episodios,elenco=atuacoes,distribuicao=distribuicao,total=total)
+    return render_template("series-page.html",filme=filme,episodios=episodios,elenco=atuacoes,distribuicao=distribuicao,total=total, criticas=criticas)
 
 
 # Pagina de todos os filmes

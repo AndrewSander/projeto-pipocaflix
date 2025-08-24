@@ -60,7 +60,13 @@
         <div class="trailer_video">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
+        <form class="container__salvar" action="" method="POST">
+            <button class="button--series" type="submit"><i class="fa-solid fa-bookmark"></i>ADICIONAR À LISTA</button>
+            <button class="button--series dark" type="submit"><i class="fa-solid fa-eye"></i>MARCAR COMO ASSISTIDO</button>
+            <button class="button--series dark-2" type="submit"><i class="fa-solid fa-eye-slash"></i>MARCAR COMO ASSISTINDO</button>
+        </form>
     </section>
+
 
     <form class="janela-avaliacao" method="POST">
         <i class="fa-solid fa-x fechar-janela"></i>
@@ -183,10 +189,36 @@
             </section>
         {% endif %}
 
-        <div class="ratings-text">
-            <div class="destaque"></div>
-            <h2 class="title">COMENTARIOS</h2>
-        </div>
+        <section class="carrossel">
+            <div class="carrossel--header">
+                <div class="carrossel--text">
+                    <div class="destaque"></div>
+                    <h2 class="title">COMENTARIOS</h2>
+                </div>
+            </div>
+            <div class="carrossel--main-criticas">
+                <li class="carrossel-interno__criticas">
+                    {% for critica in criticas %}
+                        {% if critica.comentario %}
+                            <div class="container_critica">
+                                    <div class="critica-usuario">
+                                        <img class="critica-foto" src="{{critica.usuario.foto_url}}" alt="">
+                                        <p class="critica-nome">{{critica.usuario.usuario}}</p>
+                                    </div>
+                                <div>
+                                    <p class="critica-nota">⭐ NOTA: {{critica.nota}} </p>
+                                    <p class="critica-comentario">{{critica.comentario}}</p>
+                                </div>
+                                <p class="critica-expandir">Ver tudo</p>
+                            </div>
+                        {% else %}
+
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            </div>
+        </section>
+
     </section>
 
 {% endblock %}

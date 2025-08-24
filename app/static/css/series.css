@@ -218,6 +218,66 @@
     overflow: visible;       
 }
 
+.carrossel--main-criticas{
+    overflow-x: auto;
+    height: max-content;
+    cursor: grab;
+    user-select: none;
+    scrollbar-width: none;
+}
+
+
+.carrossel-interno__criticas{
+    margin-left: 2em;
+    margin-right: 2em;
+    gap:30px;
+    display: flex;
+}
+
+.container_critica{
+    flex-shrink: 0;
+    border-radius: 15px;
+    padding: 20px 30px;
+    background-color: var(--azul_4);
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap:10px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.container_header_critica{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.critica-nota{
+    font-weight: 600;
+}
+.critica-usuario{
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+}
+.critica-foto{
+    border: 2px solid var(--enfase_1);
+    border-radius: 50px;
+    width: 40px;
+}
+.critica-nome{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.critica-comentario{
+    font-weight: 300;
+    font-size: 0.9em;
+    color: var(--enfase_1)
+}
 .cast-card {
     position: relative;
     text-align: center;
@@ -228,6 +288,11 @@
     overflow: hidden;
     font-size: 12px;
     border: 1px solid var(--azul_4);
+}
+.critica-expandir{
+    position: absolute;
+    bottom:10px;
+    right:20px;
 }
 
 .cast-card:hover {
@@ -474,6 +539,32 @@
     justify-content: center;
     gap:10px;
 }
+.container__salvar{
+    margin-top:40px;
+}
+.button--series{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 25px;
+    width: 300px;
+    border-radius: 10px;
+    color:var(--azul_3);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    font-size: 0.8em;
+    background-color: var(--enfase_1);
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+.button--series:hover{
+    cursor:pointer;
+}
+.dark{
+    background-color: var(--azul_4);
+    color: var(--enfase_1)
+}
+
 .show{
   display:block;
 }
