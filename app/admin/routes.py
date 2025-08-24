@@ -35,7 +35,6 @@ def novo_filme():
         data_lancamento = datetime.strptime(data_lancamento_str, "%Y-%m-%d").date()
         tipo = request.form['tipo']
         lancamento = request.form['lancamento'] == "True"
-
         trailer_url = request.form.get('trailer', '')
         
         genero_ids = request.form.getlist("generos")  
@@ -174,7 +173,7 @@ def editar_filme(filme_id):
 
         db.session.commit()
         flash("Filme atualizado com sucesso!", "success")
-        return redirect(url_for('admin.novo_filme')) # Você pode mudar o redirecionamento
+        return redirect(url_for('admin.novo_filme'))
     
     return render_template('editar_filme.html', filme=filme, generos=generos_disponiveis)
 
