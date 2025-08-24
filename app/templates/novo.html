@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Novo Episódio</title>
-</head>
-<body>
-    <h1>Adicionar Episódio</h1>
+{% extends "base.html" %}
+
+{% block title %} Novo Ator {% endblock %}
+
+{% block content %}
+<section class="novo-episodio_page">
+    <h2>Adicionar Episódio</h2>
     <form method="POST">
-        <label>Título:</label><br>
-        <input type="text" name="titulo" required><br><br>
+        <label>Título:</label>
+        <input type="text" name="titulo" required>
 
-        <label>Número (ex: S01E01):</label><br>
-        <input type="text" name="numero" required><br><br>
+        <label>Número (ex: S01E01):</label>
+        <input type="text" name="numero" required>
 
-        <label>Avaliação:</label><br>
-        <input type="number" name="avaliacao" step="0.1" min="0" max="5" required><br><br>
+        <label>Avaliação:</label>
+        <input type="number" name="avaliacao" step="0.1" min="0" max="5" required>
 
-        <label>Selecione o filme:</label><br>
+        <label>Selecione o filme:</label>
         <select name="filme_id" required>
             {% for filme in filmes %}
                 <option value="{{ filme.id }}">{{ filme.titulo }}</option>
@@ -24,6 +23,5 @@
         </select>
         <button type="submit">Salvar</button>
     </form>
-
-</body>
-</html>
+</section>
+{% endblock %}
