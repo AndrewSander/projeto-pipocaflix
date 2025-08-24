@@ -25,20 +25,21 @@ def novo():
 # Formulário de novo filme
 @admin.route('/novo-filme', methods=['GET', 'POST'])
 def novo_filme():
-    generos = Genero.query.all()
-    filmes = Filme.query.all()
+    generos = Genero.query.order_by(Genero.nome.asc()).all()
 
     if request.method == 'POST':
         titulo = request.form['titulo']
         descricao = request.form['descricao']
         temporada = request.form['temporada']
-        data_lancamento = request.form['data_lancamento'] 
+        data_lancamento_str = request.form['data_lancamento']
+        data_lancamento = datetime.strptime(data_lancamento_str, "%Y-%m-%d").date()
         tipo = request.form['tipo']
+        lancamento = request.form['lancamento'] == "True"
         
         genero_ids = request.form.getlist("generos")  
         genero_ids = [int(gid) for gid in genero_ids]  
 
-        novo_filme = Filme(titulo=titulo, descricao=descricao, temporada = temporada, data_lancamento = data_lancamento, tipo=tipo)
+        novo_filme = Filme(titulo=titulo, descricao=descricao, temporada =int(temporada), data_lancamento = data_lancamento, tipo=tipo, lancamento=lancamento)
         
         generos_selecionados = Genero.query.filter(Genero.id.in_(genero_ids)).all()
         for genero in generos_selecionados:
@@ -106,7 +107,7 @@ def novo_ator():
 @admin.route('/novo-genero', methods=['GET', 'POST'])
 def novo_genero():
     filmes = Filme.query.all()
-    generos = Genero.query.all()
+    generos = Genero.query.order_by(Genero.nome.asc()).all()
 
     if request.method == 'POST':
         acao = request.form.get("acao")

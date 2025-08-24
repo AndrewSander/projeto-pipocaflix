@@ -34,6 +34,7 @@ class Filme(db.Model):
     temporada = db.Column(db.Integer, nullable=True)
     trailer = db.Column(db.String(50), nullable=True)
     data_lancamento = db.Column(db.Date, nullable=True)
+    lancamento = db.Column(db.Boolean, default=False)
 
     avaliacoes = db.relationship('Avaliacao', back_populates='filme', cascade='all, delete-orphan')
     episodios = db.relationship('Episodio', backref='filme', lazy=True)
@@ -123,6 +124,12 @@ class Usuario(UserMixin, db.Model):
 
     def verificar_senha(self, senha):
         return check_password_hash(self.senha_hash, senha)
+    
+    @property
+    def ano_criacao(self):
+        if self.created_at:
+            return self.created_at.year
+        return datetime.utcnow().year
 
 
 class Status(db.Model):
