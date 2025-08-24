@@ -62,6 +62,27 @@
         </div>
     </section>
 
+    <form class="janela-avaliacao" method="POST">
+        <i class="fa-solid fa-x fechar-janela"></i>
+        <div class="container__avaliar">
+            <div class="container_estrelas">
+                <h2 class="janela_titulo">AVALIAR {{ filme.titulo }}</h2>
+                <div class="rating">
+                    <input type="radio" id="star5" name="nota" value="5"><label for="star5" title="5 estrelas"></label>
+                    <input type="radio" id="star4" name="nota" value="4"><label for="star4" title="4 estrelas"></label>
+                    <input type="radio" id="star3" name="nota" value="3"><label for="star3" title="3 estrelas"></label>
+                    <input type="radio" id="star2" name="nota" value="2"><label for="star2" title="2 estrelas"></label>
+                    <input type="radio" id="star1" name="nota" value="1"><label for="star1" title="1 estrela"></label>
+                </div>
+            </div>
+            <div class="container__comentario">
+                <label for="comentario">Comentário:</label>
+                <textarea class="avaliacao_comentario" id="comentario" name="comentario" placeholder="Escreva sua opinião..."></textarea>
+                <button class="button" type="submit">SALVAR</button>
+            </div>
+        </div>
+    </form>
+
     <section class="carrossel">
         <div class="carrossel--header">
             <div class="carrossel--text">
@@ -80,7 +101,6 @@
                                 <div class="episode-info">
                                     <strong>{{ ep.numero }}</strong>
                                     <p class="episode-titulo">{{ ep.titulo }}</p>
-                                    <p class="rating">⭐⭐⭐⭐⭐ {{ ep.avaliacao }}</p>
                                 </div>
                             </div>
                         </ul>
@@ -146,7 +166,22 @@
                 <p>Seja o primeiro a avaliar!</p>
             {% endif %}
         </div>
-        <a href="{{ url_for('main.avaliar', filme_id=filme.id) }}" class="rating-button">Avaliar</a>
+        {% if current_user.is_authenticated %}
+            <div class="button-avaliar">                         
+                <svg class="icon-avaliar" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                fill="none" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <p> AVALIAR </p>
+            </div>
+        {% else %}
+            <section class="chamada">
+                <div class="chamada--main">
+                    <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
+                </div>
+            </section>
+        {% endif %}
 
         <div class="ratings-text">
             <div class="destaque"></div>
