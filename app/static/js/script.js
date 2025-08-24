@@ -192,6 +192,24 @@ document.addEventListener('DOMContentLoaded', () => {
   nav.addEventListener('touchend', () => isDown = false);
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Encontra os botões e o menu no HTML
+  const botaoAbrir = document.querySelector(".header__menu");
+  const botaoFechar = document.querySelector(".btn-fechar");
+  const menu = document.querySelector(".menu-lateral");
+
+  // Adiciona a função de clique no botão de abrir
+  botaoAbrir.addEventListener("click", () => {
+    menu.classList.add("aberto"); // Mostra o menu
+  });
+
+  // Adiciona a função de clique no botão de fechar
+  botaoFechar.addEventListener("click", () => {
+    menu.classList.remove("aberto"); // Esconde o menu
+  });
+});
+
 const btn = document.querySelector(".button-avaliar");
 const box = document.querySelector(".janela-avaliacao");
 
