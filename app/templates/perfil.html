@@ -38,7 +38,8 @@
     <div class="perfil-info">
         <div class="user-details">
             <h2>{{ current_user.usuario }}</h2>
-            <p class="user-details__subtitle">{{ current_user.nome }} • em pipocaflix desde {{ current_user.ano_criacao }}</p>
+            <p class="user-details__title">{{ current_user.nome }} • {{current_user.descricao}}</p>
+            <p class="user-details__subtitle">em pipocaflix desde {{ current_user.ano_criacao }}</p>
         </div>
     </div>
     <nav class="perfil-nav">
