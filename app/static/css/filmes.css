@@ -1,4 +1,4 @@
-.filmes-series_filtros {
+.filmes-series_filtros-form {
     margin: 20px auto;
     display: flex;
     flex-wrap: wrap;
@@ -9,13 +9,13 @@
     border-radius: 8px;
 }
 
-.filmes-series_filtros label {
+.filmes-series_filtros-form label {
     font-size: 15px;
     font-weight: 500;
     margin-right: 5px;
 }
 
-.filmes-series_filtros select {
+.filmes-series_filtros-form select {
     padding: 6px 10px;
     border-radius: 6px;
     border: 1px solid #4c5766;
@@ -27,14 +27,14 @@
 }
 
 
-.filmes-series_filtros option {
+.filmes-series_filtros-form option {
     font-size: 14px;
     padding: 6px;
     background: #0f172a;
     color: #f1f5f9;
 }
 
-.filmes-series_filtros button {
+.filmes-series_filtros-form button {
     padding: 8px 16px;
     background: #3b82f6;
     color: #fff;
@@ -46,7 +46,7 @@
     margin: 10px
 }
 
-.filmes-series_filtros button:hover {
+.filmes-series_filtros-form button:hover {
     background: #2563eb;
     transform: scale(1.05);
 }
@@ -56,10 +56,12 @@
     text-align: center;
 }
 
-.filmes-series_page h1 {
+.filmes-series_filtros h1 {
     font-size: 24px;
     color: #fff;
     margin: 20px;
+    text-align: center;
+    padding: 20px;
 }
 
 .filmes-series_grid {
