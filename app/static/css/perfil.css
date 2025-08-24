@@ -270,3 +270,55 @@
     line-height: 20px;
     word-break: keep-all;
 }
+.container_critica{
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 15px;
+    padding: 20px 30px;
+    background-color: var(--azul_4);
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap:10px;
+    position: relative;
+    margin: 20px auto;
+}
+
+.container_header_critica{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.critica-nota{
+    font-weight: 600;
+}
+.critica-usuario{
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+}
+.critica-foto{
+    border: 2px solid var(--enfase_1);
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.critica-nome{
+    white-space: normal;      
+    overflow-wrap: break-word; 
+    word-break: break-word;   
+    font-size: 0.8em;
+    text-transform: uppercase;
+    font-weight: bold;
+    max-width: 200px;  
+}
+.critica-comentario{
+    font-weight: 300;
+    font-size: 0.9em;
+    color: var(--enfase_1)
+}
