@@ -60,7 +60,13 @@
         <div class="trailer_video">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
+        <form class="container__salvar" action="" method="POST">
+            <button class="button--series" type="submit"><i class="fa-solid fa-bookmark"></i>ADICIONAR À LISTA</button>
+            <button class="button--series dark" type="submit"><i class="fa-solid fa-eye"></i>MARCAR COMO ASSISTIDO</button>
+            <button class="button--series dark-2" type="submit"><i class="fa-solid fa-eye-slash"></i>MARCAR COMO ASSISTINDO</button>
+        </form>
     </section>
+
 
     <form class="janela-avaliacao" method="POST">
         <i class="fa-solid fa-x fechar-janela"></i>

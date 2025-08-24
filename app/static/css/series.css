@@ -537,6 +537,32 @@
     justify-content: center;
     gap:10px;
 }
+.container__salvar{
+    margin-top:40px;
+}
+.button--series{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 25px;
+    width: 300px;
+    border-radius: 10px;
+    color:var(--azul_3);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    font-size: 0.8em;
+    background-color: var(--enfase_1);
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+.button--series:hover{
+    cursor:pointer;
+}
+.dark{
+    background-color: var(--azul_4);
+    color: var(--enfase_1)
+}
+
 .show{
   display:block;
 }
