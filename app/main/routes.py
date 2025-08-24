@@ -235,33 +235,6 @@ def pagina_ator(ator_id):
 
     return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
-# Pagina de avaliação de filmes
-@main.route("/avaliar/<int:filme_id>", methods=["GET", "POST"])
-@login_required
-def avaliar(filme_id):
-    filme = Filme.query.get_or_404(filme_id)
-    avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
-
-    if request.method == 'POST':
-        nota = float(request.form['nota'])
-        comentario = request.form.get('comentario', '')
-
-        if avaliacao:
-            # Atualiza avaliação
-            avaliacao.nota = nota
-            avaliacao.comentario = comentario
-        else:
-            # Nova atualização
-            avaliacao = Avaliacao(
-                usuario_id=current_user.id, filme_id=filme.id, nota=nota, comentario=comentario
-            )
-            db.session.add(avaliacao)
-
-        db.session.commit()
-        return redirect(url_for('main.filmes', filme_id=filme.id))
-
-    return render_template('avaliar.html', filme=filme, avaliacao=avaliacao)
-
 # Formulário de cadastro
 @main.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
