@@ -204,3 +204,10 @@ btn.addEventListener("click", () => {
     document.body.style.overflow = "";       
   }
 });
+
+const btn_fechar = document.querySelector(".fechar-janela");
+
+btn_fechar.addEventListener("click", () => {
+  box.classList.remove("show");
+  document.body.style.overflow = "";
+})

@@ -390,6 +390,15 @@
   border-radius: 15px;
 }
 
+.fechar-janela{
+    position: absolute;
+    right:20px;
+    top:20px;
+}
+.fechar-janela:hover{
+    cursor:pointer;
+}
+
 .janela_titulo{
   text-transform: uppercase;
   color: var(--enfase_1);
