@@ -3,7 +3,8 @@
 .novo-genero_page,
 .novo-episodio_page,
 .editar-filme_page,
-.lista-editar_page {
+.lista-editar_page,
+.editar-filme_page {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +18,8 @@
 .novo-filme_page h2,
 .novo-genero_page h2,
 .novo-episodio_page h2,
-.editar-filme_page h2 {
+.editar-filme_page h2,
+.editar-filme_page h2, {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     margin-top: 20px;
@@ -41,7 +43,8 @@
 .novo-ator_page label,
 .novo-filme_page label,
 .novo-genero_page label,
-.novo-episodio_page label {
+.novo-episodio_page label,
+.editar-filme_page label {
     font-size: 16px;
     margin-bottom: 5px;
     font-weight: 500;
@@ -55,7 +58,10 @@
 .novo-genero_page input,
 .novo-genero_page select,
 .novo-episodio_page input,
-.novo-episodio_page select {
+.novo-episodio_page select,
+.editar-filme_page input,
+.editar-filme_page select,
+.editar-filme_page textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -72,7 +78,8 @@
 .novo-ator_page option,
 .novo-filme_page option,
 .novo-genero_page option,
-.novo-episodio_page option {
+.novo-episodio_page option,
+.editar-filme_page option {
     font-size: 14px;
     padding: 10px;
     background: #0f172a;
@@ -83,7 +90,8 @@
 .novo-ator_page button,
 .novo-filme_page button,
 .novo-genero_page button,
-.novo-episodio_page button{
+.novo-episodio_page button,
+.editar-filme_page button {
     padding: 10px;
     background-color: #007bff;
     color: white;
@@ -97,7 +105,8 @@
 .novo-ator_page button:hover,
 .novo-filme_page button:hover,
 .novo-genero_page button:hover,
-.novo-episodio_page button:hover {
+.novo-episodio_page button:hover,
+.editar-filme_page button:hover {
     background-color: #0056b3;
 }
 
@@ -108,7 +117,8 @@
     margin-top: 30px; /* Adiciona um espaço acima, se necessário */
 }
 
-.voltar-page a{
+.voltar-page a,
+.editar-filme_page a{
     display: flex;
     margin: 20px;
     color: #007bff;
