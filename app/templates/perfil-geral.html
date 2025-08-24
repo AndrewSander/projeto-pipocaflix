@@ -8,18 +8,17 @@
 
 {% block perfil_content %}
     <div class="main-film">
-        <img class="filme-fav" src="../static/img/series/1/Capa.webp" alt="filme favorito">
+        <img class="filme-fav" src="../static/img/series/{{filmes[0].id}}/Capa.webp" alt="filme favorito">
         <div class="movie__info">
             <p class="main-film__aviso">FILME FAVORITO</p>
-            <p class="main-film__title">Nome do filme</p>
-            <p class="main-film__subtitle">Autor</p>
+            <p class="main-film__title">{{filmes[0].titulo}}</p>
         </div>
     </div>
     {% if not current_user.is_authenticated %}
     <button class="button">ADICIONAR NA LISTA</button>
     {% endif %}
 
-    <div class="perfil-stats">
+    <!-- <div class="perfil-stats">
         <div>
             <span>FILMES/SERIES</span>
             <h3>{{ qtd_filmes }}</h3>
@@ -28,7 +27,7 @@
             <span>ATORES</span>
             <h3>{{ qtd_atores }}</h3>
         </div>
-    </div> 
+    </div>  -->
     
     <section class="carrossel">
         <div class="carrossel--header">
