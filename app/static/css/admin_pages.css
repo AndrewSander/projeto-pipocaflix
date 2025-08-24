@@ -1,0 +1,105 @@
+.novo-ator_page,
+.novo-filme_page,
+.novo-genero_page,
+.novo-episodio_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    min-height: 100vh;
+    padding: 40px 20px;
+    gap: 20px;
+}
+
+.novo-ator_page h2,
+.novo-filme_page h2,
+.novo-genero_page h2,
+.novo-episodio_page h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.novo-ator_page form,
+.novo-filme_page form,
+.novo-genero_page form,
+.novo-episodio_page form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    padding: 20px;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.novo-ator_page label,
+.novo-filme_page label,
+.novo-genero_page label,
+.novo-episodio_page label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.novo-ator_page input,
+.novo-ator_page select,
+.novo-filme_page input,
+.novo-filme_page select,
+.novo-filme_page textarea ,
+.novo-genero_page input,
+.novo-genero_page select,
+.novo-episodio_page input,
+.novo-episodio_page select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.novo-filme_page textarea {
+    resize: vertical;
+    min-height: 100px;
+    max-height: 300px;
+}
+
+.novo-ator_page option,
+.novo-filme_page option,
+.novo-genero_page option,
+.novo-episodio_page option {
+    font-size: 14px;
+    padding: 10px;
+    background: #0f172a;
+    color: #f1f5f9;
+    margin: 20px;
+}
+
+.novo-ator_page button,
+.novo-filme_page button,
+.novo-genero_page button,
+.novo-episodio_page button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.novo-ator_page button:hover,
+.novo-filme_page button:hover,
+.novo-genero_page button:hover,
+.novo-episodio_page button:hover {
+    background-color: #0056b3;
+}
+
+.novo-filme_page a {
+    margin: 20px;
+    color: #007bff;
+    text-decoration: none;
+    align-self: flex-start;
+}

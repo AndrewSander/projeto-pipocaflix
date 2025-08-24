@@ -1,49 +1,46 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Novo Filme</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <h1>Adicionar Novo Filme</h1>
+{% extends "base.html" %}
 
+{% block title %} Novo Ator {% endblock %}
+
+{% block content %}
+<section class="novo-filme_page">
+    <h2>Adicionar Novo Filme</h2>
     <form method="POST">
-        <label for="titulo">Título:</label><br>
-        <input type="text" id="titulo" name="titulo" required><br><br>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
 
-        <label for="descricao">Descrição:</label><br>
-        <textarea id="descricao" name="descricao" rows="5" required></textarea><br><br>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="5" required></textarea>
 
-        <label for="tipo">Tipo:</label><br>
+        <label for="tipo">Tipo:</label>
         <select name="tipo" id="tipo" required>
             <option value="filme">Filme</option>
             <option value="serie">Série</option>
-        </select><br><br>
+        </select>
 
-        <label for="lancamento">Em cartaz:</label><br>
+        <label for="lancamento">Em cartaz:</label>
         <select name="lancamento" id="lancamento" required>
             <option value="True">Sim</option>
             <option value="False">Não</option>
-        </select><br><br>
+        </select>
 
-        <label for="temporada">Temporadas:</label><br>
-        <input type="number" id="temporada" name="temporada" step="1" min="1" max="50" required><br><br>   
+        <label for="temporada">Temporadas:</label>
+        <input type="number" id="temporada" name="temporada" step="1" min="1" max="50" required>  
 
-        <label>Data de lançamento:</label><br>
-        <input type="date" name="data_lancamento" required><br><br>     
+        <label>Data de lançamento:</label>
+        <input type="date" name="data_lancamento" required>   
         
 
-        <label>Generos para adicionar:</label><br>
-        <select name="generos" multiple>
+        <label>Generos para adicionar:</label>
+        <select name="generos" id="generos">
             {% for genero in generos %}
                 <option value="{{ genero.id }}">{{ genero.nome }}</option>
             {% endfor %}
-        </select><br><br>
+        </select>
 
         <button type="submit">Salvar Filme</button>
     </form>
 
     <a href="{{ url_for('main.index') }}">← Voltar para a lista</a>
-</body>
-</html>
+</section>
+{% endblock %}
