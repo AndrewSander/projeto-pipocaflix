@@ -1,7 +1,9 @@
 .novo-ator_page,
 .novo-filme_page,
 .novo-genero_page,
-.novo-episodio_page {
+.novo-episodio_page,
+.editar-filme_page,
+.lista-editar_page {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +16,8 @@
 .novo-ator_page h2,
 .novo-filme_page h2,
 .novo-genero_page h2,
-.novo-episodio_page h2 {
+.novo-episodio_page h2,
+.editar-filme_page h2 {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     margin-top: 20px;
@@ -25,7 +28,8 @@
 .novo-ator_page form,
 .novo-filme_page form,
 .novo-genero_page form,
-.novo-episodio_page form {
+.novo-episodio_page form,
+.editar-filme_page form {
     display: flex;
     flex-direction: column;
     width: 350px;
@@ -79,7 +83,7 @@
 .novo-ator_page button,
 .novo-filme_page button,
 .novo-genero_page button,
-.novo-episodio_page button {
+.novo-episodio_page button{
     padding: 10px;
     background-color: #007bff;
     color: white;
@@ -97,9 +101,70 @@
     background-color: #0056b3;
 }
 
-.novo-filme_page a {
+.paginacao {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px; /* Adiciona um espaço acima, se necessário */
+}
+
+.voltar-page a{
+    display: flex;
     margin: 20px;
     color: #007bff;
     text-decoration: none;
     align-self: flex-start;
 }
+
+.proxima-page a{
+    display: flex;
+    margin: 20px;
+    color: #007bff;
+    text-decoration: none;
+    align-self: flex-end;
+}
+
+.lista-filmes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.filme-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #1e293b; /* card escuro */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+.filme-item:hover {
+    transform: translateY(-2px);
+}
+
+.filme-item span {
+    font-size: 16px;
+    color: #f1f5f9;
+}
+
+.filme-item a,
+.lista-editar_page a {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.filme-item a:hover,
+.lista-editar_page a:hover {
+    background-color: #0056b3;
+}
+

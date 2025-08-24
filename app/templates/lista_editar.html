@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} Lista de Filmes {% endblock %}
+
+{% block content %}
+<section class="lista-editar_page">
+    <h2>Painel de Administração - Filmes</h2>
+    <div class="lista-filmes">
+        {% for filme in filmes %}
+            <div class="filme-item">
+                <span>{{ filme.titulo }}</span>
+                <a href="{{ url_for('admin.editar_filme', filme_id=filme.id) }}">Editar</a>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <a href="{{ url_for('admin.novo_filme') }}">Adicionar Novo Filme</a>
+
+</section>
+{% endblock %}

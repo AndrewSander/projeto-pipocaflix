@@ -1,0 +1,48 @@
+{% block title %} Editar Filme {% endblock %}
+
+{% extends "base.html" %}
+
+{% block content %}
+<section class="editar-filme_page">
+    <h2>Editar Filme: {{ filme.titulo }}</h2>
+    <form method="POST">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" value="{{ filme.titulo }}" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="5" required>{{ filme.descricao }}</textarea>
+
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" id="tipo" required>
+            <option value="filme" {% if filme.tipo == 'filme' %}selected{% endif %}>Filme</option>
+            <option value="serie" {% if filme.tipo == 'serie' %}selected{% endif %}>Série</option>
+        </select>
+
+        <label for="lancamento">Em cartaz:</label>
+        <select name="lancamento" id="lancamento" required>
+            <option value="True" {% if filme.lancamento %}selected{% endif %}>Sim</option>
+            <option value="False" {% if not filme.lancamento %}selected{% endif %}>Não</option>
+        </select>
+
+        <label for="temporada">Temporadas:</label>
+        <input type="number" id="temporada" name="temporada" step="1" min="1" max="50" value="{{ filme.temporada if filme.temporada else '' }}">  
+
+        <label>Data de lançamento:</label>
+        <input type="date" name="data_lancamento" value="{{ filme.data_lancamento.strftime('%Y-%m-%d') }}" required>   
+        
+        <label>Gêneros para adicionar:</label>
+        <select name="generos" id="generos" multiple>
+            {% for genero in generos %}
+                <option value="{{ genero.id }}" {% if genero in filme.generos %}selected{% endif %}>{{ genero.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Trailer do Filme:</label>
+        <input type="url" name="trailer" value="{{ filme.trailer if filme.trailer else '' }}">
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <a href="{{ url_for('main.index') }}">← Voltar para a lista</a>
+</section>
+{% endblock %}

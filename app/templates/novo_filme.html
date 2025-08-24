@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Novo Ator {% endblock %}
+{% block title %} Novo Filme {% endblock %}
 
 {% block content %}
 <section class="novo-filme_page">
@@ -38,9 +38,22 @@
             {% endfor %}
         </select>
 
+        <label>Trailer do Filme</label>
+        <input type="url" name="trailer">
+
         <button type="submit">Salvar Filme</button>
     </form>
 
-    <a href="{{ url_for('main.index') }}">← Voltar para a lista</a>
+    <div class="paginacao"> 
+        <div class="voltar-page">
+            <a  href="{{ url_for('main.index') }}">← Voltar para a lista</a>
+        </div>
+    
+        <div class="proxima-page">
+            <a  href="{{ url_for('admin.lista_filmes') }}">Gerenciar Filmes -></a>
+        </div>
+    </div>
+    
+
 </section>
 {% endblock %}
