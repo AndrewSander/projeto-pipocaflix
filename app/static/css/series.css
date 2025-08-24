@@ -229,6 +229,7 @@
 
 .carrossel-interno__criticas{
     margin-left: 2em;
+    margin-right: 2em;
     gap:30px;
     display: flex;
 }
@@ -245,6 +246,7 @@
     justify-content: flex-start;
     gap:10px;
     position: relative;
+    margin: 0 auto;
 }
 
 .container_header_critica{
