@@ -239,11 +239,12 @@
     padding: 20px 30px;
     background-color: var(--azul_4);
     width: 300px;
-    height: 90%;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap:10px;
+    position: relative;
 }
 
 .container_header_critica{
@@ -285,6 +286,11 @@
     overflow: hidden;
     font-size: 12px;
     border: 1px solid var(--azul_4);
+}
+.critica-expandir{
+    position: absolute;
+    bottom:10px;
+    right:20px;
 }
 
 .cast-card:hover {
