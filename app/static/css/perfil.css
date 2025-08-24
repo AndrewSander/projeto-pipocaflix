@@ -95,7 +95,7 @@
     width: 100%;
     padding:0 15px;
     margin-top:20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     display: flex;
     gap: 15px;
     overflow-x: auto;
@@ -181,7 +181,7 @@
     display: flex;
     flex-direction: column;
     gap:20px;
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .carrossel--header{

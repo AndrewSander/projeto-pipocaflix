@@ -361,7 +361,8 @@ def perfil_filmes():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    return render_template("perfil-filmes.html")
+    filmes= current_user.filmes_fav
+    return render_template("perfil-filmes.html",filmes=filmes)
 
 @main.route("/perfil-atores")
 @login_required
