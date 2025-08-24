@@ -174,7 +174,7 @@
     background: var(--azul_4);
     border-radius: 8px;
     width: 150px;
-    height: 180px;
+    height: 160px;
     overflow: hidden;
     font-size: 12px;
     border: 1px solid var(--azul_4);
@@ -204,13 +204,6 @@
     -webkit-box-orient: vertical; /* tamanho maximo é vertical*/
     overflow: hidden; /* O texto que esta acima do tamanho é ocultado */
     text-overflow: ellipsis; /* Substitui o texto a mais por ... */
-}
-
-.rating {
-    color: #FFD700;
-    font-size: 12px;
-    margin-top: 5px;
-    
 }
 
 .carrossel-interno__atores{

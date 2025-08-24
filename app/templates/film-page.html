@@ -136,15 +136,24 @@
                 <p>Seja o primeiro a avaliar!</p>
             {% endif %}
         </div>
-        <div class="button-avaliar">                         
-            <svg class="icon-avaliar" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                    9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                    fill="currentColor" stroke="currentColor" stroke-width="2" />
-            </svg>
-            <p> AVALIAR </p>
-        </div>
-
+        {% if current_user.is_authenticated %}
+            <div class="button-avaliar">                         
+                <svg class="icon-avaliar" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                fill="none" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <p> AVALIAR </p>
+            </div>
+        {% else %}
+            <section class="chamada">
+                <div class="chamada--main">
+                    <i class="fa-solid fa-bookmark chamada__fav"></i>
+                    <p class="subtitle t2">Faça login para avaliar</p>
+                    <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
+                </div>
+            </section>
+        {% endif %}
         <div class="ratings-text">
             <div class="destaque"></div>
             <h2 class="title">COMENTARIOS</h2>

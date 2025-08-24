@@ -18,7 +18,6 @@ def index():
 
 # Pagina de filmes
 @main.route('/filmes/<int:filme_id>', methods=["GET", "POST"])
-@login_required
 def filmes(filme_id):
     filme = Filme.query.get_or_404(filme_id)
 
@@ -30,35 +29,35 @@ def filmes(filme_id):
     total = len(filme.avaliacoes)
 
     # Pega avaliação do usuário atual, se existir
-    avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+    if current_user.is_authenticated:
+        avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
 
-    if request.method == "POST":
-        nota = float(request.form["nota"])
-        comentario = request.form.get("comentario", "")
+        if request.method == "POST":
+            nota = float(request.form["nota"])
+            comentario = request.form.get("comentario", "")
 
-        if avaliacao:
-            # Atualiza avaliação existente
-            avaliacao.nota = nota
-            avaliacao.comentario = comentario
-        else:
-            # Cria nova avaliação
-            avaliacao = Avaliacao(
-                usuario_id=current_user.id,
-                filme_id=filme.id,
-                nota=nota,
-                comentario=comentario
-            )
-            db.session.add(avaliacao)
+            if avaliacao:
+                # Atualiza avaliação existente
+                avaliacao.nota = nota
+                avaliacao.comentario = comentario
+            else:
+                # Cria nova avaliação
+                avaliacao = Avaliacao(
+                    usuario_id=current_user.id,
+                    filme_id=filme.id,
+                    nota=nota,
+                    comentario=comentario
+                )
+                db.session.add(avaliacao)
 
-        db.session.commit()
-        # Redireciona pra mesma página (recarregar com a avaliação nova)
-        return redirect(url_for("main.series", filme_id=filme.id))
+            db.session.commit()
+            # Redireciona pra mesma página (recarregar com a avaliação nova)
+            return redirect(url_for("main.series", filme_id=filme.id))
 
     return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total)
 
 # Pagina de series
 @main.route('/series/<int:filme_id>', methods=["GET", "POST"])
-@login_required
 def series(filme_id):
     filme = Filme.query.get_or_404(filme_id)
 
@@ -70,33 +69,33 @@ def series(filme_id):
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
 
-    # Pega avaliação do usuário atual, se existir
-    avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        # Pega avaliação do usuário atual, se existir
+    if current_user.is_authenticated:
+        avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
 
-    if request.method == "POST":
-        nota = float(request.form["nota"])
-        comentario = request.form.get("comentario", "")
+        if request.method == "POST":
+            nota = float(request.form["nota"])
+            comentario = request.form.get("comentario", "")
 
-        if avaliacao:
-            # Atualiza avaliação existente
-            avaliacao.nota = nota
-            avaliacao.comentario = comentario
-        else:
-            # Cria nova avaliação
-            avaliacao = Avaliacao(
-                usuario_id=current_user.id,
-                filme_id=filme.id,
-                nota=nota,
-                comentario=comentario
-            )
-            db.session.add(avaliacao)
+            if avaliacao:
+                # Atualiza avaliação existente
+                avaliacao.nota = nota
+                avaliacao.comentario = comentario
+            else:
+                # Cria nova avaliação
+                avaliacao = Avaliacao(
+                    usuario_id=current_user.id,
+                    filme_id=filme.id,
+                    nota=nota,
+                    comentario=comentario
+                )
+                db.session.add(avaliacao)
 
-        db.session.commit()
-        # Redireciona pra mesma página (recarregar com a avaliação nova)
-        return redirect(url_for("main.series", filme_id=filme.id))
+            db.session.commit()
+            # Redireciona pra mesma página (recarregar com a avaliação nova)
+            return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template("series-page.html",filme=filme,episodios=episodios,elenco=atuacoes,distribuicao=distribuicao,total=total,avaliacao=avaliacao   # passa pro template se quiser exibir a avaliação já feita
-    )
+    return render_template("series-page.html",filme=filme,episodios=episodios,elenco=atuacoes,distribuicao=distribuicao,total=total)
 
 
 # Pagina de todos os filmes
