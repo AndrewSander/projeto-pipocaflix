@@ -229,3 +229,12 @@ btn_fechar.addEventListener("click", () => {
   box.classList.remove("show");
   document.body.style.overflow = "";
 })
+
+document.getElementById("abrirForm").addEventListener("click", function() {
+        document.getElementById("formSalvar").style.display = "block";
+        this.style.display = "none"; // esconde o botão depois de abrir o form
+    });
+
+    function setStatus(status) {
+        document.getElementById("statusInput").value = status;
+    }

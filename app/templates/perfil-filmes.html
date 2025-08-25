@@ -5,5 +5,89 @@
 {% block filmes %} active {% endblock %}
 
 {% block perfil_content %}
-    <h1>FILMES</h1>
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title">FILMES FAVORITOS</h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <li class="carrossel-interno__atores">
+                {% for movie in filmes %}
+                    <ul class="carrossel--series">
+                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                        <div class="nome--container">
+                            <p class="ator--nome">{{movie.titulo}}</p>
+                        </div>
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title">FILMES CONCLUÍDOS </h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <li class="carrossel-interno__atores">
+                {% for movie in filmes %}
+                    <ul class="carrossel--series">
+                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                        <div class="nome--container">
+                            <p class="ator--nome">{{movie.titulo}}</p>
+
+                        </div>
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title"> ASSISTINDO </h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <li class="carrossel-interno__atores">
+                {% for movie in filmes %}
+                    <ul class="carrossel--series">
+                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                        <div class="nome--container">
+                            <p class="ator--nome">{{movie.titulo}}</p>
+                        </div>
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title"> SUA LISTA </h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <li class="carrossel-interno__atores">
+                {% for movie in filmes %}
+                    <ul class="carrossel--series">
+                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                        <div class="nome--container">
+                            <p class="ator--nome">{{movie.titulo}}</p>
+                        </div>
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+
 {% endblock %}
