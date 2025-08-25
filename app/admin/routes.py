@@ -2,10 +2,12 @@ from . import admin
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_migrate import Migrate
-from app.models import db, Ator, Filme, Atuacao, Episodio, Genero, Usuario
+from app.models import db, Ator, Filme, Atuacao, Episodio, Genero
+from app.funcoes import admin_required
 
 # Formulário de novo episódio
 @admin.route("/novo", methods=["GET", "POST"])
+@admin_required
 def novo():
     if request.method == "POST":
         titulo = request.form["titulo"]
@@ -24,6 +26,7 @@ def novo():
 
 # Formulário de novo filme
 @admin.route('/novo-filme', methods=['GET', 'POST'])
+@admin_required
 def novo_filme():
     generos = Genero.query.order_by(Genero.nome.asc()).all()
 
@@ -55,6 +58,7 @@ def novo_filme():
 
 # Formulário de novo ator
 @admin.route('/novo-ator', methods=['GET', 'POST'])
+@admin_required
 def novo_ator():
     filmes = Filme.query.all()
     atores = Ator.query.all()
@@ -106,6 +110,7 @@ def novo_ator():
 
 # Formulário de novo genero
 @admin.route('/novo-genero', methods=['GET', 'POST'])
+@admin_required
 def novo_genero():
     filmes = Filme.query.all()
     generos = Genero.query.order_by(Genero.nome.asc()).all()
@@ -145,6 +150,7 @@ def novo_genero():
 
 # Rota para editar um filme existente
 @admin.route('/editar-filme/<int:filme_id>', methods=['GET', 'POST'])
+@admin_required
 def editar_filme(filme_id):
     filme = Filme.query.get_or_404(filme_id)
     generos_disponiveis = Genero.query.order_by(Genero.nome.asc()).all()
@@ -180,3 +186,11 @@ def editar_filme(filme_id):
 def lista_filmes():
     filmes = Filme.query.order_by(Filme.titulo.asc()).all()
     return render_template('lista_editar.html', filmes=filmes)
+
+def admin_dashboard():
+    return "Área restrita só para admins"
+
+
+@admin.errorhandler(403)
+def acesso_negado(e):
+    return render_template("403.html"), 403
