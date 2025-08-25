@@ -7,9 +7,11 @@
 {% block content %}
     <section class="banner">
         <div class="banner__container">
-            <button class="play-button">
-                <div class="play-button__triangle"></div>
-            </button>
+                <button class="play-button">
+                    <a href="{{url_for('main.filmes',filme_id=principal.id)}}">
+                        <div class="play-button__triangle"></div>
+                    </a>
+                </button>
             <img class="banner__img" src="../static/img/JurassicWorld.webp">
         </div>
         <div class="banner__description">

@@ -8,14 +8,15 @@ from sqlalchemy import func
 # Pagina inicial
 @main.route('/')
 def index():
+    principal=Filme.query.get(5)
     filmes = Filme.query.filter_by(tipo="filme").limit(10).all()
     series = Filme.query.filter_by(tipo="serie").limit(10).all()
     cartaz = Filme.query.filter_by(lancamento=True).limit(10).all()
     atores= Ator.query.limit(4).all()
     if current_user.is_authenticated:
         lista= current_user.atores_fav
-        return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista,cartaz=cartaz)
-    return render_template("index.html",filmes=filmes,atores=atores, series=series,cartaz=cartaz)
+        return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista,cartaz=cartaz,principal=principal)
+    return render_template("index.html",filmes=filmes,atores=atores, series=series,cartaz=cartaz,principal=principal)
 
 # Pagina de filmes
 @main.route('/filmes/<int:filme_id>', methods=["GET", "POST"])
