@@ -1,5 +1,8 @@
 from sqlalchemy import func
 from app.models import Avaliacao, db
+from flask import abort
+from flask_login import current_user
+from functools import wraps
 
 def calcular_distribuicao(filme_id):
     total = db.session.query(func.count(Avaliacao.nota)).filter_by(filme_id=filme_id).scalar()
@@ -21,3 +24,17 @@ def calcular_distribuicao(filme_id):
         distribuicao[int(nota)] = (qtd / total) * 100 
 
     return distribuicao
+
+ADMINS = ["lacax", "Andrew11", "Ryanzinho"]
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            abort(403)
+        if current_user.usuario not in ADMINS:
+            abort(403)  
+        return f(*args, **kwargs)
+    return decorated_function
+
+
