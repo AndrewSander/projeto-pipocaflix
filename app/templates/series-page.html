@@ -59,13 +59,14 @@
         <h2>Reproduzir Trailer</h2>
         <div class="trailer_video">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        {% if current_user.is_authenticated %}
         </div>
-        <button id="abrirForm" class="button--series">
-            <i class="fa-solid fa-bookmark"></i> SALVAR
-        </button>
-        {% endif %}
     </section>
+    
+    {% if current_user.is_authenticated %}
+    <button id="abrirForm" class="button--series">
+        <i class="fa-solid fa-bookmark"></i> SALVAR
+    </button>
+    {% endif %}
 
     <form id="formSalvar" class="container__salvar" action="{{ url_for('main.salvar_status', filme_id=filme.id) }}" method="POST" style="display:none;">
         <input type="hidden" name="status" id="statusInput">
