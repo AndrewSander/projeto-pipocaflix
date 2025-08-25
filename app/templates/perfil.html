@@ -36,15 +36,15 @@
     <div class="perfil-info">
         <div class="user-details">
             <h2>{{ current_user.usuario }}</h2>
-            <p class="user-details__subtitle">{{ current_user.nome }} • em pipocaflix desde {{ current_user.ano_criacao }}</p>
+            <p class="user-details__title">{{ current_user.nome }} • {{current_user.descricao}}</p>
+            <p class="user-details__subtitle">em pipocaflix desde {{ current_user.ano_criacao }}</p>
         </div>
     </div>
     <nav class="perfil-nav">
         <a href="{{url_for('main.perfil')}}" class="{% block geral %} {% endblock %}">Visão geral</a>
-        <a href="{{url_for('main.perfil_criticas')}}" class="{% block criticas %} {% endblock %}">Críticas</a>
+        <a href="{{url_for('main.perfil_criticas')}}" class="{% block criticas %} {% endblock %}">Suas Críticas</a>
         <a href="{{url_for('main.perfil_filmes')}}" class="{% block filmes %} {% endblock %}">Filmes</a>
         <a href="{{url_for('main.perfil_atores')}}" class="{% block atores %} {% endblock %}">Atores</a>
-        <a href="{{url_for('main.perfil_assistindo')}}" class="{% block assistindo %} {% endblock %}">Assistindo</a>
     </nav>
         {% block perfil_content %} {% endblock %}
 {% else %}

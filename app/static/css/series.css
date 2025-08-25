@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+
+*{
+    text-decoration: none;
+}
+
+
 /* DECLARAÇÃO DE VARIÁVEIS NO CSS */
 :root{
     --azul_1: #020d1f;
