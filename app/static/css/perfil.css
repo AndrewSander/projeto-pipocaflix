@@ -270,7 +270,11 @@
     line-height: 20px;
     word-break: keep-all;
 }
-.container_critica{
+.container-comentarios{
+    display: flex;
+    flex-wrap: wrap;
+}
+.container_critica-perfil{
     overflow: hidden;
     flex-shrink: 0;
     border-radius: 15px;
@@ -283,7 +287,8 @@
     justify-content: flex-start;
     gap:10px;
     position: relative;
-    margin: 20px auto;
+    margin: 0 auto;
+    margin-bottom: 30px;
 }
 
 .container_header_critica{
@@ -321,4 +326,21 @@
     font-weight: 300;
     font-size: 0.9em;
     color: var(--enfase_1)
+}
+.container-atores{
+    margin-left: 30px;
+}
+.container-atores-header{
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+.container-atores-main{
+    display: flex;
+    gap:30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.ator-card{
+    flex: 0 1 150px;
 }

@@ -366,7 +366,7 @@ def perfil():
     qtd_filmes = current_user.filmes_fav.count()
     qtd_atores = current_user.atores_fav.count()
     atores= current_user.atores_fav
-    filmes= current_user.filmes_fav
+    filmes= list(current_user.filmes_fav)
 
     return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores,filmes=filmes)
 
@@ -388,7 +388,7 @@ def perfil_filmes():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    filmes= current_user.filmes_fav
+    filmes= list(current_user.filmes_fav)
     status= current_user.status_filme
 
     assistindo = []
@@ -415,7 +415,9 @@ def perfil_atores():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    return render_template("perfil-atores.html")
+    atores= current_user.atores_fav
+
+    return render_template("perfil-atores.html",atores=atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required

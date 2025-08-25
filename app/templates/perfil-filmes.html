@@ -14,16 +14,20 @@
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__atores">
-                {% for movie in filmes %}
-                    <ul class="carrossel--series">
-                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
-                        <div class="nome--container">
-                            <p class="ator--nome">{{movie.titulo}}</p>
-                        </div>
-                    </ul>
-                {% endfor %}
-            </li>
-        </div>
+                    {% if filmes | length > 0 %}
+                    {% for movie in filmes %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                        {% endfor %}
+                    {% else %}
+                        <p>O usuário não possui filmes favoritos</p>
+                    {% endif %}
+                </li>
+            </div>
     </section>
 
     <section class="carrossel">
