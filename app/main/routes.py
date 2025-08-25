@@ -415,7 +415,9 @@ def perfil_atores():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    return render_template("perfil-atores.html")
+    atores= current_user.atores_fav
+
+    return render_template("perfil-atores.html",atores=atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required

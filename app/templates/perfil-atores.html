@@ -5,5 +5,20 @@
 {% block atores %} active {% endblock %}
 
 {% block perfil_content %}
-    <h1>ATORES</h1>
+
+    <div class="container-atores" >
+        <div class="container-atores-header">
+            <div class="destaque"></div>
+            <h2 class="title">ATORES FAVORITOS</h2>
+        </div>
+        <div class="container-atores-main">
+            {% for actor in atores %}
+                <div class="ator-card">
+                    <img src="../static/img/ator/{{actor.nome}}.jpg" alt="Foto do ator {{actor.nome}}" class="carrossel--ator atores_fav">
+                    <p class="ator--nome">{{actor.nome}}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}
