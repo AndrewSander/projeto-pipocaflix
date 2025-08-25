@@ -7,5 +7,18 @@
 {% block criticas %} active {% endblock %}
 
 {% block perfil_content %}
-    <h1>CRÍTICAS</h1>
+    {% for avaliacao in avaliacoes %}
+        {% if avaliacao.comentario != "" %}
+            <div class="container_critica">
+                    <div class="critica-usuario">
+                        <img class="critica-foto" src="../static/img/series/{{avaliacao.filme.id}}/Capa.webp" alt="">
+                        <p class="critica-nome">{{avaliacao.filme.titulo}}</p>
+                    </div>
+                <div>
+                    <p class="critica-nota">⭐ NOTA: {{avaliacao.nota}} </p>
+                    <p class="critica-comentario">{{avaliacao.comentario}}</p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

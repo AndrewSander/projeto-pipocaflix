@@ -7,19 +7,21 @@
 {% block geral %} active {% endblock %}
 
 {% block perfil_content %}
+    {% if filmes %}
     <div class="main-film">
-        <img class="filme-fav" src="../static/img/series/1/Capa.webp" alt="filme favorito">
+        <img class="filme-fav" src="../static/img/series/{{filmes[0].id}}/Capa.webp" alt="filme favorito">
         <div class="movie__info">
             <p class="main-film__aviso">FILME FAVORITO</p>
-            <p class="main-film__title">Nome do filme</p>
-            <p class="main-film__subtitle">Autor</p>
+            <p class="main-film__title">{{filmes[0].titulo}}</p>
         </div>
     </div>
+    {% else %}
+    {% endif %}
     {% if not current_user.is_authenticated %}
     <button class="button">ADICIONAR NA LISTA</button>
     {% endif %}
 
-    <div class="perfil-stats">
+    <!-- <div class="perfil-stats">
         <div>
             <span>FILMES/SERIES</span>
             <h3>{{ qtd_filmes }}</h3>
@@ -28,7 +30,7 @@
             <span>ATORES</span>
             <h3>{{ qtd_atores }}</h3>
         </div>
-    </div> 
+    </div>  -->
     
     <section class="carrossel">
         <div class="carrossel--header">
@@ -44,6 +46,27 @@
                         <img src="../static/img/ator/{{actor.nome}}.jpg" alt="Foto do ator {{actor.nome}}" class="carrossel--ator atores_fav">
                         <div class="nome--container">
                             <p class="ator--nome">{{actor.nome}}</p>
+                        </div>
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel--header">
+            <div class="carrossel--text">
+                <div class="destaque"></div>
+                <h2 class="title">FILMES FAVORITOS</h2>
+            </div>
+        </div>
+        <div class="carrossel--main">
+            <li class="carrossel-interno__atores">
+                {% for movie in filmes %}
+                    <ul class="carrossel--series">
+                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                        <div class="nome--container">
+                            <p class="ator--nome">{{movie.titulo}}</p>
                         </div>
                     </ul>
                 {% endfor %}

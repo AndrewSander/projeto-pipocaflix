@@ -347,8 +347,9 @@ def perfil():
     qtd_filmes = current_user.filmes_fav.count()
     qtd_atores = current_user.atores_fav.count()
     atores= current_user.atores_fav
+    filmes= current_user.filmes_fav
 
-    return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores)
+    return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores,filmes=filmes)
 
 @main.route("/perfil-criticas")
 @login_required
@@ -357,7 +358,9 @@ def perfil_criticas():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    return render_template("perfil-criticas.html")
+    avaliacoes = current_user.avaliacoes
+
+    return render_template("perfil-criticas.html",avaliacoes=avaliacoes)
 
 @main.route("/perfil-filmes")
 @login_required
@@ -366,7 +369,8 @@ def perfil_filmes():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    return render_template("perfil-filmes.html")
+    filmes= current_user.filmes_fav
+    return render_template("perfil-filmes.html",filmes=filmes)
 
 @main.route("/perfil-atores")
 @login_required
@@ -376,15 +380,6 @@ def perfil_atores():
         return redirect(url_for("main.login"))
 
     return render_template("perfil-atores.html")
-
-@main.route("/perfil-assistindo")
-@login_required
-def perfil_assistindo():
-    if not current_user.is_authenticated:
-        flash("Você precisa estar logado para ver essa página.")
-        return redirect(url_for("main.login"))
-
-    return render_template("perfil-assistindo.html")
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
