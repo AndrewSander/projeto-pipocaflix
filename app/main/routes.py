@@ -142,11 +142,9 @@ def listar_filmes():
     generos = Genero.query.order_by(Genero.nome).all()
     todos = Filme.query.filter_by(tipo='filme').all()
     anos = sorted({f.data_lancamento.year for f in todos if f.data_lancamento})
-    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
-    status_atual = status_atual.status if status_atual else None
     
     filmes = query.all()
-    return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos, status_atual=status_atual)
+    return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos)
 
 # Pagina de todas as series
 @main.route('/series', methods = ["GET"])
