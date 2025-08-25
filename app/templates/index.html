@@ -113,7 +113,7 @@
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{serie.id}}</span>
                         <a href="{{ url_for('main.series', filme_id=serie.id) }}">
-                            <img src="../static/img/ator/{{serie.nome}}.jpg" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
                         </a>
                     </li>
                 {% endfor %}
