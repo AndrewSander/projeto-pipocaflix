@@ -368,7 +368,24 @@ def perfil_filmes():
         return redirect(url_for("main.login"))
 
     filmes= current_user.filmes_fav
-    return render_template("perfil-filmes.html",filmes=filmes)
+    status= current_user.status_filme
+
+    assistindo = []
+    for s in current_user.status_filme:
+        if s.status == "Assistindo":
+            assistindo.append(s.filme)
+
+    assistido = []
+    for s in current_user.status_filme:
+        if s.status == "Assistido":
+            assistido.append(s.filme)
+
+    salvo = []
+    for s in current_user.status_filme:
+        if s.status == "Salvo":
+            salvo.append(s.filme)
+
+    return render_template("perfil-filmes.html",filmes=filmes,status=status,assistindo=assistindo,assistido=assistido,salvo=salvo)
 
 @main.route("/perfil-atores")
 @login_required
