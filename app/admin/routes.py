@@ -172,8 +172,7 @@ def editar_filme(filme_id):
         filme.generos = Genero.query.filter(Genero.id.in_(genero_ids)).all()
 
         db.session.commit()
-        flash("Filme atualizado com sucesso!", "success")
-        return redirect(url_for('admin.novo_filme'))
+        return redirect(url_for('admin.lista_filmes'))
     
     return render_template('editar_filme.html', filme=filme, generos=generos_disponiveis)
 
