@@ -94,6 +94,7 @@ def series(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
+    status_atual = ""
 
         # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
