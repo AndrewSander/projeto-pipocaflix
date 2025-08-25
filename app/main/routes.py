@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
 from flask_login import login_required, current_user, login_user, logout_user # type: ignore
-from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero, usuario_filme_fav, usuario_ator_fav
+from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero, usuario_filme_fav, usuario_ator_fav, Status
 from app.funcoes import calcular_distribuicao
 from sqlalchemy import func
 
@@ -29,6 +29,8 @@ def filmes(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
+    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+    status_atual = status_atual.status if status_atual else None
 
     # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
@@ -56,7 +58,7 @@ def filmes(filme_id):
             # Redireciona pra mesma página (recarregar com a avaliação nova)
             return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total,criticas=criticas)
+    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total,criticas=criticas, status_atual=status_atual)
 
 # Pagina de series
 @main.route('/series/<int:filme_id>', methods=["GET", "POST"])
@@ -72,6 +74,8 @@ def series(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
+    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+    status_atual = status_atual.status if status_atual else None
 
         # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
@@ -99,7 +103,7 @@ def series(filme_id):
             # Redireciona pra mesma página (recarregar com a avaliação nova)
             return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template("series-page.html",filme=filme,episodios=episodios,elenco=atuacoes,distribuicao=distribuicao,total=total, criticas=criticas)
+    return render_template("series-page.html",filme=filme,episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total, criticas=criticas, status_atual=status_atual)
 
 
 # Pagina de todos os filmes
@@ -138,9 +142,11 @@ def listar_filmes():
     generos = Genero.query.order_by(Genero.nome).all()
     todos = Filme.query.filter_by(tipo='filme').all()
     anos = sorted({f.data_lancamento.year for f in todos if f.data_lancamento})
+    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+    status_atual = status_atual.status if status_atual else None
     
     filmes = query.all()
-    return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos)
+    return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos, status_atual=status_atual)
 
 # Pagina de todas as series
 @main.route('/series', methods = ["GET"])
@@ -436,3 +442,31 @@ def toggle_favorito_ator():
         current_user.atores_fav.append(ator)
         db.session.commit()
         return jsonify({"favoritado": True})
+
+@main.route("/salvar_status/<int:filme_id>", methods=["POST"])
+@login_required
+def salvar_status(filme_id):
+    filme = Filme.query.get_or_404(filme_id)
+    status_valor = request.form.get("status")  
+
+    if not status_valor:
+        flash("Selecione um status válido.", "warning")
+        return redirect(url_for("main.filmes"))
+
+    status_existente = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+
+    if status_existente:
+        # Atualiza status existente
+        status_existente.status = status_valor
+    else:
+        # Cria novo status
+        novo_status = Status(usuario_id=current_user.id, filme_id=filme.id, status=status_valor)
+        db.session.add(novo_status)
+
+    db.session.commit()
+    flash("Status atualizado com sucesso!", "success")
+
+    if filme.tipo == "serie":
+        return redirect(url_for("main.series", filme_id=filme.id))
+    else:
+        return redirect(url_for("main.filmes", filme_id=filme.id))
