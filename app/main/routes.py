@@ -366,7 +366,7 @@ def perfil():
     qtd_filmes = current_user.filmes_fav.count()
     qtd_atores = current_user.atores_fav.count()
     atores= current_user.atores_fav
-    filmes= current_user.filmes_fav
+    filmes= list(current_user.filmes_fav)
 
     return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores,filmes=filmes)
 
