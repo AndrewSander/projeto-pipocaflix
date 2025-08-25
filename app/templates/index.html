@@ -149,11 +149,11 @@
         </div>
         <div class="carrossel--main">
             <ul class="carrossel-interno__filmes">
-                {% for serie in range(3) %}
+                {% for filme in cartaz %}
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{loop.index}}</span>
-                        <a href="#">
-                            <img src="../static/img/Ryan bolseiro.jpg" alt="" class="carrossel--capa">
+                        <a href="{{ url_for('main.filmes', filme_id=filme.id) }}">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
                         </a>
                     </li>
                 {% endfor %}
