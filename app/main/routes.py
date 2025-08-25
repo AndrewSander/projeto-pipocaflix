@@ -19,7 +19,7 @@ def index():
     cartaz = Filme.query.filter_by(lancamento=True).limit(10).all()
     atores= Ator.query.limit(4).all()
     if current_user.is_authenticated:
-        lista= current_user.atores_fav
+        lista = current_user.filmes_fav.order_by(Filme.id.desc()).limit(10).all()
         return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista,cartaz=cartaz,principal=principal,comentario=comentario)
     return render_template("index.html",filmes=filmes,atores=atores, series=series,cartaz=cartaz,principal=principal,comentario=comentario)
 
@@ -134,14 +134,14 @@ def listar_filmes():
 
     # filtros
     ano = request.args.get('ano')         
-    generos_selecionados = request.args.getlist('genero') 
+    genero_selecionado = request.args.get('genero')
     ordenar = request.args.get('ordenar', 'recente')
 
     # testa e coloca os filtros
     query = query.filter_by(tipo="filme")
     
-    if generos_selecionados:
-        query = query.join(Filme.generos).filter(Genero.nome.in_(generos_selecionados))
+    if genero_selecionado:
+        query = query.join(Filme.generos).filter(Genero.nome == genero_selecionado)
 
     if ano:
         query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
@@ -174,14 +174,14 @@ def listar_series():
 
     # filtros
     ano = request.args.get('ano')         
-    generos_selecionados = request.args.getlist('genero') 
+    genero_selecionado = request.args.get('genero')
     ordenar = request.args.get('ordenar', 'recente')
 
     # testa e coloca os filtros
     query = query.filter_by(tipo="serie")
     
-    if generos_selecionados:
-        query = query.join(Filme.generos).filter(Genero.nome.in_(generos_selecionados))
+    if genero_selecionado:
+        query = query.join(Filme.generos).filter(Genero.nome == genero_selecionado)
 
     if ano:
         query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))

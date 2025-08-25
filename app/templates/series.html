@@ -17,6 +17,7 @@
 
             <label for="genero">Gênero:</label>
             <select name="genero">
+                <option value="">Todos</option>
                 {% for genero in generos %}
                     <option value="{{ genero.nome }}">{{ genero.nome }}</option>
                 {% endfor %}    
