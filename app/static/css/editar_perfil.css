@@ -53,7 +53,7 @@
     background-color: #2563eb;
 }
 
-.avatar{
+.avatar__editar{
     position: relative;
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@
     gap: 20px;
 }
 
-.avatar img {
+.avatar__img {
     width: 120px;
     height: 120px;
     object-fit: cover;
