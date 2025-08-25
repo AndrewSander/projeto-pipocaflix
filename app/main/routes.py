@@ -29,12 +29,12 @@ def filmes(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
-    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
-    status_atual = status_atual.status if status_atual else None
-
+    status_atual = ""
     # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
         avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = status_atual.status if status_atual else None
 
         if request.method == "POST":
             nota = float(request.form["nota"])
@@ -74,12 +74,12 @@ def series(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
-    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
-    status_atual = status_atual.status if status_atual else None
 
         # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
         avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = status_atual.status if status_atual else None
 
         if request.method == "POST":
             nota = float(request.form["nota"])
