@@ -388,7 +388,7 @@ def perfil_filmes():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    filmes= current_user.filmes_fav
+    filmes= list(current_user.filmes_fav)
     status= current_user.status_filme
 
     assistindo = []
