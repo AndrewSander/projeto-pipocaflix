@@ -270,7 +270,11 @@
     line-height: 20px;
     word-break: keep-all;
 }
-.container_critica{
+.container-comentarios{
+    display: flex;
+    flex-wrap: wrap;
+}
+.container_critica-perfil{
     overflow: hidden;
     flex-shrink: 0;
     border-radius: 15px;
@@ -283,7 +287,8 @@
     justify-content: flex-start;
     gap:10px;
     position: relative;
-    margin: 20px auto;
+    margin: 0 auto;
+    margin-bottom: 30px;
 }
 
 .container_header_critica{
