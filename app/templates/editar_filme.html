@@ -1,6 +1,6 @@
-{% block title %} Editar Filme {% endblock %}
-
 {% extends "base.html" %}
+
+{% block title %} Editar Filme {% endblock %}
 
 {% block content %}
 <section class="editar-filme_page">
@@ -14,14 +14,14 @@
 
         <label for="tipo">Tipo:</label>
         <select name="tipo" id="tipo" required>
-            <option value="filme">Filme</option>
-            <option value="serie">Série</option>
+            <option value="filme" {% if filme.tipo == "filme" %}selected{% endif %}>Filme</option>
+            <option value="serie" {% if filme.tipo == "serie" %}selected{% endif %}>Série</option>
         </select>
 
         <label for="lancamento">Em cartaz:</label>
         <select name="lancamento" id="lancamento" required>
-            <option value="True">Sim</option>
-            <option value="False">Não</option>
+            <option value="True" {% if filme.lancamento %}selected{% endif %}>Sim</option>
+            <option value="False" {% if not filme.lancamento %}selected{% endif %}>Não</option>
         </select>
 
         <label for="temporada">Temporadas:</label>
@@ -33,7 +33,10 @@
         <label>Gêneros para adicionar:</label>
         <select name="generos" id="generos" multiple>
             {% for genero in generos %}
-                <option value="{{ genero.id }}">{{ genero.nome }}</option>
+                <option value="{{ genero.id }}" 
+                    {% if genero in filme.generos %}selected{% endif %}>
+                    {{ genero.nome }}
+                </option>
             {% endfor %}
         </select>
 
