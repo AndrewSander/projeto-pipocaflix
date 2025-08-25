@@ -30,20 +30,23 @@
         <div class="carrossel--header">
             <div class="carrossel--text">
                 <div class="destaque"></div>
-                <h2 class="title">FILMES CONCLUÍDOS </h2>
+                <h2 class="title"> FILMES CONCLUÍDOS </h2>
             </div>
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__atores">
-                {% for movie in filmes %}
-                    <ul class="carrossel--series">
-                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
-                        <div class="nome--container">
-                            <p class="ator--nome">{{movie.titulo}}</p>
-
-                        </div>
-                    </ul>
-                {% endfor %}
+                {% if assistido%}
+                    {% for movie in assistido %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel--ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filme marcado como concluído</p>
+                {% endif %}
             </li>
         </div>
     </section>
@@ -52,19 +55,23 @@
         <div class="carrossel--header">
             <div class="carrossel--text">
                 <div class="destaque"></div>
-                <h2 class="title"> ASSISTINDO </h2>
+                <h2 class="title">ASSISTINDO </h2>
             </div>
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__atores">
-                {% for movie in filmes %}
-                    <ul class="carrossel--series">
-                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
-                        <div class="nome--container">
-                            <p class="ator--nome">{{movie.titulo}}</p>
-                        </div>
-                    </ul>
-                {% endfor %}
+                {% if assistindo%}
+                    {% for movie in assistindo %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel--ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filme marcado como assistindo</p>
+                {% endif %}
             </li>
         </div>
     </section>
@@ -73,19 +80,23 @@
         <div class="carrossel--header">
             <div class="carrossel--text">
                 <div class="destaque"></div>
-                <h2 class="title"> SUA LISTA </h2>
+                <h2 class="title"> FILMES NA LISTA </h2>
             </div>
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__atores">
-                {% for movie in filmes %}
-                    <ul class="carrossel--series">
-                        <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
-                        <div class="nome--container">
-                            <p class="ator--nome">{{movie.titulo}}</p>
-                        </div>
-                    </ul>
-                {% endfor %}
+                {% if salvo %}
+                    {% for movie in salvo %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel--ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filme na lista</p>
+                {% endif %}
             </li>
         </div>
     </section>

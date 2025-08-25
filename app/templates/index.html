@@ -5,18 +5,15 @@
 {% block content %}
     <section class="banner">
         <div class="banner__container">
-            <button class="play-button">
-                <div class="play-button__triangle"></div>
-            </button>
+                <button class="play-button">
+                    <a href="{{url_for('main.filmes',filme_id=principal.id)}}">
+                        <div class="play-button__triangle"></div>
+                    </a>
+                </button>
             <img class="banner__img" src="../static/img/JurassicWorld.webp">
         </div>
         <div class="banner__description">
             <div class="banner__movie">
-                <i class="fa-solid fa-bookmark banner__fav">
-                    <div class="add">
-                        <p>+</p>
-                    </div>
-                </i>
                 <img class="banner__min-img" src="../static/img/min-Jurassic.jpg">
             </div>
             <div class="banner__caption">
@@ -27,11 +24,11 @@
                 <div class="banner__database">
                     <div class="banner__database-star">
                         <i class="fa-solid fa-star banner__star"></i>
-                        <p class="banner__star-number">545</p>
+                        <p class="banner__star-number">{{principal.media}}</p>
                     </div>
                     <div class="banner__database-comments">
                         <i class="fa-solid fa-comments banner__comments"></i>
-                        <p class="banner__comments-number">120</p>
+                        <p class="banner__comments-number">{{comentario}}</p>
                     </div>
                 </div>
             </div>
@@ -116,7 +113,7 @@
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{serie.id}}</span>
                         <a href="{{ url_for('main.series', filme_id=serie.id) }}">
-                            <img src="../static/img/ator/{{serie.nome}}.jpg" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
                         </a>
                     </li>
                 {% endfor %}
@@ -138,7 +135,8 @@
         </div>
     </section>
 {% endif %}
-    <section class="carrossel">
+
+<section class="carrossel">
         <div class="carrossel--header">
             <div class="carrossel--text">
                 <div class="destaque"></div>
@@ -147,11 +145,11 @@
         </div>
         <div class="carrossel--main">
             <ul class="carrossel-interno__filmes">
-                {% for serie in range(3) %}
+                {% for filme in cartaz %}
                     <li  class="carrossel--filmes">
                         <span class="numeracao">{{loop.index}}</span>
-                        <a href="#">
-                            <img src="../static/img/Ryan bolseiro.jpg" alt="" class="carrossel--capa">
+                        <a href="{{ url_for('main.filmes', filme_id=filme.id) }}">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
                         </a>
                     </li>
                 {% endfor %}

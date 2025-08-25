@@ -58,17 +58,20 @@
         <div class="trailer_video">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-         <button id="abrirForm" class="button--series">
-            <i class="fa-solid fa-bookmark"></i> SALVAR
-        </button>
     </section>
+    
+    {% if current_user.is_authenticated %}
+    <button id="abrirForm" class="button--series">
+        <i class="fa-solid fa-bookmark"></i> SALVAR
+    </button>
+    {% endif %}
 
     <form id="formSalvar" class="container__salvar" action="{{ url_for('main.salvar_status', filme_id=filme.id) }}" method="POST" style="display:none;">
         <input type="hidden" name="status" id="statusInput">
         <button class="button--series" type="submit" onclick="setStatus('Salvo')">
             <i class="fa-solid fa-bookmark"></i>
             {% if status_atual == "Salvo" %}
-                ESTA NA LISTA
+                JÁ ESTÁ LISTA
             {% else %}
                 ADICIONAR À LISTA
             {% endif %}
@@ -76,7 +79,7 @@
         <button class="button--series dark" type="submit" onclick="setStatus('Assistido')">
             <i class="fa-solid fa-eye"></i>
             {% if status_atual == "Assistido" %}
-                ESTA ASSISTIDO
+                ASSISTIDO
             {% else %}
                 MARCAR COMO ASSISTIDO
             {% endif %}
@@ -84,7 +87,7 @@
         <button class="button--series dark-2" type="submit" onclick="setStatus('Assistindo')">
             <i class="fa-solid fa-eye-slash"></i>
             {% if status_atual == "Assistindo" %}
-                ESTA ASSISTINDO
+                ESTÁ ASSISTINDO
             {% else %}
                 MARCAR COMO ASSISTINDO
             {% endif %}
@@ -119,7 +122,6 @@
                 <div class="destaque"></div>
                 <h2 class="title">EPISÓDIOS</h2>
             </div>
-            <a href="#" class="subtitle">Ver todos ></a>
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__episodios">
@@ -148,28 +150,31 @@
                 <div class="destaque"></div>
                 <h2 class="title">ELENCO</h2>
             </div>
-            <a href="#" class="subtitle">Ver todos ></a>
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__atores">
-                {% for item in elenco %}
-                    <ul class="carrossel--atores">
-                        <div class="cast-card" data-ator-id="{{ item.ator.id }}">
-                            <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}"></a>
-                            <!-- botão favorito -->
-                            <button class="fav-btn {% if item.ator in current_user.atores_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
-                                <!-- ícone estrela SVG (contorno) -->
-                                <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                                        fill="none" stroke="currentColor" stroke-width="2" />
-                                </svg>
-                            </button>
-                            <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
-                            <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
-                        </div>
-                    </ul>
-                {% endfor %}
+                {% if elenco %}
+                    {% for item in elenco %}
+                        <ul class="carrossel--atores">
+                            <div class="cast-card" data-ator-id="{{ item.ator.id }}">
+                                <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}"></a>
+                                <!-- botão favorito -->
+                                <button class="fav-btn {% if item.ator in current_user.atores_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
+                                    <!-- ícone estrela SVG (contorno) -->
+                                    <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                            9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                            fill="none" stroke="currentColor" stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
+                                <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                        <p>Não há um elenco registrado</p>
+                {% endif %}
             </li>
         </div>
     </section>
@@ -222,23 +227,27 @@
             </div>
             <div class="carrossel--main-criticas">
                 <li class="carrossel-interno__criticas">
-                    {% for critica in criticas %}
-                        {% if critica.comentario %}
-                            <div class="container_critica">
-                                    <div class="critica-usuario">
-                                        <img class="critica-foto" src="{{critica.usuario.foto_url}}" alt="">
-                                        <p class="critica-nome">{{critica.usuario.usuario}}</p>
+                    {% if comentarios %}
+                        {% for critica in criticas %}
+                            {% if critica.comentario %}
+                                <div class="container_critica">
+                                        <div class="critica-usuario">
+                                            <img class="critica-foto" src="{{critica.usuario.foto_url}}" alt="">
+                                            <p class="critica-nome">{{critica.usuario.usuario}}</p>
+                                        </div>
+                                    <div>
+                                        <p class="critica-nota">⭐ NOTA: {{critica.nota}} </p>
+                                        <p class="critica-comentario">{{critica.comentario}}</p>
                                     </div>
-                                <div>
-                                    <p class="critica-nota">⭐ NOTA: {{critica.nota}} </p>
-                                    <p class="critica-comentario">{{critica.comentario}}</p>
+                                    <p class="critica-expandir">Ver tudo</p>
                                 </div>
-                                <p class="critica-expandir">Ver tudo</p>
-                            </div>
-                        {% else %}
+                            {% else %}
 
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p> Seja o primeiro a comentar </p>
+                    {% endif %}
                 </li>
             </div>
         </section>
