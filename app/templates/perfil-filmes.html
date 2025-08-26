@@ -19,7 +19,17 @@
                         <ul class="carrossel--series">
                             <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
                             <div class="nome--container">
-                                <p class="ator--nome">{{movie.titulo}}</p>
+                                <p class="filme--nome" data-filme-id="{{ movie.id }}">
+                                    <button class="fav-btn {% if movie in current_user.filmes_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
+                                        <!-- ícone estrela SVG (contorno) -->
+                                        <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                                9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                                fill="none" stroke="currentColor" stroke-width="2" />
+                                        </svg>
+                                    </button>
+                                    {{movie.titulo}}
+                                </p>
                             </div>
                         </ul>
                         {% endfor %}
