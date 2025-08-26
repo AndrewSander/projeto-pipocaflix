@@ -674,6 +674,11 @@
     padding: 4px;   
 }
 
+.filme--nome{
+    display: flex;
+    align-items: center;
+}
+
 .filme--nome p {
     display: flex;           
     align-items: center;

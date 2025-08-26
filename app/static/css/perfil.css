@@ -260,7 +260,7 @@
     word-wrap: break-word;
     text-overflow: clip;
     width: 150px;
-    height: 20px;
+    height: max-content;
     overflow: hidden;
 }
 
