@@ -4,15 +4,6 @@
     text-decoration: none;
 }
 
-/* DECLARAÇÃO DE VARIÁVEIS NO CSS */
-:root{
-    --azul_1: #020d1f;
-    --azul_2: #01172C;
-    --azul_3: #05213C;
-    --azul_4: #0B2E50;
-    --enfase_1: #FFB236;
-    --enfase_2: #EBA22C;
-}
 
 /* banner do index.html */
 .banner{
