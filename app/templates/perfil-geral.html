@@ -60,6 +60,7 @@
         </div>
         <div class="carrossel--main">
             <li class="carrossel-interno__atores">
+                {% if filmes %}
                 {% for movie in filmes %}
                     <ul class="carrossel--series">
                         <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
@@ -68,6 +69,9 @@
                         </div>
                     </ul>
                 {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filmes favoritos</p>
+                {% endif %}
             </li>
         </div>
     </section>

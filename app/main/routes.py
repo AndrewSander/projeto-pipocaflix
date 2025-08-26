@@ -8,13 +8,20 @@ from sqlalchemy import func
 # Pagina inicial
 @main.route('/')
 def index():
+    principal=Filme.query.get(5)
+    comentario= Avaliacao.query.filter(
+        Avaliacao.filme_id == 5,
+        Avaliacao.comentario != None,
+        Avaliacao.comentario != ''
+    ).count()
     filmes = Filme.query.filter_by(tipo="filme").limit(10).all()
     series = Filme.query.filter_by(tipo="serie").limit(10).all()
+    cartaz = Filme.query.filter_by(lancamento=True).limit(10).all()
     atores= Ator.query.limit(4).all()
     if current_user.is_authenticated:
-        lista= current_user.atores_fav
-        return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista)
-    return render_template("index.html",filmes=filmes,atores=atores, series=series)
+        lista = current_user.filmes_fav.order_by(Filme.id.desc()).limit(10).all()
+        return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista,cartaz=cartaz,principal=principal,comentario=comentario)
+    return render_template("index.html",filmes=filmes,atores=atores, series=series,cartaz=cartaz,principal=principal,comentario=comentario)
 
 # Pagina de filmes
 @main.route('/filmes/<int:filme_id>', methods=["GET", "POST"])
@@ -22,6 +29,12 @@ def filmes(filme_id):
     filme = Filme.query.get_or_404(filme_id)
 
     criticas = Avaliacao.query.filter_by(filme_id=filme.id).order_by(Avaliacao.nota.desc()).limit(10).all()
+    
+    comentarios= Avaliacao.query.filter(
+        Avaliacao.filme_id==filme.id,
+        Avaliacao.comentario!=None,
+        Avaliacao.comentario!= ''
+    ).first() is not None
 
     if filme.tipo == "serie":
         return redirect(url_for('main.series', filme_id=filme.id))
@@ -29,12 +42,12 @@ def filmes(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
-    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
-    status_atual = status_atual.status if status_atual else None
-
+    status_atual = ""
     # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
         avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = status_atual.status if status_atual else None
 
         if request.method == "POST":
             nota = float(request.form["nota"])
@@ -58,7 +71,7 @@ def filmes(filme_id):
             # Redireciona pra mesma página (recarregar com a avaliação nova)
             return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total,criticas=criticas, status_atual=status_atual)
+    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total,criticas=criticas, status_atual=status_atual, comentarios=comentarios)
 
 # Pagina de series
 @main.route('/series/<int:filme_id>', methods=["GET", "POST"])
@@ -67,6 +80,13 @@ def series(filme_id):
     
     criticas = Avaliacao.query.filter_by(filme_id=filme.id).order_by(Avaliacao.nota.desc()).limit(10).all()
 
+    comentarios= Avaliacao.query.filter(
+        Avaliacao.filme_id==filme.id,
+        Avaliacao.comentario!=None,
+        Avaliacao.comentario!= ''
+    ).first() is not None
+
+
     if filme.tipo == "filme":
         return redirect(url_for('main.filmes', filme_id=filme.id))
 
@@ -74,12 +94,13 @@ def series(filme_id):
     atuacoes = filme.atuacoes
     distribuicao = calcular_distribuicao(filme.id)
     total = len(filme.avaliacoes)
-    status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
-    status_atual = status_atual.status if status_atual else None
+    status_atual = ""
 
         # Pega avaliação do usuário atual, se existir
     if current_user.is_authenticated:
         avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = status_atual.status if status_atual else None
 
         if request.method == "POST":
             nota = float(request.form["nota"])
@@ -103,7 +124,7 @@ def series(filme_id):
             # Redireciona pra mesma página (recarregar com a avaliação nova)
             return redirect(url_for("main.series", filme_id=filme.id))
 
-    return render_template("series-page.html",filme=filme,episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total, criticas=criticas, status_atual=status_atual)
+    return render_template("series-page.html",filme=filme,episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total, criticas=criticas, status_atual=status_atual,comentarios=comentarios)
 
 
 # Pagina de todos os filmes
@@ -113,14 +134,14 @@ def listar_filmes():
 
     # filtros
     ano = request.args.get('ano')         
-    generos_selecionados = request.args.getlist('genero') 
+    genero_selecionado = request.args.get('genero')
     ordenar = request.args.get('ordenar', 'recente')
 
     # testa e coloca os filtros
     query = query.filter_by(tipo="filme")
     
-    if generos_selecionados:
-        query = query.join(Filme.generos).filter(Genero.nome.in_(generos_selecionados))
+    if genero_selecionado:
+        query = query.join(Filme.generos).filter(Genero.nome == genero_selecionado)
 
     if ano:
         query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
@@ -153,14 +174,14 @@ def listar_series():
 
     # filtros
     ano = request.args.get('ano')         
-    generos_selecionados = request.args.getlist('genero') 
+    genero_selecionado = request.args.get('genero')
     ordenar = request.args.get('ordenar', 'recente')
 
     # testa e coloca os filtros
     query = query.filter_by(tipo="serie")
     
-    if generos_selecionados:
-        query = query.join(Filme.generos).filter(Genero.nome.in_(generos_selecionados))
+    if genero_selecionado:
+        query = query.join(Filme.generos).filter(Genero.nome == genero_selecionado)
 
     if ano:
         query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
@@ -345,7 +366,7 @@ def perfil():
     qtd_filmes = current_user.filmes_fav.count()
     qtd_atores = current_user.atores_fav.count()
     atores= current_user.atores_fav
-    filmes= current_user.filmes_fav
+    filmes= list(current_user.filmes_fav)
 
     return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores,filmes=filmes)
 
@@ -367,8 +388,25 @@ def perfil_filmes():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    filmes= current_user.filmes_fav
-    return render_template("perfil-filmes.html",filmes=filmes)
+    filmes= list(current_user.filmes_fav)
+    status= current_user.status_filme
+
+    assistindo = []
+    for s in current_user.status_filme:
+        if s.status == "Assistindo":
+            assistindo.append(s.filme)
+
+    assistido = []
+    for s in current_user.status_filme:
+        if s.status == "Assistido":
+            assistido.append(s.filme)
+
+    salvo = []
+    for s in current_user.status_filme:
+        if s.status == "Salvo":
+            salvo.append(s.filme)
+
+    return render_template("perfil-filmes.html",filmes=filmes,status=status,assistindo=assistindo,assistido=assistido,salvo=salvo)
 
 @main.route("/perfil-atores")
 @login_required
@@ -377,7 +415,9 @@ def perfil_atores():
         flash("Você precisa estar logado para ver essa página.")
         return redirect(url_for("main.login"))
 
-    return render_template("perfil-atores.html")
+    atores= current_user.atores_fav
+
+    return render_template("perfil-atores.html",atores=atores)
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
