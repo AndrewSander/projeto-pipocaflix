@@ -1,5 +1,5 @@
 from . import main
-from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
+from flask import abort, render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
 from flask_login import login_required, current_user, login_user, logout_user # type: ignore
 from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero, usuario_filme_fav, usuario_ator_fav, Status
 from app.funcoes import calcular_distribuicao
@@ -319,7 +319,10 @@ def logout():
     return redirect(url_for("main.index"))
 
 @main.route("/esqueci-senha", methods=["GET", "POST"])
+@login_required
 def esqueci_senha():
+    if not current_user.is_authenticated:
+        abort(401)
     if request.method == "POST":
         usuario = request.form["usuario"]
         
@@ -359,8 +362,7 @@ def redefinir_senha(usuario):
 @login_required
 def perfil():
     if not current_user.is_authenticated:
-        flash("Você precisa estar logado para ver essa página.")
-        return redirect(url_for("main.login"))
+        abort(401)
 
     ultimo_fav = current_user.filmes_fav.order_by(Filme.id.desc()).first()
     qtd_filmes = current_user.filmes_fav.count()
@@ -374,8 +376,7 @@ def perfil():
 @login_required
 def perfil_criticas():
     if not current_user.is_authenticated:
-        flash("Você precisa estar logado para ver essa página.")
-        return redirect(url_for("main.login"))
+        abort(401)
 
     avaliacoes = current_user.avaliacoes
 
@@ -385,8 +386,7 @@ def perfil_criticas():
 @login_required
 def perfil_filmes():
     if not current_user.is_authenticated:
-        flash("Você precisa estar logado para ver essa página.")
-        return redirect(url_for("main.login"))
+        abort(401)
 
     filmes= list(current_user.filmes_fav)
     status= current_user.status_filme
@@ -412,8 +412,7 @@ def perfil_filmes():
 @login_required
 def perfil_atores():
     if not current_user.is_authenticated:
-        flash("Você precisa estar logado para ver essa página.")
-        return redirect(url_for("main.login"))
+        abort(401)
 
     atores= current_user.atores_fav
 
@@ -422,6 +421,9 @@ def perfil_atores():
 @main.route('/editar-perfil', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    if not current_user.is_authenticated:
+        abort(401)
+
     if request.method == 'POST':
         current_user.nome = request.form.get('nome', current_user.nome)
         current_user.usuario = request.form.get('usuario', current_user.usuario)
@@ -446,6 +448,8 @@ def sugestoes():
 @main.post("/favoritos/filmes/toggle")
 @login_required
 def toggle_favorito_filme():
+    if not current_user.is_authenticated:
+        abort(401)
     data = request.get_json()
     filme_id = int(data.get("filme_id"))
 
@@ -465,6 +469,8 @@ def toggle_favorito_filme():
 @main.post("/favoritos/atores/toggle")
 @login_required
 def toggle_favorito_ator():
+    if not current_user.is_authenticated:
+        abort(401)
     data = request.get_json()
     ator_id = int(data.get("ator_id"))
 
@@ -484,6 +490,8 @@ def toggle_favorito_ator():
 @main.route("/salvar_status/<int:filme_id>", methods=["POST"])
 @login_required
 def salvar_status(filme_id):
+    if not current_user.is_authenticated:
+        abort(401)
     filme = Filme.query.get_or_404(filme_id)
     status_valor = request.form.get("status")  
 
@@ -508,3 +516,4 @@ def salvar_status(filme_id):
         return redirect(url_for("main.series", filme_id=filme.id))
     else:
         return redirect(url_for("main.filmes", filme_id=filme.id))
+    

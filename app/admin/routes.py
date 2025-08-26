@@ -190,7 +190,6 @@ def lista_filmes():
 def admin_dashboard():
     return "Área restrita só para admins"
 
-
 @admin.errorhandler(403)
 def acesso_negado(e):
-    return render_template("403.html"), 403
+    return render_template("erro.html", codigo=403, mensagem="Você não tem permissão para acessar esta página."), 403
