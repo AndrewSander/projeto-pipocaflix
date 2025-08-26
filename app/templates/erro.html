@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="erro-container">
+    <h1>{{ codigo }} - Erro</h1>
+    <p>{{ mensagem }}</p>
+    <a href="{{ url_for('main.index') }}" class="btn-voltar">Voltar para a página inicial</a>
+</div>
+{% endblock %}
