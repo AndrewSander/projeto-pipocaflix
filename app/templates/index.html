@@ -54,6 +54,10 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
     </section>
 
     <section class="carrossel">
@@ -74,6 +78,10 @@
                     </ul>
                 {% endfor %}
             </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
         </div>
     </section>
 
@@ -97,6 +105,10 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
     </section>
 
 {% if current_user.is_authenticated %}
@@ -119,6 +131,10 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
     </section>
 {% else %}
     <section class="chamada">
@@ -132,6 +148,10 @@
             <i class="fa-solid fa-bookmark chamada__fav"></i>
             <p class="subtitle t2">Faça login para acessar sua lista</p>
             <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
         </div>
     </section>
 {% endif %}
@@ -154,6 +174,10 @@
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
         </div>
     </section>
 

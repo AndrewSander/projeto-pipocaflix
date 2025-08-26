@@ -1,51 +1,75 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const carrossel = document.querySelector('.carrossel');
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+  const carrosseis = document.querySelectorAll('.carrossel');
 
-  carrossel.addEventListener('mousedown', (e) => {
-    isDown = true;
-    carrossel.style.cursor = 'grabbing';
-    startX = e.pageX - carrossel.offsetLeft;
-    scrollLeft = carrossel.scrollLeft;
-  });
+  carrosseis.forEach(carrossel => {
+    const main = carrossel.querySelector('.carrossel__main');
+    const btnPrev = carrossel.querySelector('.carrossel-btn.prev');
+    const btnNext = carrossel.querySelector('.carrossel-btn.next');
 
-  carrossel.addEventListener('mouseleave', () => {
-    isDown = false;
-    carrossel.style.cursor = 'grab';
-  });
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
-  carrossel.addEventListener('mouseup', () => {
-    isDown = false;
-    carrossel.style.cursor = 'grab';
-  });
+    // --- Drag com mouse ---
+    main.addEventListener('mousedown', (e) => {
+      isDown = true;
+      main.style.cursor = 'grabbing';
+      startX = e.pageX - main.offsetLeft;
+      scrollLeft = main.scrollLeft;
+    });
 
-  carrossel.addEventListener('mousemove', (e) => {
-    if(!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - carrossel.offsetLeft;
-    const walk = (x - startX) * 2; 
-    carrossel.scrollLeft = scrollLeft - walk;
-  });
+    main.addEventListener('mouseleave', () => {
+      isDown = false;
+      main.style.cursor = 'grab';
+    });
 
-  carrossel.addEventListener('touchstart', (e) => {
-    isDown = true;
-    startX = e.touches[0].pageX - carrossel.offsetLeft;
-    scrollLeft = carrossel.scrollLeft;
-  });
+    main.addEventListener('mouseup', () => {
+      isDown = false;
+      main.style.cursor = 'grab';
+    });
 
-  carrossel.addEventListener('touchend', () => {
-    isDown = false;
-  });
+    main.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - main.offsetLeft;
+      const walk = (x - startX) * 2;
+      main.scrollLeft = scrollLeft - walk;
+    });
 
-  carrossel.addEventListener('touchmove', (e) => {
-    if(!isDown) return;
-    const x = e.touches[0].pageX - carrossel.offsetLeft;
-    const walk = (x - startX) * 2;
-    carrossel.scrollLeft = scrollLeft - walk;
+    // --- Touch no mobile ---
+    main.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - main.offsetLeft;
+      scrollLeft = main.scrollLeft;
+    });
+
+    main.addEventListener('touchend', () => {
+      isDown = false;
+    });
+
+    main.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - main.offsetLeft;
+      const walk = (x - startX) * 2;
+      main.scrollLeft = scrollLeft - walk;
+    });
+
+    // --- Botões prev/next ---
+    const scrollAmount = 200; // ajuste conforme o tamanho dos cards
+
+    if (btnPrev && btnNext) {
+      btnPrev.addEventListener('click', () => {
+        main.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      btnNext.addEventListener('click', () => {
+        main.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
   });
 });
+
+
 
 function toggleMenu() {
   document.getElementById("perfilMenu").classList.toggle("show");

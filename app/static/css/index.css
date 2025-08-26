@@ -176,6 +176,7 @@
 }
 
 .carrossel{
+    position: relative;
     display: flex;
     flex-direction: column;
     gap:20px;
@@ -222,7 +223,8 @@
 
 .carrossel__main{
     overflow-x: auto;
-    height: 200px;
+    overflow-y: hidden;
+    height: max-content;
     cursor: grab;
     user-select: none;
     scrollbar-width: none;
@@ -236,7 +238,6 @@
 
 .carrossel__filmes{
     position: relative;
-    min-width: 100px;
     color:white; 
     overflow: visible;    
     list-style: none;   
@@ -297,6 +298,7 @@
 
 .carrossel--main-criticas{
     overflow-x: auto;
+    overflow-y: hidden;
     height: max-content;
     cursor: grab;
     user-select: none;
@@ -310,6 +312,38 @@
     display: flex;
 }
 
+.container--carrossel-button{
+    display: flex;
+    justify-content: space-between;
+}
+
+.carrossel-btn {
+  margin-left: 40px;
+  margin-right: 40px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 10;
+  display: none; /* escondido por padrão */
+}
+
+.carrossel-btn.prev { left: 10px; }
+.carrossel-btn.next { right: 10px; }
+
+.carrossel-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+/* Mostra só no desktop */
+@media (min-width: 768px) {
+  .carrossel-btn {
+    display: block;
+  }
+}
 
 .chamada{
     display: flex;
