@@ -14,7 +14,7 @@
         <div class="container-atores-main">
             {% for actor in atores %}
                 <div class="ator-card">
-                    <img src="../static/img/ator/{{actor.nome}}.jpg" alt="Foto do ator {{actor.nome}}" class="carrossel--ator atores_fav">
+                    <img src="../static/img/ator/{{actor.nome}}.jpg" alt="Foto do ator {{actor.nome}}" class="carrossel__ator atores_fav">
                     <div class="nome--container">
                         <div class="filme--nome" data-ator-id="{{ actor.id }}">
                             <button class="fav-btn {% if actor in current_user.atores_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">

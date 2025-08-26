@@ -6,18 +6,18 @@
 
 {% block perfil_content %}
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">FILMES FAVORITOS</h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <li class="carrossel-interno__atores">
                     {% if filmes | length > 0 %}
                     {% for movie in filmes %}
                         <ul class="carrossel--series">
-                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel--ator atores_fav">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel__ator atores_fav">
                             <div class="nome--container">
                                 <div class="filme--nome" data-filme-id="{{ movie.id }}">
                                     <button class="fav-btn {% if movie in current_user.filmes_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
@@ -41,18 +41,18 @@
     </section>
 
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title"> FILMES CONCLUÍDOS </h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <li class="carrossel-interno__atores">
                 {% if assistido%}
                     {% for movie in assistido %}
                         <ul class="carrossel--series">
-                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel--ator atores_fav">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel__ator atores_fav">
                             <div class="nome--container">
                                 <p class="ator--nome">{{movie.titulo}}</p>
                             </div>
@@ -66,18 +66,18 @@
     </section>
 
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">ASSISTINDO </h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <li class="carrossel-interno__atores">
                 {% if assistindo%}
                     {% for movie in assistindo %}
                         <ul class="carrossel--series">
-                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel--ator atores_fav">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel__ator atores_fav">
                             <div class="nome--container">
                                 <p class="ator--nome">{{movie.titulo}}</p>
                             </div>
@@ -91,18 +91,18 @@
     </section>
 
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title"> FILMES NA LISTA </h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <li class="carrossel-interno__atores">
                 {% if salvo %}
                     {% for movie in salvo %}
                         <ul class="carrossel--series">
-                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel--ator atores_fav">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel__ator atores_fav">
                             <div class="nome--container">
                                 <p class="ator--nome">{{movie.titulo}}</p>
                             </div>

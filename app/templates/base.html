@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/editar_perfil.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/atores/atores.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/avaliar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/filmes.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/series.css') }}">
@@ -22,20 +21,20 @@
 </head>
 <body>
     <header>
-        <div class="header__container">
-            <label for="search--toggle"><i class="fa-solid fa-magnifying-glass pesquisa"></i></label>
+        <div class="container--header">
+            <label for="search--toggle"><i class="fa-solid fa-magnifying-glass icon-pesquisar"></i></label>
             <input type="checkbox" id="search--toggle" hidden>
             <form id="search-form" autocomplete="off" class="form--search">
                 <input type="text" id="search-input" placeholder="Buscar filmes..." />
                 <div id="search-suggestions" class="suggestions"></div>
             </form>
-            <div class="perfil__container">
+            <div class="container--header__perfil">
                 {% if current_user.is_authenticated %} 
                     <img src="{{ current_user.foto_url }}" alt="Perfil" class="perfil-icone logado" onclick="toggleMenu()">
-                    <div class="perfil-menu" id="perfilMenu">
-                        <div class="perfil-info">
-                        <img src="{{ current_user.foto_url }}" alt="Foto de perfil" class="perfil-foto">
-                        <span class="perfil-nome">{{ current_user.nome }}</span>
+                    <div class="header__perfil-menu" id="perfilMenu">
+                        <div class="header__perfil-info">
+                        <img src="{{ current_user.foto_url }}" alt="Foto de perfil" class="header__perfil-foto">
+                        <span class="header__perfil-nome">{{ current_user.nome }}</span>
                         </div>
                         <hr>
                         <a href="/perfil-geral"><div class="flex"><i class="fa-solid fa-user icons"></i> <p>Ver Perfil</p></div></a>
@@ -44,25 +43,23 @@
                     </div> 
                     {% else %}
                     <div class="icon-circle"><i class="fa-solid fa-user perfil-icone" onclick="toggleMenu()"></i></div>
-                    <div class="perfil-menu" id="perfilMenu">
-                        <div class="perfil-info">
-                        <div class="icon-circle"><i class="fa-solid fa-user perfil-icone" onclick="toggleMenu()"></i></div>
-                        <span class="perfil-nome">{{ current_user.nome }}</span>
+                    <div class="header__perfil-menu" id="perfilMenu">
+                        <div class="header__perfil-info-header">
+                        <div class="header__perfil-icon-circle"><i class="fa-solid fa-user perfil-icone" onclick="toggleMenu()"></i></div>
+                        <span class="header__perfil-nome">{{ current_user.nome }}</span>
                         </div>
                         <hr>
                         <a href="/login"><div class="flex"><i class="fa-solid fa-door-open icons"></i> <p>logar</p></div> </a>
                     </div>
                 {% endif %}
             </div>
-    <div class="menu-lateral">
-        <a href="javascript:void(0)" class="btn-fechar">&times;</a>
-        <a href="{{ url_for('main.listar_filmes') }}"> FILMES </a>
-        <a href="{{ url_for('main.listar_series') }}"> SÉRIES </a>
-        <a href="{{ url_for('main.listar_atores') }}"> ATORES </a>
-    </div>
-    <div class="header__container">
-        <i class="fa-solid fa-bars header__menu"></i>
-    </div>
+            <div class="menu-lateral">
+                <a href="javascript:void(0)" class="btn-fechar">&times;</a>
+                <a href="{{ url_for('main.listar_filmes') }}"> FILMES </a>
+                <a href="{{ url_for('main.listar_series') }}"> SÉRIES </a>
+                <a href="{{ url_for('main.listar_atores') }}"> ATORES </a>
+            </div>
+            <i class="fa-solid fa-bars header__menu"></i>
         </div>
         <a class="header__logo" href="{{ url_for('main.index') }}">LOGO</a>
     </header>
@@ -70,17 +67,17 @@
         {% block content %} {%endblock %}
     </main>
     <footer class="footer">
-        <div class="footer-container">
+        <div class="container--footer">
     <!-- Logo e descrição -->
-            <div class="footer-section">
-                <h2 class="footer-logo">LOGO</h2>
-                <p class="footer-description">Explore os melhores filmes, séries e trailers em um só lugar.</p>
+            <div class="footer__section">
+                <h2 class="footer__logo">LOGO</h2>
+                <p class="footer__description">Explore os melhores filmes, séries e trailers em um só lugar.</p>
             </div>
 
     <!-- Navegação -->
-            <div class="footer-section">
-                <h3 class="footer-title">Navegação</h3>
-                <ul class="footer-links">
+            <div class="footer__section">
+                <h3 class="footer__title">Navegação</h3>
+                <ul class="footer__links">
                     <li><a href="#">Início</a></li>
                     <li><a href="#">Em Alta</a></li>
                     <li><a href="#">Categorias</a></li>
@@ -89,9 +86,9 @@
             </div>
 
     <!-- Redes sociais -->
-            <div class="footer-section">
-                <h3 class="footer-title">Descubra mais</h3>
-                <div class="footer-social">
+            <div class="footer__section">
+                <h3 class="footer__title">Descubra mais</h3>
+                <div class="footer__social">
                     <a href="#">TikTok</a>
                     <a href="#">Twitter</a>
                     <a href="#">Instagram</a>
@@ -100,7 +97,7 @@
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer__bottom">
             &copy; 2025 PipocaFlix. Todos os direitos reservados.
         </div>
     </footer>

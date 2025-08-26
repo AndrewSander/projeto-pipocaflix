@@ -1,34 +1,7 @@
-@charset "UTF-8";
-
-*{
-    text-decoration: none;
-}
-
-
 .perfil-header {
     position: relative;
     height: 180px;
     width: 100%;
-}
-
-.perfil-header .banner{
-    height: 100%;
-    width: 100%;
-}
-
-.perfil-header .banner img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
-
-.perfil-info {  
-    margin-top:25px;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    gap: 20px;
-    z-index: 2;
 }
 
 .avatar{
@@ -41,6 +14,14 @@
     justify-content: space-between;
     padding: 0 20px;
     gap: 20px;
+}
+
+.avatar__img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--enfase_1);
 }
 
 .metricas{
@@ -61,18 +42,13 @@
     line-height: 15px;
 }
 
-.subtitle{
-    font-size: 0.8em;
-    font-weight: 300;
-    color:#cacaca;
-}
-
-.avatar img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--enfase_1);
+.perfil-info {  
+    margin-top:25px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    z-index: 2;
 }
 
 .user-details {
@@ -120,6 +96,8 @@
     display: none;
 }
 
+/* PERFIL GERAL */
+
 .main-film {
     margin: 20px 0;
     justify-content: center;
@@ -127,6 +105,11 @@
     display: flex;
     align-items: center;
     gap:20px;
+}
+
+.filme-fav{
+    border-radius: 10px;
+    width: 100px;
 }
 
 .main-film__aviso{
@@ -140,105 +123,6 @@
 }
 .main-film__subtitle{
     font-weight: 400;
-}
-
-.filme-fav{
-    border-radius: 10px;
-    width: 100px;
-}
-
-.perfil-stats {
-    display: flex;
-    gap: 40px;
-    padding: 20px;
-    background: white;
-    color: black;
-    font-weight: bold;
-}
-
-.perfil-stats div span {
-    font-size: 12px;
-    color: #666;
-}
-
-
-.button{
-    display: flex;
-    margin: 10px auto;
-    padding: 10px 30px;
-    border-radius: 10px;
-    color:var(--azul_4);
-    font-weight: 800;
-    background-color: var(--enfase_1)
-}
-
-.carrossel{
-    display: flex;
-    flex-direction: column;
-    gap:20px;
-    margin-top: 40px;
-}
-
-.carrossel--header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.carrossel--text{
-    gap:8px;
-    margin-left: 1.7em;
-    display: flex;
-}
-
-.destaque{
-    width: 3px;
-    height: 29px;
-    background-color: var(--enfase_1);
-}
-
-.title{
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3em;
-    color: white;
-}
-
-.subtitle{
-    margin-right:1.7em;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 0.9em;
-    text-decoration: none;
-    color:var(--enfase_1);
-}
-
-.carrossel--main{
-    overflow-x: auto;
-    height: 200px;
-    cursor: grab;
-    user-select: none;
-    scrollbar-width: none;
-}
-
-/* ESTILIZAÇÃO ESPECÍFICA PARA A PARTE DOS ATORES */
-
-.carrossel-interno__atores{
-    margin-left: 2em;
-    gap:30px;
-    display: flex;
-}
-
-.carrossel--atores{
-    position: relative;
-    color:white; 
-    overflow: visible;       
-}
-
-.carrossel--ator{
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 100%;
 }
 
 .atores_fav{
@@ -261,6 +145,22 @@
     line-height: 20px;
     word-break: keep-all;
 }
+
+.ator--nome p {
+    display: flex;           
+    align-items: center;
+    gap: 10px;  
+}
+
+.ator--nome .fav-btn{
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;   
+}
+
 .container-comentarios{
     display: flex;
     flex-wrap: wrap;
@@ -282,14 +182,6 @@
     margin-bottom: 30px;
 }
 
-.container_header_critica{
-    display: flex;
-    flex-direction: column;
-    gap:5px;
-}
-.critica-nota{
-    font-weight: 600;
-}
 .critica-usuario{
     width: max-content;
     display: flex;
@@ -313,11 +205,37 @@
     font-weight: bold;
     max-width: 200px;  
 }
+
+.critica-nota{
+    font-weight: 600;
+}
+
 .critica-comentario{
     font-weight: 300;
     font-size: 0.9em;
     color: var(--enfase_1)
 }
+
+.filme--nome{
+    display: flex;
+    align-items: center;
+}
+
+.filme--nome p {
+    display: flex;           
+    align-items: center;
+    gap: 10px;  
+}
+
+.filme--nome .fav-btn{
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;   
+}
+
 .container-atores{
     margin-left: 30px;
 }
@@ -335,3 +253,4 @@
 .ator-card{
     flex: 0 1 150px;
 }
+

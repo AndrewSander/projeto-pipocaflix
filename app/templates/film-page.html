@@ -3,9 +3,9 @@
 {% block title %} {{ filme.titulo }} {% endblock %}
 
 {% block content %}
-    <section class="banner_container">
+    <section class="container--banner-filme">
         <!--Imagem de fundo-->
-        <div class="img_fundo">
+        <div class="banner-filme__img">
             <img src="../static/img/series/{{ filme.id }}/Banner.png" alt="Banner">
         </div>
         <!--Conteúdo do card-->
@@ -46,7 +46,7 @@
                         {% endif %}
                     </span>
                 </div>
-                <p class="descricao">
+                <p>
                     {{ filme.descricao }}
                 </p>
             </div>
@@ -55,9 +55,9 @@
 
     
         
-    <section class="trailer_container">
+    <section class="container--trailer">
         <h2>Reproduzir Trailer</h2>
-        <div class="trailer_video">
+        <div class="trailer__video">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </section>
@@ -86,7 +86,7 @@
                 MARCAR COMO ASSISTIDO
             {% endif %}
         </button>
-        <button class="button--series dark-2" type="submit" onclick="setStatus('Assistindo')">
+        <button class="button--series" type="submit" onclick="setStatus('Assistindo')">
             <i class="fa-solid fa-eye-slash"></i>
             {% if status_atual == "Assistindo" %}
                 ESTÁ ASSISTINDO
@@ -98,9 +98,9 @@
 
     <form class="janela-avaliacao" method="POST">
         <i class="fa-solid fa-x fechar-janela"></i>
-        <div class="container__avaliar">
-            <div class="container_estrelas">
-                <h2 class="janela_titulo">AVALIAR {{ filme.titulo }}</h2>
+        <div class="container--avaliar">
+            <div class="container--estrelas">
+                <h2 class="janela__titulo">AVALIAR {{ filme.titulo }}</h2>
                 <div class="rating">
                     <input type="radio" id="star5" name="nota" value="5"><label for="star5" title="5 estrelas"></label>
                     <input type="radio" id="star4" name="nota" value="4"><label for="star4" title="4 estrelas"></label>
@@ -109,26 +109,26 @@
                     <input type="radio" id="star1" name="nota" value="1"><label for="star1" title="1 estrela"></label>
                 </div>
             </div>
-            <div class="container__comentario">
+            <div class="container--comentario">
                 <label for="comentario">Comentário:</label>
-                <textarea class="avaliacao_comentario" id="comentario" name="comentario" placeholder="Escreva sua opinião..."></textarea>
+                <textarea class="comentario__avaliacao" id="comentario" name="comentario" placeholder="Escreva sua opinião..."></textarea>
                 <button class="button" type="submit">SALVAR</button>
             </div>
         </div>
     </form>
 
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">ELENCO</h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <li class="carrossel-interno__atores">
                 {% if elenco %}
                     {% for item in elenco %}
-                        <ul class="carrossel--atores">
+                        <ul class="carrossel__atores">
                             <div class="cast-card" data-ator-id="{{ item.ator.id }}">
                                 <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}"></a>
                                 <!-- botão favorito -->
@@ -185,14 +185,14 @@
             </div>
         {% else %}
             <section class="chamada">
-                <div class="chamada--main">
+                <div class="chamada__main">
                     <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
                 </div>
             </section>
         {% endif %}
         <section class="carrossel">
-            <div class="carrossel--header">
-                <div class="carrossel--text">
+            <div class="carrossel__header">
+                <div class="carrossel__text">
                     <div class="destaque"></div>
                     <h2 class="title">COMENTARIOS</h2>
                 </div>
