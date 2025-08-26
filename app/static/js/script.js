@@ -10,23 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let startX;
     let scrollLeft;
 
-    // --- Drag com mouse ---
+    // --- Mouse Drag ---
     main.addEventListener('mousedown', (e) => {
       isDown = true;
       main.style.cursor = 'grabbing';
       startX = e.pageX - main.offsetLeft;
       scrollLeft = main.scrollLeft;
+      e.preventDefault(); // evita seleção de texto
     });
 
-    main.addEventListener('mouseleave', () => {
-      isDown = false;
-      main.style.cursor = 'grab';
-    });
-
-    main.addEventListener('mouseup', () => {
-      isDown = false;
-      main.style.cursor = 'grab';
-    });
+    main.addEventListener('mouseleave', () => isDown = false);
+    main.addEventListener('mouseup', () => isDown = false);
 
     main.addEventListener('mousemove', (e) => {
       if (!isDown) return;
@@ -36,26 +30,27 @@ document.addEventListener('DOMContentLoaded', () => {
       main.scrollLeft = scrollLeft - walk;
     });
 
-    // --- Touch no mobile ---
+    // --- Touch Drag ---
     main.addEventListener('touchstart', (e) => {
       isDown = true;
       startX = e.touches[0].pageX - main.offsetLeft;
       scrollLeft = main.scrollLeft;
-    });
-
-    main.addEventListener('touchend', () => {
-      isDown = false;
-    });
+    }, { passive: true });
 
     main.addEventListener('touchmove', (e) => {
       if (!isDown) return;
+      e.preventDefault();
       const x = e.touches[0].pageX - main.offsetLeft;
       const walk = (x - startX) * 2;
       main.scrollLeft = scrollLeft - walk;
-    });
+    }, { passive: false });
 
-    // --- Botões prev/next ---
-    const scrollAmount = 200; // ajuste conforme o tamanho dos cards
+    main.addEventListener('touchend', () => {
+      isDown = false;
+    }, { passive: true });
+
+    // --- Botões Prev/Next ---
+    const scrollAmount = 250; // ajuste conforme largura do item
 
     if (btnPrev && btnNext) {
       btnPrev.addEventListener('click', () => {
