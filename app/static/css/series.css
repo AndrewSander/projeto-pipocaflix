@@ -641,3 +641,50 @@
         font-size: 10px;
     }
 }
+
+/* Ajustes do botao */
+
+.banner__info h1 {
+    display: flex;           
+    align-items: center;
+    gap: 10px;               
+}
+
+.banner__info .fav-btn {
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;
+}
+
+.ator--nome p {
+    display: flex;           
+    align-items: center;
+    gap: 10px;  
+}
+
+.ator--nome .fav-btn{
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;   
+}
+
+.filme--nome p {
+    display: flex;           
+    align-items: center;
+    gap: 10px;  
+}
+
+.filme--nome .fav-btn{
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;   
+}
