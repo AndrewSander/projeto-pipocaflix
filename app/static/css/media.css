@@ -1,0 +1,71 @@
+/* Extra small (default mobile-first) */
+
+/* Small devices (landscape phones, ≥500px) */
+@media screen and (min-width: 500px) {
+    .banner{
+        position: relative;
+        width: 100%;
+        height: 280px;
+        margin-bottom: 130px;
+    }
+    
+}
+
+/* Medium devices (tablets, ≥768px) */
+@media screen and (min-width: 768px) {
+    .banner{
+        position: relative;
+        width: 100%;
+        height: 400px;
+        margin-bottom: 200px;
+    }
+    .banner__description{
+        position: absolute;
+        width: max-content;
+        top:88%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 200px;
+        display: flex;
+        gap:10px;
+    }
+    .banner__movie{
+        position: relative;
+        flex:1;
+        height: 200px;
+        width: 180px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+
+    }
+    .banner__title{
+        font-family:'Poppins', sans-serif;
+        font-size: 1.4em;
+        font-weight: 500;
+        color: white;
+    }
+    .banner__subtitle{
+        font-family: 'Roboto',sans-serif;
+        color: rgba(167, 154, 154, 1);
+        font-size: 1.2em;
+        font-weight: 200;
+    }
+    .banner__star{
+        color:gold;
+        font-size: 1.2em;
+    }
+    .banner__comments{
+        color:white;
+        font-size: 1.2em;
+
+    }
+
+}
+
+
+/* Extra large devices (large desktops, ≥1200px) */
+@media screen and (min-width: 1200px) { ... }
+
+/* Extra extra large devices (very large desktops, ≥1400px) */
+@media screen and (min-width: 1400px) { ... }

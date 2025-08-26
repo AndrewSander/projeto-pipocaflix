@@ -120,12 +120,7 @@
     object-fit: cover;
     border-radius: 7px;
 }
-.banner__fav{
-    position: absolute;
-    top:0;
-    font-size: 3.5em;
-    color:rgba(67, 67, 67, 0.623);
-}
+
 .banner__caption{
     display: flex;
     gap:10px;
