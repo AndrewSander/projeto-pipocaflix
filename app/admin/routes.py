@@ -1,9 +1,9 @@
 from . import admin
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
-from flask_migrate import Migrate
+from flask import render_template, request, redirect, url_for, request
 from app.models import db, Ator, Filme, Atuacao, Episodio, Genero
 from app.funcoes import admin_required
+from app.logger import write_log, read_logs
 
 # Formulário de novo episódio
 @admin.route("/novo", methods=["GET", "POST"])
@@ -183,14 +183,18 @@ def editar_filme(filme_id):
     return render_template('editar_filme.html', filme=filme, generos=generos_disponiveis)
 
 @admin.route('/lista-filmes')
+@admin_required
 def lista_filmes():
     filmes = Filme.query.order_by(Filme.titulo.asc()).all()
     return render_template('lista_editar.html', filmes=filmes)
 
-def admin_dashboard():
-    return "Área restrita só para admins"
-
+@admin.route("/logs")
+@admin_required
+def logs():
+    registros = read_logs()
+    return render_template("logs.html", logs=registros)
 
 @admin.errorhandler(403)
 def acesso_negado(e):
-    return render_template("403.html"), 403
+    write_log("ERRO", "Falta permissão", rota=request.path)
+    return render_template("erro.html", codigo=403, mensagem="Você não tem permissão para acessar esta página."), 403

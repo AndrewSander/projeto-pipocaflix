@@ -1,0 +1,26 @@
+data_hora,evento,detalhe,usuario,rota
+2025-08-26 20:56:21,ERRO,Falta permissão,-,/admin/novo-filme
+2025-08-26 20:56:21,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:56:32,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:56:32,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 20:56:37,LOGIN,Usuário fez login,<Usuario 1>,/login
+2025-08-26 20:56:37,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:56:57,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:18,LOGOUT,Usuário saiu,Luca,/logout
+2025-08-26 20:59:18,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:20,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:20,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 20:59:26,LOGIN,Usuário fez login,Luca,/login
+2025-08-26 20:59:26,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:32,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:01:20,ERRO,Página não encontrada,-,/admin/aaa
+2025-08-26 21:01:20,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:01:53,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:02,LOGOUT,Usuário saiu,lacax,/logout
+2025-08-26 21:02:02,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:04,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:04,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 21:02:18,LOGIN,Usuário fez login,lacax,/login
+2025-08-26 21:02:18,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:25,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:04:10,ERRO,Página não encontrada,-,/admin/aaa
