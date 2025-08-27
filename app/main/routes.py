@@ -1,9 +1,10 @@
 from . import main
-from flask import abort, render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
+from flask import abort, render_template, request, redirect, url_for, session, flash, jsonify, request # type: ignore
 from flask_login import login_required, current_user, login_user, logout_user # type: ignore
 from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero, usuario_filme_fav, usuario_ator_fav, Status
 from app.funcoes import calcular_distribuicao
 from sqlalchemy import func
+from app.logger import write_log
 
 # Pagina inicial
 @main.route('/')
@@ -302,7 +303,7 @@ def login():
         if user and user.verificar_senha(senha):
             session["usuario_id"] = user.id
             login_user(user)
-            next_page = request.args.get('next')
+            write_log("LOGIN", "Usuário fez login", usuario=user.usuario, rota=request.path)
             return redirect(url_for("main.index")) 
         else:
             flash("Usuário não encontrado ou senha inválida. Cadastre-se!", "warning")
@@ -314,6 +315,7 @@ def login():
 # Pagina de logout
 @main.route("/logout")
 def logout():
+    write_log("LOGOUT", "Usuário saiu", usuario=current_user.usuario, rota=request.path)
     logout_user()
     session.pop("usuario_id", None)
     return redirect(url_for("main.index"))

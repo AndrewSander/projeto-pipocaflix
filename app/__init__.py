@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from .main import main as main_bp
 from .admin import admin as admin_bp
 from .extensions import db, login_manager
 from flask_migrate import Migrate
+from app.logger import write_log
 
 def create_app():
     app = Flask(__name__)
@@ -31,26 +32,32 @@ def create_app():
 
     @app.errorhandler(404)
     def erro_404(e):
+        write_log("ERRO", "Página não encontrada", rota=request.path)
         return render_template("erro.html", codigo=404, mensagem="Página não encontrada."), 404
 
     @app.errorhandler(405)
     def erro_405(e):
+        write_log("ERRO", "Método não permitido", rota=request.path)
         return render_template("erro.html", codigo=405, mensagem="Método não permitido."), 405
 
     @app.errorhandler(500)
     def erro_500(e):
+        write_log("ERRO", "Erro inesperado no servidor", rota=request.path)
         return render_template("erro.html", codigo=500, mensagem="Ocorreu um erro inesperado no servidor."), 500
 
     @app.errorhandler(502)
     def erro_502(e):
+        write_log("ERRO", "Erro de gateway", rota=request.path)
         return render_template("erro.html", codigo=502, mensagem="Erro de gateway."), 502
 
     @app.errorhandler(503)
     def erro_503(e):
+        write_log("ERRO", "Serviço indisponível", rota=request.path)
         return render_template("erro.html", codigo=503, mensagem="Serviço indisponível."), 503
 
     @app.errorhandler(504)
     def erro_504(e):
+        write_log("ERRO", "Tempo limite excedido", rota=request.path)
         return render_template("erro.html", codigo=504, mensagem="Tempo limite excedido."), 504
 
 
