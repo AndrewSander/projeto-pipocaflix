@@ -4,10 +4,10 @@
 
 {% block content %}
     <section class="banner">
-        <div class="banner__container">
-                <button class="play-button">
+        <div class="container--banner">
+                <button class="button--play">
                     <a href="{{url_for('main.filmes',filme_id=principal.id)}}">
-                        <div class="play-button__triangle"></div>
+                        <div class="button--play__triangle"></div>
                     </a>
                 </button>
             <img class="banner__img" src="../static/img/JurassicWorld.webp">
@@ -35,125 +35,149 @@
         </div>
     </section>
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">FILMES EM ALTA</h2>
             </div>
             <a href="{{ url_for('main.listar_filmes') }}" class="subtitle">Ver tudo ></a>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <ul class="carrossel-interno__filmes">
                 {% for filme in filmes %}
-                    <li  class="carrossel--filmes">
+                    <li  class="carrossel__filmes">
                         <span class="numeracao">{{ loop.index }}</span>
                         <a href="{{ url_for('main.series', filme_id=filme.id) }}">
-                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel__capa">
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
     </section>
 
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">ATORES EM ALTA</h2>
             </div>
             <a href="{{ url_for('main.listar_atores') }}" class="subtitle">Ver tudo ></a>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <li class="carrossel-interno__atores">
                 {% for item in atores %}
-                    <ul class="carrossel--atores">
+                    <ul class="carrossel__atores">
                         <a href="{{ url_for('main.pagina_ator', ator_id=item.id) }}">
-                            <img src="../static/img/ator/{{item.nome}}.jpg" alt="Foto do ator {{item.nome}}" class="carrossel--ator">
+                            <img src="../static/img/ator/{{item.nome}}.jpg" alt="Foto do ator {{item.nome}}" class="carrossel__ator">
                         </a>
                     </ul>
                 {% endfor %}
             </li>
         </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
     </section>
 
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">SÉRIES EM ALTA</h2>
             </div>
             <a href="{{ url_for('main.listar_series') }}" class="subtitle">Ver tudo ></a>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <ul class="carrossel-interno__filmes">
                 {% for serie in series %}
-                    <li  class="carrossel--filmes">
+                    <li  class="carrossel__filmes">
                         <span class="numeracao">{{loop.index}}</span>
                         <a href="{{ url_for('main.series', filme_id=serie.id) }}">
-                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel__capa">
                         </a>
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
         </div>
     </section>
 
 {% if current_user.is_authenticated %}
     <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">SEUS FAVORITOS</h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <ul class="carrossel-interno__filmes">
                 {% for serie in lista %}
-                    <li  class="carrossel--filmes">
+                    <li  class="carrossel__filmes">
                         <span class="numeracao">{{loop.index}}</span>
                         <a href="{{ url_for('main.series', filme_id=serie.id) }}">
-                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel--capa">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel__capa">
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
     </section>
 {% else %}
     <section class="chamada">
-        <div class="chamada--header">
-            <div class="chamada--text">
+        <div class="chamada__header">
+            <div class="chamada__text">
                 <div class="destaque"></div>
                 <h2 class="title">SUA LISTA</h2>
             </div>
         </div>
-        <div class="chamada--main">
+        <div class="chamada__main">
             <i class="fa-solid fa-bookmark chamada__fav"></i>
             <p class="subtitle t2">Faça login para acessar sua lista</p>
             <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
         </div>
     </section>
 {% endif %}
 
 <section class="carrossel">
-        <div class="carrossel--header">
-            <div class="carrossel--text">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
                 <div class="destaque"></div>
                 <h2 class="title">EM CARTAZ</h2>
             </div>
         </div>
-        <div class="carrossel--main">
+        <div class="carrossel__main">
             <ul class="carrossel-interno__filmes">
                 {% for filme in cartaz %}
-                    <li  class="carrossel--filmes">
+                    <li  class="carrossel__filmes">
                         <span class="numeracao">{{loop.index}}</span>
                         <a href="{{ url_for('main.filmes', filme_id=filme.id) }}">
-                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel--capa">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel__capa">
                         </a>
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
         </div>
     </section>
 

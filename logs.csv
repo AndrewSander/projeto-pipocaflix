@@ -24,3 +24,9 @@ data_hora,evento,detalhe,usuario,rota
 2025-08-26 21:02:18,ERRO,Página não encontrada,-,/static/css/avaliar.css
 2025-08-26 21:02:25,ERRO,Página não encontrada,-,/static/css/avaliar.css
 2025-08-26 21:04:10,ERRO,Página não encontrada,-,/admin/aaa
+2025-08-26 21:16:17,ERRO,Página não encontrada,-,/ola
+2025-08-26 21:17:20,LOGOUT,Usuário saiu,Andrew11,/logout
+2025-08-26 21:17:26,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 21:17:31,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 21:17:39,LOGIN,Usuário fez login,Andrew11,/login
+2025-08-26 21:17:43,ERRO,Página não encontrada,-,/static/img/series/2/S02E02.webp

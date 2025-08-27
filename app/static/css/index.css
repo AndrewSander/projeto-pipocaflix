@@ -1,19 +1,3 @@
-@charset "UTF-8";   
-
-*{
-    text-decoration: none;
-}
-
-/* DECLARAÇÃO DE VARIÁVEIS NO CSS */
-:root{
-    --azul_1: #020d1f;
-    --azul_2: #01172C;
-    --azul_3: #05213C;
-    --azul_4: #0B2E50;
-    --enfase_1: #FFB236;
-    --enfase_2: #EBA22C;
-}
-
 /* banner do index.html */
 .banner{
     position: relative;
@@ -21,14 +5,24 @@
     height: 210px;
     margin-bottom: 130px;
 }
-.banner__container{
+.container--banner{
     height: 100%;
     position: relative;
     display:flex;
     justify-content: center;
     align-items: center;
 }
-.play-button{
+.button{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 30px;
+    border-radius: 10px;
+    color:var(--azul_4);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    background-color: var(--enfase_1)
+}
+.button--play{
     margin: auto;
     position:absolute;
     width: 70px;
@@ -38,10 +32,10 @@
     border-radius: 100%;
     transition: transform 0.3s ease;
 }
-.play-button:hover{
+.button--play:hover{
     transform: scale(1.09);
 }
-.play-button__triangle{
+.button--play__triangle{
     position: absolute;
     top:50%;
     left:50%;
@@ -51,6 +45,49 @@
     border-top: 14px solid transparent;
     border-bottom: 14px solid transparent;
     border-left: 26px solid rgb(255, 255, 255);
+}
+
+.button--series{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 25px;
+    width: 300px;
+    border-radius: 10px;
+    color:var(--azul_3);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    font-size: 0.8em;
+    background-color: var(--enfase_1);
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+.button--series:hover{
+    cursor:pointer;
+}
+
+.dark{
+    background-color: var(--azul_4);
+    color: var(--enfase_1)
+}
+
+.button-avaliar{
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color:var(--azul_3);
+    font-family: 'Poppins',sans-serif;
+    font-weight: 800;
+    font-size: 1.2em;
+    background-color: var(--enfase_1);
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    width: max-content;
+}
+.button-avaliar:hover{
+    cursor:pointer;
 }
 
 .banner__img{
@@ -83,22 +120,7 @@
     object-fit: cover;
     border-radius: 7px;
 }
-.banner__fav{
-    position: absolute;
-    top:0;
-    font-size: 3.5em;
-    color:rgba(67, 67, 67, 0.623);
-}
-.add{
-    font-family:'Inter',sans-serif;
-    font-weight: 100;
-    position: absolute;
-    font-size:0.8em;
-    top:50%;
-    left:50%;
-    transform:translate(-54%,-70%);
-    color:rgba(255, 255, 255, 0.87);
-}
+
 .banner__caption{
     display: flex;
     gap:10px;
@@ -148,21 +170,21 @@
     gap: 5px;
 }
 
-
 .carrossel{
+    position: relative;
     display: flex;
     flex-direction: column;
     gap:20px;
-
+    margin-top: 40px;
 }
 
-.carrossel--header{
+.carrossel__header{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.carrossel--text{
+.carrossel__text{
     gap:8px;
     margin-left: 1.7em;
     display: flex;
@@ -194,9 +216,10 @@
     margin-right: 0;
 }
 
-.carrossel--main{
+.carrossel__main{
     overflow-x: auto;
-    height: 200px;
+    overflow-y: hidden;
+    height: max-content;
     cursor: grab;
     user-select: none;
     scrollbar-width: none;
@@ -208,9 +231,8 @@
     display: flex;
 }
 
-.carrossel--filmes{
+.carrossel__filmes{
     position: relative;
-    min-width: 100px;
     color:white; 
     overflow: visible;    
     list-style: none;   
@@ -228,7 +250,7 @@
     z-index: -1;
 }
 
-.carrossel--capa{
+.carrossel__capa{
     /* pointer-events: none; - esta causando que a imagem nao pode levar ao site de cada filme/serie */
     width: 90px;
     height: 140px;
@@ -244,31 +266,79 @@
     display: flex;
 }
 
-.carrossel--atores{
+.carrossel__atores{
     position: relative;
     color:white; 
     overflow: visible;       
 }
 
-.carrossel--ator{
+.carrossel__ator{
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 100%;
 }
 
-.button{
+.carrossel-interno__episodios{
+    margin-left: 2em;
+    gap:30px;
     display: flex;
-    margin: 10px auto;
-    padding: 10px 30px;
-    border-radius: 10px;
-    color:var(--azul_4);
-    font-family: 'Poppins',sans-serif;
-    font-weight: 800;
-    font-size: 1.2em;
-    background-color: var(--enfase_1)
 }
 
+.carrossel--episodios{
+    position: relative;
+    color:white; 
+    overflow: visible;       
+}
+
+.carrossel--main-criticas{
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: max-content;
+    cursor: grab;
+    user-select: none;
+    scrollbar-width: none;
+}
+
+.carrossel-interno__criticas{
+    margin-left: 2em;
+    margin-right: 2em;
+    gap:30px;
+    display: flex;
+}
+
+.container--carrossel-button{
+    display: flex;
+    justify-content: space-between;
+}
+
+.carrossel-btn {
+  margin-left: 40px;
+  margin-right: 40px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 10;
+  display: none; /* escondido por padrão */
+}
+
+.carrossel-btn.prev { left: 10px; }
+.carrossel-btn.next { right: 10px; }
+
+.carrossel-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+/* Mostra só no desktop */
+@media (min-width: 768px) {
+  .carrossel-btn {
+    display: block;
+  }
+}
 
 .chamada{
     display: flex;
@@ -278,19 +348,19 @@
 
 }
 
-.chamada--header{
+.chamada__header{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.chamada--text{
+.chamada__text{
     gap:8px;
     margin-left: 1.7em;
     display: flex;
 }
 
-.chamada--main{
+.chamada__main{
     display: flex;
     flex-direction: column;
     justify-content: center;
