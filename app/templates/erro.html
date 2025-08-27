@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<br>
 <section class="page-error">
     <div class="error-img">
         <img src="{{ url_for('static', filename='img/Tristeza.png') }}" alt="Tristeza chorando">
@@ -9,4 +10,5 @@
     <p>{{ mensagem }}</p>
     <a href="{{ url_for('main.index') }}" class="btn">Voltar para a página inicial</a>
 </section>
+<br>
 {% endblock %}

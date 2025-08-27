@@ -23,3 +23,4 @@ data_hora,evento,detalhe,usuario,rota
 2025-08-26 21:02:18,LOGIN,Usuário fez login,lacax,/login
 2025-08-26 21:02:18,ERRO,Página não encontrada,-,/static/css/avaliar.css
 2025-08-26 21:02:25,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:04:10,ERRO,Página não encontrada,-,/admin/aaa
