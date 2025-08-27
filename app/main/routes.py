@@ -15,10 +15,16 @@ def index():
         Avaliacao.comentario != None,
         Avaliacao.comentario != ''
     ).count()
-    filmes = Filme.query.filter_by(tipo="filme").limit(10).all()
-    series = Filme.query.filter_by(tipo="serie").limit(10).all()
+    filmes = Filme.query.filter_by(tipo="filme").order_by(Filme.media.desc().nullslast()).limit(10).all()
+    series = Filme.query.filter_by(tipo="serie").order_by(Filme.media.desc().nullslast()).limit(10).all()
     cartaz = Filme.query.filter_by(lancamento=True).limit(10).all()
-    atores= Ator.query.limit(4).all()
+    ator_query = Ator.query
+    ator_query = (
+            ator_query.outerjoin(usuario_ator_fav, Ator.id == usuario_ator_fav.c.ator_id)
+            .group_by(Ator.id)
+            .order_by(func.count(usuario_ator_fav.c.usuario_id).desc())
+        )
+    atores= ator_query.limit(10).all()
     if current_user.is_authenticated:
         lista = current_user.filmes_fav.order_by(Filme.id.desc()).limit(10).all()
         return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista,cartaz=cartaz,principal=principal,comentario=comentario)
