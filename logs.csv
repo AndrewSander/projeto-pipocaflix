@@ -61,3 +61,10 @@ data_hora,evento,detalhe,usuario,rota
 2025-08-27 20:04:05,ERRO,Página não encontrada,-,/filmes/None
 2025-08-27 20:04:16,ERRO,Página não encontrada,-,/filmes/None
 2025-08-27 20:04:31,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:11:41,ERRO,Página não encontrada,-,/None
+2025-08-27 20:11:47,ERRO,Página não encontrada,-,/None
+2025-08-27 20:12:41,LOGOUT,Usuário saiu,fenix,/logout
+2025-08-27 20:12:44,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 20:12:48,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 20:13:02,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 20:13:13,LOGIN,Usuário fez login,teste123,/login
