@@ -68,4 +68,3 @@ data_hora,evento,detalhe,usuario,rota
 2025-08-27 20:12:48,ERRO,Página não encontrada,-,/static/img/logo.png
 2025-08-27 20:13:02,ERRO,Página não encontrada,-,/static/img/logo.png
 2025-08-27 20:13:13,LOGIN,Usuário fez login,teste123,/login
-2025-08-27 20:20:11,ERRO,Erro inesperado no servidor,-,/
