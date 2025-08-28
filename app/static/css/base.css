@@ -19,6 +19,16 @@
     text-decoration: none;
 }
 
+.logo-icon{
+    margin-left:20px;
+    width: 35px;
+}
+
+.logo-icon-login{
+    height: 60px;
+    object-fit: contain;
+}
+
 body{
     font-family: 'Poppins', 'Inter', sans-serif;
     height: 100%;

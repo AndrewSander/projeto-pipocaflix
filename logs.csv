@@ -69,3 +69,12 @@ data_hora,evento,detalhe,usuario,rota
 2025-08-27 20:13:02,ERRO,Página não encontrada,-,/static/img/logo.png
 2025-08-27 20:13:13,LOGIN,Usuário fez login,teste123,/login
 2025-08-27 20:20:11,ERRO,Erro inesperado no servidor,-,/
+2025-08-27 22:19:14,ERRO,Página não encontrada,-,/favicon.ico
+2025-08-27 22:19:18,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 22:19:20,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 22:19:32,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 22:19:37,LOGIN,Usuário fez login,testee11,/login
+2025-08-27 22:37:58,ERRO,Página não encontrada,-,/static/logo.png
+2025-08-27 22:38:01,ERRO,Página não encontrada,-,/static/logo.png
+2025-08-27 22:41:42,LOGOUT,Usuário saiu,testee11,/logout
+2025-08-27 22:47:35,ERRO,Página não encontrada,-,/static/img/series/2/S02E02.webp
