@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Redefinir Senha {% endblock %}
+
+{% block content %}
+<section class="redefinir_senha_page">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+    <h2>Redefinir Senha</h2>
+    <form method="POST">
+        <input type="password" name="nova_senha" placeholder="Nova Senha" required>
+        <input type="password" name="confirmar_senha" placeholder="Confirme a Nova Senha" required>
+        <button type="submit">Atualizar Senha</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash_messages">
+                {% for category, message in messages %}
+                    <div class="alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</section>
+{% endblock %}

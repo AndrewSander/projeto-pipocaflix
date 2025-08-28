@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Esqueci minha senha {% endblock %}
+
+{% block content %}
+<section class="esqueci_senha_page">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+    <h2>Redefinir senha</h2>
+    <p>Insira seu nome de usuário para redefinir sua senha.</p>
+    <form method="POST">
+        <input type="text" name="usuario" placeholder="Seu nome de usuário" required>
+        <button type="submit">Redefinir Senha</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash_messages">
+                {% for category, message in messages %}
+                    <div class="alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</section>
+{% endblock %}

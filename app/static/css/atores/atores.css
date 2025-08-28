@@ -1,0 +1,92 @@
+
+/* ESTILIZAÇÃO DA PÁGINA DO ATOR */
+
+.ator_page{
+    padding: 20px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ator_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.ator_info img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+}
+
+.ator_info h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8em;
+    color: white;
+}
+
+.ator_info h3{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    color: var(--enfase_1);
+}
+
+.ator_info p{
+    font-size: 1.2em;
+    color: white;
+}
+
+.ator_info a{
+    text-decoration: none;
+    color: var(--enfase_1);
+    font-weight: bold;
+}
+
+.ator_info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ator_filmes h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.ator_filmes {
+    margin-top: 20px;
+}
+
+.ator_filmes h3 {
+    margin: 10px;
+    font-size: 1.4rem;
+}
+
+.ator_filmes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ator_filmes li {
+    margin-bottom: 8px;
+}
+
+.ator_filmes a {
+    padding: 20px;
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.ator_filmes a:hover {
+    background-color: var(--azul_1);
+    padding: 10px;
+    border-radius: 5px;
+    transition: linear 0.4s;
+}

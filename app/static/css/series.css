@@ -1,0 +1,476 @@
+.container--banner-filme{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+.banner-filme__img img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.card_container{
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.55);
+    gap: 16px;
+    color: #fff;
+}
+
+.poster img{
+    width: 150px;
+    height: 200px;
+    border-radius: 10px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.banner__info h1 {
+    display: flex;           
+    align-items: center;
+    gap: 10px;               
+}
+
+.banner__info .fav-btn {
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.35);  
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.fav-btn:hover, .fav-btn:focus-visible {
+  background: rgba(0,0,0,0.5);
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* estado ativo (favoritado) */
+.fav-btn.is-active {
+  background: rgba(255, 215, 0, 0.2); 
+  color: gold;                    
+}
+
+/* Ícone altera de contorno para preenchido quando ativo */
+.fav-btn.is-active .icon-star path {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.temporada, .generos{
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.generos{
+    font: italic;
+}
+
+.rating span{
+    font-size: 16px;
+    color: gold;
+    margin: 10px 0;
+}
+
+.container--trailer{
+    background-color: var(--azul_2);
+    padding: 40px;
+    text-align: center;
+}
+
+
+.container--trailer h2{
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+
+.trailer__video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.trailer__video iframe{
+    width: 80%;
+    height: 350px;
+    border: none;
+    border-radius: 10px;
+}
+
+.container__salvar{
+    margin-bottom:50px;
+}
+#abrirForm{
+    margin-bottom: 50px;
+}
+
+.janela-avaliacao{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  z-index:2000;
+  margin: 0 auto;
+  background-color: var(--azul_3);
+  width: 90%;
+  padding: 30px 50px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.fechar-janela{
+    position: absolute;
+    right:20px;
+    top:20px;
+}
+.fechar-janela:hover{
+    cursor:pointer;
+}
+
+.janela__titulo{
+  text-transform: uppercase;
+  color: var(--enfase_1);
+  font-size: 1.2em;
+  line-height: 20px;
+}
+.container--avaliar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:20px;
+}
+.container--estrelas{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rating {
+  display: inline-flex;
+  flex-direction: row-reverse; 
+  gap: .1rem;
+  font-size: 2rem;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+  color: #cfd2d6; 
+}
+
+.rating label::before {
+  content: "★";
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: var(--enfase_1) 
+}
+
+.container--comentario{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.comentario__avaliacao{
+  width: 100%;
+  height: 100px;
+  padding: 0 20px;
+  border-radius: 15px;
+  text-align: center;
+  resize: none;
+  line-height: 100px;
+  overflow: hidden; /* critix flimsy  */
+}
+.comentario__avaliacao::placeholder{
+  font-size: 1em; 
+}
+
+.episodio__card {
+    background: var(--azul_4);
+    border-radius: 8px;
+    width: 150px;
+    height: 160px;
+    overflow: hidden;
+    font-size: 12px;
+    border: 1px solid var(--azul_4);
+}
+
+.episodio__card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.episodio__card img {
+    width: 100%;
+    height: auto;
+}
+
+.episodio__info {
+    padding: 10px;
+    text-align: center;
+}
+
+.episodio__titulo {
+    line-height: 1.2;
+    min-height: calc(1.2em * 2); /* força altura de 2 linhas */
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;   /* número máximo de linhas */
+    -webkit-box-orient: vertical; /* tamanho maximo é vertical*/
+    overflow: hidden; /* O texto que esta acima do tamanho é ocultado */
+    text-overflow: ellipsis; /* Substitui o texto a mais por ... */
+}
+
+.cast-card {
+    position: relative;
+    text-align: center;
+    background: var(--azul_4);
+    border-radius: 8px;
+    width: 150px;
+    height: 180px;
+    overflow: hidden;
+    font-size: 12px;
+    border: 1px solid var(--azul_4);
+}
+
+.cast-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.cast-card img {
+    border-radius: 6px 6px 0 0;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 5px;
+    width: 100%;
+    height: 130px;
+    object-fit: cover;   
+    object-position: center; 
+}
+
+.ratings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    
+}
+
+.ratings-text {
+    gap:8px;
+    margin-left: 1.7em;
+    display: flex;
+}
+
+.ratings-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ratings-summary p {
+   margin: auto;
+}
+
+.rating-score {
+    text-align: center;
+    font-size: 18px;
+    color: #FFD700;
+    margin-left: 1.7em;
+}
+
+.rating-bars {
+    flex: 1;
+    margin-right: 10%;
+}
+
+.rating-bars div {
+    display: flex;
+    align-items: center;
+    margin: 2px 0;
+}
+
+.rating-bars span {
+    width: 20px;
+}
+
+.bar {
+    height: 8px;
+    background-color: var(--enfase_1);
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.rating-button {
+    display: flex;
+    background-color: var(--azul_3);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.rating-button:hover {
+    background-color: var(--azul_4);
+}
+
+.icon-avaliar{
+  margin-bottom:2px;
+}
+
+
+.show{
+  display:block;
+}
+
+.container_critica{
+    flex-shrink: 0;
+    border-radius: 15px;
+    padding: 20px 30px;
+    background-color: var(--azul_4);
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap:10px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.container_header_critica{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.critica-nota{
+    font-weight: 600;
+}
+.critica-usuario{
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+}
+.critica-foto{
+    border: 2px solid var(--enfase_1);
+    border-radius: 50px;
+    width: 40px;
+}
+.critica-nome{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.critica-comentario{
+    font-weight: 300;
+    font-size: 0.9em;
+    color: var(--enfase_1)
+}
+
+.critica-expandir{
+    position: absolute;
+    bottom:10px;
+    right:20px;
+}
+
+/* AJUSTES DE CONTEÚDO*/
+/* Em telas menores*/
+@media (max-width: 650px) {
+    .trailer__video iframe{
+        width: 90%;
+        height: 250px;
+        border: none;
+        border-radius: 10px;
+    }
+    .container--banner-filme {
+        height: 420px;
+    }
+    .descricao{
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
+
+/* Em telas muito pequenas*/
+@media (max-width: 480px) {
+    .trailer__video iframe{
+        width: 90%;
+        height: 150px;
+        border: none;
+        border-radius: 10px;
+    }
+    .container--banner-filme {
+        height: 400px;
+    }
+    .descricao{
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    .poster img{
+        width: 100px;
+        height: 150px;
+    }
+    .temporada, .generos, .rating span{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 407px) {
+    .container--banner-filme {
+        height: 500px;
+    }
+    .descricao{
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    .poster img{
+        width: 80px;
+        height: 120px;
+    }
+    .temporada, .generos, .rating span{
+        font-size: 10px;
+    }
+}

@@ -1,11 +1,13 @@
 from . import admin
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
-from flask_migrate import Migrate
-from app.models import db, Ator, Filme, Atuacao, Episodio, Genero, Usuario
+from flask import render_template, request, redirect, url_for, request
+from app.models import db, Ator, Filme, Atuacao, Episodio, Genero
+from app.funcoes import admin_required
+from app.logger import write_log, read_logs
 
 # Formulário de novo episódio
 @admin.route("/novo", methods=["GET", "POST"])
+@admin_required
 def novo():
     if request.method == "POST":
         titulo = request.form["titulo"]
@@ -24,20 +26,24 @@ def novo():
 
 # Formulário de novo filme
 @admin.route('/novo-filme', methods=['GET', 'POST'])
+@admin_required
 def novo_filme():
-    generos = Genero.query.all()
-    filmes = Filme.query.all()
+    generos = Genero.query.order_by(Genero.nome.asc()).all()
 
     if request.method == 'POST':
         titulo = request.form['titulo']
         descricao = request.form['descricao']
         temporada = request.form['temporada']
-        ano = request.form['ano']  
+        data_lancamento_str = request.form['data_lancamento']
+        data_lancamento = datetime.strptime(data_lancamento_str, "%Y-%m-%d").date()
+        tipo = request.form['tipo']
+        lancamento = request.form['lancamento'] == "True"
+        trailer_url = request.form.get('trailer', '')
         
         genero_ids = request.form.getlist("generos")  
         genero_ids = [int(gid) for gid in genero_ids]  
 
-        novo_filme = Filme(titulo=titulo, descricao=descricao, temporada = temporada, ano = ano)
+        novo_filme = Filme(titulo=titulo, descricao=descricao, temporada =int(temporada), data_lancamento = data_lancamento, tipo=tipo, lancamento=lancamento, trailer=trailer_url)
         
         generos_selecionados = Genero.query.filter(Genero.id.in_(genero_ids)).all()
         for genero in generos_selecionados:
@@ -52,6 +58,7 @@ def novo_filme():
 
 # Formulário de novo ator
 @admin.route('/novo-ator', methods=['GET', 'POST'])
+@admin_required
 def novo_ator():
     filmes = Filme.query.all()
     atores = Ator.query.all()
@@ -103,9 +110,10 @@ def novo_ator():
 
 # Formulário de novo genero
 @admin.route('/novo-genero', methods=['GET', 'POST'])
+@admin_required
 def novo_genero():
     filmes = Filme.query.all()
-    generos = Genero.query.all()
+    generos = Genero.query.order_by(Genero.nome.asc()).all()
 
     if request.method == 'POST':
         acao = request.form.get("acao")
@@ -139,3 +147,54 @@ def novo_genero():
             return redirect(url_for("admin.novo_genero"))
 
     return render_template("novo_genero.html", filmes=filmes, generos = generos)
+
+# Rota para editar um filme existente
+@admin.route('/editar-filme/<int:filme_id>', methods=['GET', 'POST'])
+@admin_required
+def editar_filme(filme_id):
+    filme = Filme.query.get_or_404(filme_id)
+    generos_disponiveis = Genero.query.order_by(Genero.nome.asc()).all()
+
+    if request.method == 'POST':
+        # Atualiza os dados do filme com os valores do formulário
+        filme.titulo = request.form['titulo']
+        filme.descricao = request.form['descricao']
+        
+        temporada_str = request.form.get('temporada')
+        filme.temporada = int(temporada_str) if temporada_str and temporada_str.isdigit() else None
+        
+        data_lancamento_str = request.form['data_lancamento']
+        filme.data_lancamento = datetime.strptime(data_lancamento_str, "%Y-%m-%d").date()
+        
+        filme.tipo = request.form['tipo']
+        filme.lancamento = request.form.get('lancamento') == "True"
+        
+        # Pega a nova URL do trailer
+        filme.trailer = request.form.get('trailer', '')
+        
+        # Atualiza os gêneros
+        genero_ids = request.form.getlist("generos")
+        genero_ids = [int(gid) for gid in genero_ids]
+        filme.generos = Genero.query.filter(Genero.id.in_(genero_ids)).all()
+
+        db.session.commit()
+        return redirect(url_for('admin.lista_filmes'))
+    
+    return render_template('editar_filme.html', filme=filme, generos=generos_disponiveis)
+
+@admin.route('/lista-filmes')
+@admin_required
+def lista_filmes():
+    filmes = Filme.query.order_by(Filme.titulo.asc()).all()
+    return render_template('lista_editar.html', filmes=filmes)
+
+@admin.route("/logs")
+@admin_required
+def logs():
+    registros = read_logs()
+    return render_template("logs.html", logs=registros)
+
+@admin.errorhandler(403)
+def acesso_negado(e):
+    write_log("ERRO", "Falta permissão", rota=request.path)
+    return render_template("erro.html", codigo=403, mensagem="Você não tem permissão para acessar esta página."), 403

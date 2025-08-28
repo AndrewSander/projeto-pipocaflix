@@ -1,91 +1,184 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <title>Pipoca Flix</title>
-</head>
-<body>
-    <header>
-        <a  class="header__logo" href="#">LOGO</a>
-        <div class="header__container">
-            <i class="fa-solid fa-magnifying-glass header__lupa"></i>
-            <i class="fa-solid fa-user header__login"></i>
-            <i class="fa-solid fa-bars header__menu"></i>
-        </div>
-    </header>
-    <main>
-        <section class="banner">
-            <div class="banner__container">
-                <button class="play-button">
-                    <div class="play-button__triangle"></div>
+{% extends "base.html" %}
+
+{% block title %} Página Inicial {% endblock %}
+
+{% block content %}
+    <section class="banner">
+        <div class="container--banner">
+                <button class="button--play">
+                    <a href="{{url_for('main.filmes',filme_id=principal.id)}}">
+                        <div class="button--play__triangle"></div>
+                    </a>
                 </button>
-                <img class="banner__img" src="../static/img/JurassicWorld.webp">
+            <img class="banner__img" src="../static/img/JurassicWorld.webp">
+        </div>
+        <div class="banner__description">
+            <div class="banner__movie">
+                <img class="banner__min-img" src="../static/img/min-Jurassic.jpg">
             </div>
-            <div class="banner__description">
-                <div class="banner__movie">
-                    <i class="fa-solid fa-bookmark banner__fav">
-                        <div class="add">
-                            <p>+</p>
-                        </div>
-                    </i>
-                    <img class="banner__min-img" src="../static/img/min-Jurassic.jpg">
+            <div class="banner__caption">
+                <div>
+                    <p class="banner__title">Jurassic World: Rebirth</p>
+                    <p class="banner__subtitle">Gareth Edwards</p>
                 </div>
-                <div class="banner__caption">
-                    <div>
-                        <p class="banner__title">Jurassic World: Rebirth</p>
-                        <p class="banner__subtitle">Gareth Edwards</p>
+                <div class="banner__database">
+                    <div class="banner__database-star">
+                        <i class="fa-solid fa-star banner__star"></i>
+                        <p class="banner__star-number">{{principal.media}}</p>
                     </div>
-                    <div class="banner__database">
-                        <div class="banner__database-star">
-                            <i class="fa-solid fa-star banner__star"></i>
-                            <p class="banner__star-number">545</p>
-                        </div>
-                        <div class="banner__database-comments">
-                            <i class="fa-solid fa-comments banner__comments"></i>
-                            <p class="banner__comments-number">120</p>
-                        </div>
+                    <div class="banner__database-comments">
+                        <i class="fa-solid fa-comments banner__comments"></i>
+                        <p class="banner__comments-number">{{comentario}}</p>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-    <footer class="footer">
-        <div class="footer-container">
-    <!-- Logo e descrição -->
-            <div class="footer-section">
-                <h2 class="footer-logo">LOGO</h2>
-                <p class="footer-description">Explore os melhores filmes, séries e trailers em um só lugar.</p>
+        </div>
+    </section>
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">FILMES EM ALTA</h2>
             </div>
+            <a href="{{ url_for('main.listar_filmes') }}" class="subtitle">Ver tudo ></a>
+        </div>
+        <div class="carrossel__main">
+            <ul class="carrossel-interno__filmes">
+                {% for filme in filmes %}
+                    <li  class="carrossel__filmes">
+                        <span class="numeracao">{{ loop.index }}</span>
+                        <a href="{{ url_for('main.series', filme_id=filme.id) }}">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel__capa">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
 
-    <!-- Navegação -->
-            <div class="footer-section">
-                <h3 class="footer-title">Navegação</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Em Alta</a></li>
-                    <li><a href="#">Categorias</a></li>
-                    <li><a href="#">Minha Conta</a></li>
-                </ul>
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">ATORES EM ALTA</h2>
             </div>
+            <a href="{{ url_for('main.listar_atores') }}" class="subtitle">Ver tudo ></a>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__atores">
+                {% for item in atores %}
+                    <ul class="carrossel__atores">
+                        <a href="{{ url_for('main.pagina_ator', ator_id=item.id) }}">
+                            <img src="../static/img/ator/{{item.nome}}.jpg" alt="Foto do ator {{item.nome}}" class="carrossel__ator">
+                        </a>
+                    </ul>
+                {% endfor %}
+            </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
 
-    <!-- Redes sociais -->
-            <div class="footer-section">
-                <h3 class="footer-title">Descubra mais</h3>
-                <div class="footer-social">
-                    <a href="#">TikTok</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">YouTube</a>
-                </div>
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">SÉRIES EM ALTA</h2>
+            </div>
+            <a href="{{ url_for('main.listar_series') }}" class="subtitle">Ver tudo ></a>
+        </div>
+        <div class="carrossel__main">
+            <ul class="carrossel-interno__filmes">
+                {% for serie in series %}
+                    <li  class="carrossel__filmes">
+                        <span class="numeracao">{{loop.index}}</span>
+                        <a href="{{ url_for('main.series', filme_id=serie.id) }}">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel__capa">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+{% if current_user.is_authenticated %}
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">SEUS FAVORITOS</h2>
             </div>
         </div>
-
-        <div class="footer-bottom">
-            &copy; 2025 PipocaFlix. Todos os direitos reservados.
+        <div class="carrossel__main">
+            <ul class="carrossel-interno__filmes">
+                {% for serie in lista %}
+                    <li  class="carrossel__filmes">
+                        <span class="numeracao">{{loop.index}}</span>
+                        <a href="{{ url_for('main.series', filme_id=serie.id) }}">
+                            <img src="../static/img/series/{{ serie.id }}/Capa.webp" alt="Imagem do filme {{serie.titulo}}" class="carrossel__capa">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-    </footer>
-    <script src="https://kit.fontawesome.com/e354a8dc68.js" crossorigin="anonymous" rel="preconnect"></script>
-</body>
-</html>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+{% else %}
+    <section class="chamada">
+        <div class="chamada__header">
+            <div class="chamada__text">
+                <div class="destaque"></div>
+                <h2 class="title">SUA LISTA</h2>
+            </div>
+        </div>
+        <div class="chamada__main">
+            <i class="fa-solid fa-bookmark chamada__fav"></i>
+            <p class="subtitle t2">Faça login para acessar sua lista</p>
+            <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+{% endif %}
+
+<section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">EM CARTAZ</h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <ul class="carrossel-interno__filmes">
+                {% for filme in cartaz %}
+                    <li  class="carrossel__filmes">
+                        <span class="numeracao">{{loop.index}}</span>
+                        <a href="{{ url_for('main.filmes', filme_id=filme.id) }}">
+                            <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Imagem do filme {{filme.titulo}}" class="carrossel__capa">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+{% endblock %}

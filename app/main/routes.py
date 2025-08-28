@@ -1,23 +1,275 @@
 from . import main
-from datetime import datetime
-from flask import render_template, request, redirect, url_for, session, flash, jsonify # type: ignore
-from app.models import db, Ator, Filme, Atuacao, Episodio, Genero, Usuario
-
+from flask import abort, render_template, request, redirect, url_for, session, flash, jsonify, request # type: ignore
+from flask_login import login_required, current_user, login_user, logout_user # type: ignore
+from app.models import db, Filme, Usuario, Ator, Atuacao, Avaliacao, Genero, usuario_filme_fav, usuario_ator_fav, Status
+from app.funcoes import calcular_distribuicao
+from sqlalchemy import func
+from app.logger import write_log
 
 # Pagina inicial
 @main.route('/')
 def index():
-    return render_template("index.html")
+    principal=Filme.query.get(5)
+    comentario= Avaliacao.query.filter(
+        Avaliacao.filme_id == 5,
+        Avaliacao.comentario != None,
+        Avaliacao.comentario != ''
+    ).count()
+    filmes = Filme.query.filter_by(tipo="filme").order_by(Filme.media.desc().nullslast()).limit(10).all()
+    series = Filme.query.filter_by(tipo="serie").order_by(Filme.media.desc().nullslast()).limit(10).all()
+    cartaz = Filme.query.filter_by(lancamento=True).limit(10).all()
+    ator_query = Ator.query
+    ator_query = (
+            ator_query.outerjoin(usuario_ator_fav, Ator.id == usuario_ator_fav.c.ator_id)
+            .group_by(Ator.id)
+            .order_by(func.count(usuario_ator_fav.c.usuario_id).desc())
+        )
+    atores= ator_query.limit(10).all()
+    if current_user.is_authenticated:
+        lista = current_user.filmes_fav.order_by(Filme.id.desc()).limit(10).all()
+        return render_template("index.html",filmes=filmes,atores=atores, series=series,lista=lista,cartaz=cartaz,principal=principal,comentario=comentario)
+    return render_template("index.html",filmes=filmes,atores=atores, series=series,cartaz=cartaz,principal=principal,comentario=comentario)
 
-# Pagina de filmes/series
-@main.route('/series/<int:filme_id>')
+# Pagina de filmes
+@main.route('/filmes/<int:filme_id>', methods=["GET", "POST"])
+def filmes(filme_id):
+    filme = Filme.query.get_or_404(filme_id)
+
+    criticas = Avaliacao.query.filter_by(filme_id=filme.id).order_by(Avaliacao.nota.desc()).limit(10).all()
+    
+    comentarios= Avaliacao.query.filter(
+        Avaliacao.filme_id==filme.id,
+        Avaliacao.comentario!=None,
+        Avaliacao.comentario!= ''
+    ).first() is not None
+
+    if filme.tipo == "serie":
+        return redirect(url_for('main.series', filme_id=filme.id))
+
+    atuacoes = filme.atuacoes
+    distribuicao = calcular_distribuicao(filme.id)
+    total = len(filme.avaliacoes)
+    status_atual = ""
+    # Pega avaliação do usuário atual, se existir
+    if current_user.is_authenticated:
+        avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = status_atual.status if status_atual else None
+
+        if request.method == "POST":
+            nota = float(request.form["nota"])
+            comentario = request.form.get("comentario", "")
+
+            if avaliacao:
+                # Atualiza avaliação existente
+                avaliacao.nota = nota
+                avaliacao.comentario = comentario
+            else:
+                # Cria nova avaliação
+                avaliacao = Avaliacao(
+                    usuario_id=current_user.id,
+                    filme_id=filme.id,
+                    nota=nota,
+                    comentario=comentario
+                )
+                db.session.add(avaliacao)
+
+            db.session.commit()
+            # Redireciona pra mesma página (recarregar com a avaliação nova)
+            return redirect(url_for("main.series", filme_id=filme.id))
+
+    return render_template('film-page.html', filme=filme, elenco=atuacoes, distribuicao=distribuicao, total=total,criticas=criticas, status_atual=status_atual, comentarios=comentarios)
+
+# Pagina de series
+@main.route('/series/<int:filme_id>', methods=["GET", "POST"])
 def series(filme_id):
     filme = Filme.query.get_or_404(filme_id)
+    
+    criticas = Avaliacao.query.filter_by(filme_id=filme.id).order_by(Avaliacao.nota.desc()).limit(10).all()
+
+    comentarios= Avaliacao.query.filter(
+        Avaliacao.filme_id==filme.id,
+        Avaliacao.comentario!=None,
+        Avaliacao.comentario!= ''
+    ).first() is not None
+
+
+    if filme.tipo == "filme":
+        return redirect(url_for('main.filmes', filme_id=filme.id))
+
     episodios = filme.episodios
     atuacoes = filme.atuacoes
+    distribuicao = calcular_distribuicao(filme.id)
+    total = len(filme.avaliacoes)
+    status_atual = ""
 
-    return render_template('film-page.html', filme=filme, episodios=episodios, elenco=atuacoes)
+        # Pega avaliação do usuário atual, se existir
+    if current_user.is_authenticated:
+        avaliacao = Avaliacao.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+        status_atual = status_atual.status if status_atual else None
 
+        if request.method == "POST":
+            nota = float(request.form["nota"])
+            comentario = request.form.get("comentario", "")
+
+            if avaliacao:
+                # Atualiza avaliação existente
+                avaliacao.nota = nota
+                avaliacao.comentario = comentario
+            else:
+                # Cria nova avaliação
+                avaliacao = Avaliacao(
+                    usuario_id=current_user.id,
+                    filme_id=filme.id,
+                    nota=nota,
+                    comentario=comentario
+                )
+                db.session.add(avaliacao)
+
+            db.session.commit()
+            # Redireciona pra mesma página (recarregar com a avaliação nova)
+            return redirect(url_for("main.series", filme_id=filme.id))
+
+    return render_template("series-page.html",filme=filme,episodios=episodios, elenco=atuacoes, distribuicao=distribuicao, total=total, criticas=criticas, status_atual=status_atual,comentarios=comentarios)
+
+
+# Pagina de todos os filmes
+@main.route('/filmes', methods = ["GET"])
+def listar_filmes():
+    query = Filme.query
+
+    # filtros
+    ano = request.args.get('ano')         
+    genero_selecionado = request.args.get('genero')
+    ordenar = request.args.get('ordenar', 'recente')
+
+    # testa e coloca os filtros
+    query = query.filter_by(tipo="filme")
+    
+    if genero_selecionado:
+        query = query.join(Filme.generos).filter(Genero.nome == genero_selecionado)
+
+    if ano:
+        query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
+    
+    # ordena os filmes
+    if ordenar == "recente":
+        query = query.order_by(Filme.data_lancamento.desc().nullslast())
+    elif ordenar == "avaliacao":
+        query = query.order_by(Filme.media.desc().nullslast())
+    elif ordenar == "alfabetico":
+        query = query.order_by(Filme.titulo.asc())
+    elif ordenar == "favoritos":
+        query = (
+            query.outerjoin(usuario_filme_fav, Filme.id == usuario_filme_fav.c.filme_id)
+            .group_by(Filme.id)
+            .order_by(func.count(usuario_filme_fav.c.usuario_id).desc())
+        )
+
+    generos = Genero.query.order_by(Genero.nome).all()
+    todos = Filme.query.filter_by(tipo='filme').all()
+    anos = sorted({f.data_lancamento.year for f in todos if f.data_lancamento})
+    
+    filmes = query.all()
+    return render_template('filmes.html', filmes=filmes, anos = anos, generos=generos)
+
+# Pagina de todas as series
+@main.route('/series', methods = ["GET"])
+def listar_series():
+    query = Filme.query
+
+    # filtros
+    ano = request.args.get('ano')         
+    genero_selecionado = request.args.get('genero')
+    ordenar = request.args.get('ordenar', 'recente')
+
+    # testa e coloca os filtros
+    query = query.filter_by(tipo="serie")
+    
+    if genero_selecionado:
+        query = query.join(Filme.generos).filter(Genero.nome == genero_selecionado)
+
+    if ano:
+        query = query.filter(db.extract('year', Filme.data_lancamento) == int(ano))
+    
+    # ordena os filmes
+    if ordenar == "recente":
+        query = query.order_by(Filme.data_lancamento.desc().nullslast())
+    elif ordenar == "avaliacao":
+        query = query.order_by(Filme.media.desc().nullslast())
+    elif ordenar == "alfabetico":
+        query = query.order_by(Filme.titulo.asc())
+    elif ordenar == "favoritos":
+        query = (
+            query.outerjoin(usuario_filme_fav, Filme.id == usuario_filme_fav.c.filme_id)
+            .group_by(Filme.id)
+            .order_by(func.count(usuario_filme_fav.c.usuario_id).desc())
+        )
+
+    generos = Genero.query.order_by(Genero.nome).all()
+    todos = Filme.query.filter_by(tipo='serie').all()
+    anos = sorted({f.data_lancamento.year for f in todos if f.data_lancamento})
+    
+    series = query.all()
+    return render_template('series.html', series=series, generos=generos, anos=anos)
+
+# Pagina de todos os atores
+@main.route('/todos_atores', methods = ["GET"])
+def listar_atores():
+    query = Ator.query
+
+    # filtros
+    filmes = request.args.get('filmes')         
+    ordenar = request.args.get('ordenar', 'favoritos')
+
+    # testa e coloca os filtros
+    
+    if filmes:
+        query = query.join(Ator.atuacoes).filter(Atuacao.filme_id == int(filmes))
+
+    # ordena os filmes
+    if ordenar == "idade":
+        query = query.order_by(Ator.data_nascimento.desc().nullslast())
+    elif ordenar == "alfabetico":
+        query = query.order_by(Ator.nome.asc())
+    elif ordenar == "favoritos":
+        query = (
+            query.outerjoin(usuario_ator_fav, Ator.id == usuario_ator_fav.c.ator_id)
+            .group_by(Ator.id)
+            .order_by(func.count(usuario_ator_fav.c.usuario_id).desc())
+        )
+
+    todos = Filme.query.all()
+    
+    atores = query.all()
+
+    for ator in atores:
+        ator.imagem_url = url_for('static', filename=f'img/ator/{ator.nome}.jpg')
+
+    return render_template('todos_atores.html', atores=atores, todos=todos)
+
+# Função para ordenar filmes pelo título
+def pegar_titulo(filme):
+    return filme.titulo
+
+# Página de filmografia dos atores
+@main.route('/ator/<int:ator_id>')
+def pagina_ator(ator_id):
+    ator = Ator.query.get_or_404(ator_id)
+    atuacoes = Atuacao.query.filter_by(ator_id=ator.id).all()
+
+    filmes = []
+    for atuacao in atuacoes:
+        if atuacao.filme:  # garante que não é None
+            if atuacao.filme not in filmes:
+                filmes.append(atuacao.filme)
+
+    filmes.sort(key=pegar_titulo)
+
+    imagem_ator = url_for('static', filename=f'img/ator/{ator.nome}.jpg')
+
+    return render_template('ator.html', ator=ator, filmes=filmes, imagem_ator=imagem_ator)
 
 # Formulário de cadastro
 @main.route("/cadastro", methods=["GET", "POST"])
@@ -45,37 +297,152 @@ def cadastro():
 # Formulário de login
 @main.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.perfil'))
+    
     if request.method == "POST":
         usuario = request.form["usuario"]
         senha = request.form["senha"]
 
-        usuario_db = Usuario.query.filter_by(usuario=usuario).first()
+        user = Usuario.query.filter_by(usuario=usuario).first()
 
-        if usuario_db and usuario_db.verificar_senha(senha):
-            session["usuario_id"] = usuario_db.id
-            flash("Login realizado com sucesso!")
-            return redirect(url_for("main.index"))  # Altere conforme sua rota principal
+        if user and user.verificar_senha(senha):
+            session["usuario_id"] = user.id
+            login_user(user)
+            write_log("LOGIN", "Usuário fez login", usuario=user.usuario, rota=request.path)
+            return redirect(url_for("main.index")) 
         else:
-            flash("Usuário ou senha inválidos.")
+            flash("Usuário não encontrado ou senha inválida. Cadastre-se!", "warning")
+            # aqui não redireciona, apenas re-renderiza o login.html
             return redirect(url_for("main.login"))
 
     return render_template("login.html")
 
-
+# Pagina de logout
 @main.route("/logout")
 def logout():
+    write_log("LOGOUT", "Usuário saiu", usuario=current_user.usuario, rota=request.path)
+    logout_user()
     session.pop("usuario_id", None)
-    flash("Logout realizado com sucesso.")
-    return redirect(url_for("main.login"))
+    return redirect(url_for("main.index"))
 
-@main.route("/perfil")
-def perfil():
-    if "usuario_id" not in session:
-        flash("Você precisa estar logado para ver essa página.")
+@main.route("/esqueci-senha", methods=["GET", "POST"])
+@login_required
+def esqueci_senha():
+    if not current_user.is_authenticated:
+        abort(401)
+    if request.method == "POST":
+        usuario = request.form["usuario"]
+        
+        user = Usuario.query.filter_by(usuario=usuario).first()
+        
+        if user:
+            # Redireciona para a próxima rota, passando o nome de usuário
+            return redirect(url_for("main.redefinir_senha", usuario=usuario))
+        else:
+            flash("Usuário não encontrado. Por favor, tente novamente.", "warning")
+            return redirect(url_for("main.esqueci_senha"))
+            
+    return render_template("esqueci_senha.html")
+
+@main.route("/redefinir-senha/<usuario>", methods=["GET", "POST"])
+def redefinir_senha(usuario):
+    user = Usuario.query.filter_by(usuario=usuario).first_or_404()
+
+    if request.method == "POST":
+        nova_senha = request.form["nova_senha"]
+        confirmar_senha = request.form["confirmar_senha"]
+
+        if nova_senha != confirmar_senha:
+            flash("As senhas não coincidem. Tente novamente.", "warning")
+            return render_template("redefinir_senha.html", usuario=usuario)
+        
+        user.set_senha(nova_senha) 
+        db.session.commit() # Exemplo com SQLAlchemy
+
+        flash("Sua senha foi redefinida com sucesso! Você pode fazer login agora.", "success")
         return redirect(url_for("main.login"))
 
-    usuario = Usuario.query.get(session["usuario_id"])
-    return render_template("perfil.html", usuario=usuario)
+    return render_template("redefinir_senha.html", usuario=usuario)
+
+# Pagina perfil
+@main.route("/perfil-geral")
+@login_required
+def perfil():
+    if not current_user.is_authenticated:
+        abort(401)
+
+    ultimo_fav = current_user.filmes_fav.order_by(Filme.id.desc()).first()
+    qtd_filmes = current_user.filmes_fav.count()
+    qtd_atores = current_user.atores_fav.count()
+    atores= current_user.atores_fav
+    filmes= list(current_user.filmes_fav)
+
+    return render_template("perfil-geral.html", ultimo_fav=ultimo_fav, qtd_filmes=qtd_filmes, qtd_atores = qtd_atores,atores=atores,filmes=filmes)
+
+@main.route("/perfil-criticas")
+@login_required
+def perfil_criticas():
+    if not current_user.is_authenticated:
+        abort(401)
+
+    avaliacoes = current_user.avaliacoes
+
+    return render_template("perfil-criticas.html",avaliacoes=avaliacoes)
+
+@main.route("/perfil-filmes")
+@login_required
+def perfil_filmes():
+    if not current_user.is_authenticated:
+        abort(401)
+
+    filmes= list(current_user.filmes_fav)
+    status= current_user.status_filme
+
+    assistindo = []
+    for s in current_user.status_filme:
+        if s.status == "Assistindo":
+            assistindo.append(s.filme)
+
+    assistido = []
+    for s in current_user.status_filme:
+        if s.status == "Assistido":
+            assistido.append(s.filme)
+
+    salvo = []
+    for s in current_user.status_filme:
+        if s.status == "Salvo":
+            salvo.append(s.filme)
+
+    return render_template("perfil-filmes.html",filmes=filmes,status=status,assistindo=assistindo,assistido=assistido,salvo=salvo)
+
+@main.route("/perfil-atores")
+@login_required
+def perfil_atores():
+    if not current_user.is_authenticated:
+        abort(401)
+
+    atores= current_user.atores_fav
+
+    return render_template("perfil-atores.html",atores=atores)
+
+@main.route('/editar-perfil', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    if not current_user.is_authenticated:
+        abort(401)
+
+    if request.method == 'POST':
+        current_user.nome = request.form.get('nome', current_user.nome)
+        current_user.usuario = request.form.get('usuario', current_user.usuario)
+        current_user.foto_url = request.form.get('foto_url', current_user.foto_url)
+        current_user.descricao = request.form.get('descricao', current_user.descricao)
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Perfil atualizado!')
+        return redirect(url_for('main.perfil'))
+
+    return render_template('editar_perfil.html', usuario=current_user)
 
 @main.route("/sugestoes")
 def sugestoes():
@@ -85,3 +452,76 @@ def sugestoes():
 
     filmes = Filme.query.filter(Filme.titulo.ilike(f"%{termo}%")).limit(5).all()
     return jsonify([{"id": f.id, "titulo": f.titulo} for f in filmes])
+
+@main.post("/favoritos/filmes/toggle")
+@login_required
+def toggle_favorito_filme():
+    if not current_user.is_authenticated:
+        abort(401)
+    data = request.get_json()
+    filme_id = int(data.get("filme_id"))
+
+    filme = Filme.query.get_or_404(filme_id)
+
+    if current_user.filmes_fav.filter(Filme.id == filme_id).first():
+        # já favoritou = remover
+        current_user.filmes_fav.remove(filme)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.filmes_fav.append(filme)
+        db.session.commit()
+        return jsonify({"favoritado": True})
+    
+@main.post("/favoritos/atores/toggle")
+@login_required
+def toggle_favorito_ator():
+    if not current_user.is_authenticated:
+        abort(401)
+    data = request.get_json()
+    ator_id = int(data.get("ator_id"))
+
+    ator = Ator.query.get_or_404(ator_id)
+
+    if current_user.atores_fav.filter(Ator.id == ator_id).first():
+        # já favoritou = remover
+        current_user.atores_fav.remove(ator)
+        db.session.commit()
+        return jsonify({"favoritado": False})
+    else:
+        # ainda não favoritou = adicionar
+        current_user.atores_fav.append(ator)
+        db.session.commit()
+        return jsonify({"favoritado": True})
+
+@main.route("/salvar_status/<int:filme_id>", methods=["POST"])
+@login_required
+def salvar_status(filme_id):
+    if not current_user.is_authenticated:
+        abort(401)
+    filme = Filme.query.get_or_404(filme_id)
+    status_valor = request.form.get("status")  
+
+    if not status_valor:
+        flash("Selecione um status válido.", "warning")
+        return redirect(url_for("main.filmes"))
+
+    status_existente = Status.query.filter_by(usuario_id=current_user.id, filme_id=filme.id).first()
+
+    if status_existente:
+        # Atualiza status existente
+        status_existente.status = status_valor
+    else:
+        # Cria novo status
+        novo_status = Status(usuario_id=current_user.id, filme_id=filme.id, status=status_valor)
+        db.session.add(novo_status)
+
+    db.session.commit()
+    flash("Status atualizado com sucesso!", "success")
+
+    if filme.tipo == "serie":
+        return redirect(url_for("main.series", filme_id=filme.id))
+    else:
+        return redirect(url_for("main.filmes", filme_id=filme.id))
+    

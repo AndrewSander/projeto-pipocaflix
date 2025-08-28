@@ -1,0 +1,134 @@
+{% extends "perfil.html" %}
+
+{% block title %} Visão Geral {% endblock %}
+
+{% block filmes %} active {% endblock %}
+
+{% block perfil_content %}
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">FILMES FAVORITOS</h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__atores">
+                    {% if filmes | length > 0 %}
+                    {% for movie in filmes %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.nome}}" class="carrossel__ator atores_fav">
+                            <div class="nome--container">
+                                <div class="filme--nome" data-filme-id="{{ movie.id }}">
+                                    <button class="fav-btn {% if movie in current_user.filmes_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
+                                        <!-- ícone estrela SVG (contorno) -->
+                                        <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                                9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                                fill="none" stroke="currentColor" stroke-width="2" />
+                                        </svg>
+                                    </button>
+                                    {{movie.titulo}}
+                                </div>
+                            </div>
+                        </ul>
+                        {% endfor %}
+                    {% else %}
+                        <p>O usuário não possui filmes favoritos</p>
+                    {% endif %}
+                </li>
+            </div>
+            <div class="container--carrossel-button">
+                <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+                <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+            </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title"> FILMES CONCLUÍDOS </h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__atores">
+                {% if assistido%}
+                    {% for movie in assistido %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel__ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filme marcado como concluído</p>
+                {% endif %}
+            </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">ASSISTINDO </h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__atores">
+                {% if assistindo%}
+                    {% for movie in assistindo %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel__ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filme marcado como assistindo</p>
+                {% endif %}
+            </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title"> FILMES NA LISTA </h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__atores">
+                {% if salvo %}
+                    {% for movie in salvo %}
+                        <ul class="carrossel--series">
+                            <img src="../static/img/series/{{movie.id}}/Capa.webp" alt="Foto do ator {{movie.titulo}}" class="carrossel__ator atores_fav">
+                            <div class="nome--container">
+                                <p class="ator--nome">{{movie.titulo}}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Esse usuário não possui filme na lista</p>
+                {% endif %}
+            </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block content %}
+
+{% if current_user.is_authenticated %} 
+    <!--<p>Nome: {{ current_user.nome }}</p>
+    <p>Usuário: {{ current_user.usuario }}</p>
+    <img src="{{ current_user.foto_url }}" alt="foto de perfil">
+    <p>Descrição: <br> {{ current_user.descricao }} </p>
+
+    <a href="{{ url_for('main.edit_profile') }}">Editar perfil</a>
+    <a href="{{ url_for('main.logout') }}">Logout</a>-->
+
+    <div class="perfil-header">
+        <div class="banner">
+            <img class="banner__img" src="../static/img/perfil/Banner.jpg" alt="banner do perfil">
+        </div>
+
+        <div class="avatar">
+            <img class="avatar__img" src="{{ current_user.foto_url }}" alt="Foto de perfil">
+        </div>
+        
+    </div>
+    <div class="perfil-info">
+        <div class="user-details">
+            <h2>{{ current_user.usuario }}</h2>
+            <p class="user-details__title">{{ current_user.nome }} • {{current_user.descricao}}</p>
+            <p class="user-details__subtitle">em pipocaflix desde {{ current_user.ano_criacao }}</p>
+        </div>
+    </div>
+    <nav class="perfil-nav">
+        <a href="{{url_for('main.perfil')}}" class="{% block geral %} {% endblock %}">Visão geral</a>
+        <a href="{{url_for('main.perfil_criticas')}}" class="{% block criticas %} {% endblock %}">Suas Críticas</a>
+        <a href="{{url_for('main.perfil_filmes')}}" class="{% block filmes %} {% endblock %}">Filmes</a>
+        <a href="{{url_for('main.perfil_atores')}}" class="{% block atores %} {% endblock %}">Atores</a>
+    </nav>
+        {% block perfil_content %} {% endblock %}
+{% else %}
+    <p>Você não está autenticado.</p>
+{% endif %}
+{% endblock %}

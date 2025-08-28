@@ -1,0 +1,256 @@
+.perfil-header {
+    position: relative;
+    height: 180px;
+    width: 100%;
+}
+
+.avatar{
+    bottom: -65px;
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+.avatar__img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--enfase_1);
+}
+
+.metricas{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
+
+.seguidores{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.numb{
+    font-size:1em;
+    line-height: 15px;
+}
+
+.perfil-info {  
+    margin-top:25px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    z-index: 2;
+}
+
+.user-details {
+    margin-top: 30px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.user-details__subtitle{
+    font-size: 0.8em;
+    color: #cacaca;
+}
+
+.perfil-nav {
+    width: 100%;
+    padding:0 15px;
+    margin-top:20px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.perfil-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+.perfil-nav a.active,
+.perfil-nav a:hover {   
+    color: var(--enfase_2);
+    border-bottom: 2px solid var(--enfase_2);
+    padding-bottom: 2px;
+}
+
+.perfil-nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* PERFIL GERAL */
+
+.main-film {
+    margin: 20px 0;
+    justify-content: center;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
+
+.filme-fav{
+    border-radius: 10px;
+    width: 100px;
+}
+
+.main-film__aviso{
+    color: #cacaca;
+    font-weight: 400;
+}
+
+.main-film__title{
+    font-weight: 700;
+    color:#ffffff;
+}
+.main-film__subtitle{
+    font-weight: 400;
+}
+
+.atores_fav{
+    border: 3px solid var(--enfase_1); 
+}
+
+.nome--container{
+    margin-top: 5px;
+    white-space: normal;
+    word-wrap: break-word;
+    text-overflow: clip;
+    width: 150px;
+    height: max-content;
+    overflow: hidden;
+}
+
+.ator--nome{
+    overflow-wrap: normal;
+    text-align: center;
+    line-height: 20px;
+    word-break: keep-all;
+}
+
+.ator--nome p {
+    display: flex;           
+    align-items: center;
+    gap: 10px;  
+}
+
+.ator--nome .fav-btn{
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;   
+}
+
+.container-comentarios{
+    display: flex;
+    flex-wrap: wrap;
+}
+.container_critica-perfil{
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 15px;
+    padding: 20px 30px;
+    background-color: var(--azul_4);
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap:10px;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.critica-usuario{
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+}
+.critica-foto{
+    border: 2px solid var(--enfase_1);
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.critica-nome{
+    white-space: normal;      
+    overflow-wrap: break-word; 
+    word-break: break-word;   
+    font-size: 0.8em;
+    text-transform: uppercase;
+    font-weight: bold;
+    max-width: 200px;  
+}
+
+.critica-nota{
+    font-weight: 600;
+}
+
+.critica-comentario{
+    font-weight: 300;
+    font-size: 0.9em;
+    color: var(--enfase_1)
+}
+
+.filme--nome{
+    display: flex;
+    align-items: center;
+}
+
+.filme--nome p {
+    display: flex;           
+    align-items: center;
+    gap: 10px;  
+}
+
+.filme--nome .fav-btn{
+    position: static;       
+    width: auto;
+    height: auto;
+    background: none;        
+    color: gold;             
+    padding: 4px;   
+}
+
+.container-atores{
+    margin-left: 30px;
+}
+.container-atores-header{
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+.container-atores-main{
+    display: flex;
+    gap:30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.ator-card{
+    flex: 0 1 150px;
+}
+

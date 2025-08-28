@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+    
+{% block title %} {{ filme.titulo }} {% endblock %}
+
+{% block content %}
+    <section class="container--banner-filme">
+        <!--Imagem de fundo-->
+        <div class="banner-filme__img">
+            <img src="../static/img/series/{{ filme.id }}/Banner.png" alt="Banner">
+        </div>
+        <!--Conteúdo do card-->
+        <div class="card_container">
+            <div class="poster">
+                <img src="../static/img/series/{{ filme.id }}/Capa.webp" alt="Capa">
+            </div>
+            <div class="banner__info" data-filme-id="{{ filme.id }}">
+                <h1>
+                    {{ filme.titulo }}
+                    <!-- botão favorito -->
+                    <button class="fav-btn {% if filme in current_user.filmes_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
+                        <!-- ícone estrela SVG (contorno) -->
+                        <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                fill="none" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </button>
+                </h1>
+                <p class="temporada">{{ filme.temporada }} temporada • {{ filme.ano }}</p>
+                <p class="generos">
+                    {% if filme.generos %}
+                        {% for genero in filme.generos %}
+                            - {{ genero.nome }}
+                        {% endfor %}
+                    {% else %}
+                        -
+                    {% endif %} 
+                </p>
+                <div class="rating">
+                    <span style="color: gold;">★★★★★</span> 
+                    <span>
+                        {% if filme.media %}
+                            {{ filme.media }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </span>
+                </div>
+                <p>
+                    {{ filme.descricao }}
+                </p>
+            </div>
+        </div>
+    </section>
+        
+    <section class="container--trailer">
+        <h2>Reproduzir Trailer</h2>
+        <div class="trailer__video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ filme.trailer }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </section>
+    
+    {% if current_user.is_authenticated %}
+    <button id="abrirForm" class="button--series">
+        <i class="fa-solid fa-bookmark"></i> SALVAR
+    </button>
+    {% endif %}
+
+    <form id="formSalvar" class="container__salvar" action="{{ url_for('main.salvar_status', filme_id=filme.id) }}" method="POST" style="display:none;">
+        <input type="hidden" name="status" id="statusInput">
+        <button class="button--series" type="submit" onclick="setStatus('Salvo')">
+            <i class="fa-solid fa-bookmark"></i>
+            {% if status_atual == "Salvo" %}
+                JÁ ESTÁ LISTA
+            {% else %}
+                ADICIONAR À LISTA
+            {% endif %}
+        </button>
+        <button class="button--series dark" type="submit" onclick="setStatus('Assistido')">
+            <i class="fa-solid fa-eye"></i>
+            {% if status_atual == "Assistido" %}
+                ASSISTIDO
+            {% else %}
+                MARCAR COMO ASSISTIDO
+            {% endif %}
+        </button>
+        <button class="button--series dark-2" type="submit" onclick="setStatus('Assistindo')">
+            <i class="fa-solid fa-eye-slash"></i>
+            {% if status_atual == "Assistindo" %}
+                ESTÁ ASSISTINDO
+            {% else %}
+                MARCAR COMO ASSISTINDO
+            {% endif %}
+        </button>
+    </form>
+
+
+    <form class="janela-avaliacao" method="POST">
+        <i class="fa-solid fa-x fechar-janela"></i>
+        <div class="container--avaliar">
+            <div class="container--estrelas">
+                <h2 class="janela__titulo">AVALIAR {{ filme.titulo }}</h2>
+                <div class="rating">
+                    <input type="radio" id="star5" name="nota" value="5" required><label for="star5" title="5 estrelas"></label>
+                    <input type="radio" id="star4" name="nota" value="4" required><label for="star4" title="4 estrelas"></label>
+                    <input type="radio" id="star3" name="nota" value="3" required><label for="star3" title="3 estrelas"></label>
+                    <input type="radio" id="star2" name="nota" value="2" required><label for="star2" title="2 estrelas"></label>
+                    <input type="radio" id="star1" name="nota" value="1" required><label for="star1" title="1 estrela"></label>
+                </div>
+            </div>
+            <div class="container--comentario">
+                <label for="comentario">Comentário:</label>
+                <textarea class="comentario__avaliacao" id="comentario" name="comentario" placeholder="Escreva sua opinião..."></textarea>
+                <button class="button" type="submit">SALVAR</button>
+            </div>
+        </div>
+    </form>
+
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">EPISÓDIOS</h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__episodios">
+                {% if episodios %}
+                    {% for ep in episodios %}
+                        <ul class="carrossel--episodios">
+                            <div class="episodio__card">
+                                <img src="../static/img/series/{{ ep.filme_id }}/{{ ep.numero }}.webp" alt="{{ ep.titulo }}">
+                                <div class="episodio__info">
+                                    <strong>{{ ep.numero }}</strong>
+                                    <p class="episode__titulo">{{ ep.titulo }}</p>
+                                </div>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Nenhum episódio encontrado.</p>
+                {% endif %}
+            </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="carrossel">
+        <div class="carrossel__header">
+            <div class="carrossel__text">
+                <div class="destaque"></div>
+                <h2 class="title">ELENCO</h2>
+            </div>
+        </div>
+        <div class="carrossel__main">
+            <li class="carrossel-interno__atores">
+                {% if elenco %}
+                    {% for item in elenco %}
+                        <ul class="carrossel__atores">
+                            <div class="cast-card" data-ator-id="{{ item.ator.id }}">
+                                <a href="{{ url_for('main.pagina_ator', ator_id=item.ator.id) }}"></a>
+                                <!-- botão favorito -->
+                                <button class="fav-btn {% if item.ator in current_user.atores_fav %}is-active{% endif %}" aria-label="Adicionar aos favoritos" title="Favoritar">
+                                    <!-- ícone estrela SVG (contorno) -->
+                                    <svg class="icon-star" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                            9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                            fill="none" stroke="currentColor" stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <img src="../static/img/ator/{{ item.ator.nome }}.jpg" alt="{{ item.nome }}">
+                                <p><strong>{{ item.ator.nome }}</strong><br>{{ item.personagem }}</p>
+                            </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                        <p>Não há um elenco registrado</p>
+                {% endif %}
+            </li>
+        </div>
+        <div class="container--carrossel-button">
+            <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+            <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="ratings-section">
+        <div class="ratings-text">
+            <div class="destaque"></div>
+            <h2 class="title">AVALIAÇÕES</h2>
+        </div>
+        <div class="ratings-summary">
+            {% if filme.avaliacoes %}
+                <div class="rating-score">
+                    <span>⭐ {{ filme.media }}</span>
+                    <p>{{ total }}</p>
+                </div>
+                <div class="rating-bars">
+                    <div><span>1</span><div class="bar" style="width: {{ distribuicao[1] }}%;"></div></div>
+                    <div><span>2</span><div class="bar" style="width: {{ distribuicao[2] }}%;"></div></div>
+                    <div><span>3</span><div class="bar" style="width: {{ distribuicao[3] }}%;"></div></div>
+                    <div><span>4</span><div class="bar" style="width: {{ distribuicao[4] }}%;"></div></div>
+                    <div><span>5</span><div class="bar" style="width: {{ distribuicao[5] }}%;"></div></div> 
+                </div>
+            {% else %}
+                <p>Seja o primeiro a avaliar!</p>
+            {% endif %}
+        </div>
+        {% if current_user.is_authenticated %}
+            <div class="button-avaliar">                         
+                <svg class="icon-avaliar" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                fill="none" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <p> AVALIAR </p>
+            </div>
+        {% else %}
+            <section class="chamada">
+                <div class="chamada__main">
+                    <a href="{{url_for('main.login')}}"><button class="button">FAZER LOGIN</button></a>
+                </div>
+            </section>
+        {% endif %}
+
+        <section class="carrossel">
+            <div class="carrossel__header">
+                <div class="carrossel__text">
+                    <div class="destaque"></div>
+                    <h2 class="title">COMENTARIOS</h2>
+                </div>
+            </div>
+            <div class="carrossel--main-criticas">
+                <li class="carrossel-interno__criticas">
+                    {% if comentarios %}
+                        {% for critica in criticas %}
+                            {% if critica.comentario %}
+                                <div class="container_critica">
+                                        <div class="critica-usuario">
+                                            <img class="critica-foto" src="{{critica.usuario.foto_url}}" alt="">
+                                            <p class="critica-nome">{{critica.usuario.usuario}}</p>
+                                        </div>
+                                    <div>
+                                        <p class="critica-nota">⭐ NOTA: {{critica.nota}} </p>
+                                        <p class="critica-comentario">{{critica.comentario}}</p>
+                                    </div>
+                                    <p class="critica-expandir">Ver tudo</p>
+                                </div>
+                            {% else %}
+
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p> Seja o primeiro a comentar </p>
+                    {% endif %}
+                </li>
+            </div>
+            <div class="container--carrossel-button">
+                <button class="carrossel-btn prev" aria-label="Anterior">&#10094;</button>
+                <button class="carrossel-btn next" aria-label="Próximo">&#10095;</button>
+            </div>
+        </section>
+
+    </section>
+
+{% endblock %}

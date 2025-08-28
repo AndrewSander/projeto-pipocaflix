@@ -1,0 +1,70 @@
+data_hora,evento,detalhe,usuario,rota
+2025-08-26 20:56:21,ERRO,Falta permissão,-,/admin/novo-filme
+2025-08-26 20:56:21,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:56:32,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:56:32,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 20:56:37,LOGIN,Usuário fez login,<Usuario 1>,/login
+2025-08-26 20:56:37,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:56:57,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:18,LOGOUT,Usuário saiu,Luca,/logout
+2025-08-26 20:59:18,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:20,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:20,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 20:59:26,LOGIN,Usuário fez login,Luca,/login
+2025-08-26 20:59:26,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 20:59:32,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:01:20,ERRO,Página não encontrada,-,/admin/aaa
+2025-08-26 21:01:20,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:01:53,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:02,LOGOUT,Usuário saiu,lacax,/logout
+2025-08-26 21:02:02,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:04,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:04,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 21:02:18,LOGIN,Usuário fez login,lacax,/login
+2025-08-26 21:02:18,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:02:25,ERRO,Página não encontrada,-,/static/css/avaliar.css
+2025-08-26 21:04:10,ERRO,Página não encontrada,-,/admin/aaa
+2025-08-26 21:16:17,ERRO,Página não encontrada,-,/ola
+2025-08-26 21:17:20,LOGOUT,Usuário saiu,Andrew11,/logout
+2025-08-26 21:17:26,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 21:17:31,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-26 21:17:39,LOGIN,Usuário fez login,Andrew11,/login
+2025-08-26 21:17:43,ERRO,Página não encontrada,-,/static/img/series/2/S02E02.webp
+2025-08-27 00:29:24,ERRO,Página não encontrada,-,/None
+2025-08-27 00:29:46,ERRO,Página não encontrada,-,/None
+2025-08-27 00:29:50,ERRO,Página não encontrada,-,/None
+2025-08-27 00:29:57,ERRO,Página não encontrada,-,/None
+2025-08-27 00:30:08,ERRO,Página não encontrada,-,/None
+2025-08-27 00:30:14,ERRO,Página não encontrada,-,/None
+2025-08-27 00:30:22,ERRO,Página não encontrada,-,/None
+2025-08-27 00:30:25,ERRO,Página não encontrada,-,/None
+2025-08-27 00:31:10,ERRO,Página não encontrada,-,/None
+2025-08-27 00:31:13,ERRO,Página não encontrada,-,/None
+2025-08-27 04:36:19,ERRO,Página não encontrada,-,/None
+2025-08-27 04:36:23,ERRO,Página não encontrada,-,/None
+2025-08-27 04:36:26,ERRO,Página não encontrada,-,/None
+2025-08-27 04:36:38,ERRO,Página não encontrada,-,/None
+2025-08-27 04:36:39,ERRO,Página não encontrada,-,/static/img/ator/ Patricia Arquette.jpg
+2025-08-27 04:36:55,ERRO,Página não encontrada,-,/None
+2025-08-27 04:37:09,ERRO,Página não encontrada,-,/None
+2025-08-27 19:46:51,ERRO,Página não encontrada,-,/None
+2025-08-27 19:46:54,ERRO,Página não encontrada,-,/favicon.ico
+2025-08-27 19:47:07,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 19:47:29,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 19:47:45,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 19:49:53,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 19:50:08,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 19:55:15,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:00:03,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:00:12,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:03:56,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:04:05,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:04:16,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:04:31,ERRO,Página não encontrada,-,/filmes/None
+2025-08-27 20:11:41,ERRO,Página não encontrada,-,/None
+2025-08-27 20:11:47,ERRO,Página não encontrada,-,/None
+2025-08-27 20:12:41,LOGOUT,Usuário saiu,fenix,/logout
+2025-08-27 20:12:44,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 20:12:48,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 20:13:02,ERRO,Página não encontrada,-,/static/img/logo.png
+2025-08-27 20:13:13,LOGIN,Usuário fez login,teste123,/login

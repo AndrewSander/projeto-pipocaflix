@@ -1,0 +1,124 @@
+.login_page,
+.cadastro_page,
+.esqueci_senha_page,
+.redefinir_senha_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    padding: 20px;
+}
+
+.login_page img,
+.cadastro_page img,
+.esqueci_senha_page img,
+.redefinir_senha_page img  {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+}
+
+.login_page h2,
+.cadastro_page h2,
+.esqueci_senha_page h2,
+.redefinir_senha_page h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.login_page form,
+.cadastro_page form,
+.esqueci_senha_page form,
+.redefinir_senha_page form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 15px;
+    height: 150px;
+}
+
+.login_page input,
+.cadastro_page input,
+.esqueci_senha_page input,
+.redefinir_senha_page input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login_page button,
+.cadastro_page button,
+.esqueci_senha_page button,
+.redefinir_senha_page button  {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login_page button:hover,
+.cadastro_page button:hover,
+.esqueci_senha_page button:hover,
+.redefinir_senha_page button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos Específicos e Mensagens Flash */
+
+.esqueci_senha_page p{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login_page a {
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.cadastro_page a {
+    padding: 20px;
+    margin: 50px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login_page a:hover {
+    text-decoration: underline;
+}
+
+.cadastro_page a:hover {
+    text-decoration: underline;
+}
+
+.flash_messages,
+.alert-logout-success,
+.alert-login-success,
+.alert-warning{
+    margin-top: 20px;
+    color: var(--enfase_1);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.alert-logout-success,
+.alert-login-success,
+.alert-success {
+    color: var(--enfase_1);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.alert-warning {
+    margin-top: 10px;
+    color: var(--enfase_1);
+    margin-bottom: 10px;
+    text-align: center;
+}
