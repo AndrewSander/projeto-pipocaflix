@@ -5,27 +5,53 @@
 Projeto pessoal inspirado em plataformas como Letterboxd, Last.fm e IMDb, com o objetivo de integrar funcionalidades de rastreamento, avaliação e catálogo de filmes, séries e artistas favoritos — tudo como forma de estudo e prática de desenvolvimento.
 
 
-### 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
-<div> <img src="https://img.shields.io/badge/Python-267cc6?logo=Python&logoColor=white&style=for-the-badge" height="30px"/> <img src="https://img.shields.io/badge/Flask-000000?logo=Flask&logoColor=white&style=for-the-badge" height="30px"/> <img src="https://img.shields.io/badge/SQLite-07405E?logo=sqlite&logoColor=white&style=for-the-badge" height="30px"/> </div>
-<br>
+<div align="center">
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" height="30px"/>
+<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" height="30px"/>
+<img src="https://img.shields.io/badge/Jinja-B42B2B?style=for-the-badge&logo=jinja&logoColor=white" height="30px"/>
+<img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" height="30px"/>
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" height="30px"/>
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" height="30px"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" height="30px"/>
+</div>
 
-### 📚 Funcionalidades (em desenvolvimento)
+## 📝 Sobre o Projeto
 
- - Cadastro e listagem de filmes e séries
- - Adição de episódios a séries
- - Sistema de atores e personagens
- - Relacionamento entre filmes, episódios e elencos
- - Avaliações, comentários e favoritos
- - Sistema de autenticação de usuários
+PipocaFlix é uma aplicação web inspirada em plataformas como Letterboxd e IMDb, criada como um projeto de estudo para a disciplina de Programação para Web 1. O objetivo é oferecer um espaço onde os usuários podem interagir com um vasto catálogo de filmes e séries, registrar suas opiniões e acompanhar o que estão assistindo.
 
-### 🎯 Objetivo
+Este projeto foi uma oportunidade para aplicar e aprofundar conhecimentos em:
 
-Este projeto tem como foco o aprendizado prático de:
+- Estruturação de projetos web com Flask e Blueprints.
+- Modelagem de banco de dados relacional com SQLAlchemy.
+- Desenvolvimento de interfaces dinâmicas com Jinja2 e JavaScript.
+- Implementação de um sistema completo de autenticação de usuários.
 
-- Estruturação de projetos com Flask
-- Modelagem de banco de dados relacional
-- Desenvolvimento de interfaces simples para visualização de dados
+## 📚 Funcionalidades
+
+### Para Usuários
+
+- Autenticação Segura: Sistema completo de cadastro, login, logout e recuperação de senha.
+- Perfil Personalizado: Cada usuário tem uma página de perfil onde pode editar suas informações e visualizar sua atividade na plataforma.
+- Avaliações e Comentários: Dê notas de 1 a 5 estrelas e compartilhe suas opiniões sobre filmes e séries.
+- Listas e Favoritos: Adicione filmes e atores à sua lista de favoritos e acompanhe o que você está assistindo.
+- Descoberta de Conteúdo: Explore o catálogo com filtros por gênero, ano de lançamento e ordenação por popularidade ou avaliação.
+- Busca Inteligente: Encontre filmes rapidamente com um sistema de busca que oferece sugestões em tempo real.
+
+### Para Administradores
+
+- Painel de Controle: Uma área restrita para gerenciar todo o conteúdo da plataforma.
+- Cadastro de Conteúdo: Adicione e edite filmes, séries, episódios, atores e gêneros.
+- Visualização de Logs: Monitore as atividades do sistema, como logins, erros e acessos não autorizados.
+
+## 🎯 Principais Desafios e Aprendizados
+
+Este projeto foi concebido para solidificar conhecimentos em áreas-chave do desenvolvimento web, enfrentando os seguintes desafios:
+
+- Backend Robusto: Construir toda a lógica de servidor, incluindo autenticação de usuários e manipulação de dados de forma segura e eficiente.
+- Modelagem de Dados: Estruturar um banco de dados relacional que suportasse as interações entre usuários, filmes, atores e avaliações.
+- Interface Dinâmica: Desenvolver um frontend que consumisse e exibisse os dados do backend de maneira intuitiva e agradável para o usuário.
 
 ## Integrantes do Grupo
 
@@ -34,13 +60,3 @@ Este projeto tem como foco o aprendizado prático de:
 * Mariana Farias de Brito
 * Ryan Monteiro Gomes
 
-## Descrição do Projeto
-
-Este projeto tem como objetivo desenvolver uma aplicação web para avalização de filmes e séries. Será utilizada a tecnologia HTML5, CSS3, JavaScript, Flask.
-
-## Integrantes do Grupo
-
-* Andrew Sander Felix de Aragão Pinheiro
-* Luca Lopes Marques
-* Mariana Farias de Brito
-* Ryan Monteiro Gomes
