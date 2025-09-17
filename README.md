@@ -19,7 +19,7 @@ Projeto pessoal inspirado em plataformas como Letterboxd, Last.fm e IMDb, com o 
 
 ## 📝 Sobre o Projeto
 
-<img width="1309" height="658" alt="image" src="https://github.com/user-attachments/assets/3d275d86-6f53-48dd-aeb0-fd5eb5729a31" />
+![Preview do site](./app/static/preview.png)
 
 
 PipocaFlix é uma aplicação web inspirada em plataformas como Letterboxd e IMDb, criada como um projeto de estudo para a disciplina de Programação para Web 1. O objetivo é oferecer um espaço onde os usuários podem interagir com um vasto catálogo de filmes e séries, registrar suas opiniões e acompanhar o que estão assistindo.
